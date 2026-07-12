@@ -52,3 +52,42 @@ Should Fix, or Accepted. Apply only necessary corrections directly to
 docs/base-specification.md, and mark its specification/review checklist
 accurately. Do not implement application code, do not edit prompts.txt, and do
 not commit. Use apply_patch.
+
+
+PROMPT 003
+Stage: Step 1 - Planning Loop
+Agent role: Planning Loop Agent
+Execution: Fresh agent context per iteration
+Status: Initial Claude Code call failed authentication and was preserved in
+loop_logs/base-plan-iteration-01.txt. The same prompt was then executed through
+OpenAI Codex CLI for two bounded iterations.
+
+You are the Planning Loop Agent for the Campus Mini Shop base system.
+
+Read docs/base-specification.md and docs/base-review.md, then inspect the
+current repository. Create or continue docs/base-plan.md. Do not implement
+application code during this stage.
+
+The plan must:
+1. Map every acceptance criterion to concrete implementation and pytest tasks.
+2. Define a small Flask application structure, SQLite initialization approach,
+   session-cart representation, routes, templates, and validation behavior.
+3. Order tasks so another fresh agent can implement one coherent group at a
+   time.
+4. Use Markdown checkboxes for implementation tasks and keep them unchecked.
+5. Include exact local verification commands and a Definition of Done.
+6. Stay strictly inside the reviewed base scope; do not plan extension work.
+
+If docs/base-plan.md already exists, critically verify it against the reviewed
+specification, correct gaps or contradictions, and record a brief iteration
+note in the plan. Only edit docs/base-plan.md. Do not edit the specification,
+review, prompt log, or any application file.
+
+For each iteration, loop_engineering.py appends this exact wrapper:
+
+LOOP ITERATION {iteration} OF {iterations}
+This is a fresh agent context. Read the repository artifacts before acting.
+Continue from the current repository state; do not redo completed work.
+Do not run git commit or git push. The supervising human commits after the
+whole stage. End your final response with LOOP_COMPLETE only if this stage is
+fully complete and verified; otherwise end with LOOP_CONTINUE.

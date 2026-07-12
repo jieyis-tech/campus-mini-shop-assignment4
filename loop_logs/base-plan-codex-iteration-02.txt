@@ -1,0 +1,2038 @@
+started_utc: 2026-07-12T02:26:09.615854+00:00
+mode: plan
+runner: OpenAI Codex CLI 0.144.1
+iteration: 2
+return_code: 0
+
+===== EXACT PROMPT =====
+You are the Planning Loop Agent for the Campus Mini Shop base system.
+
+Read docs/base-specification.md and docs/base-review.md, then inspect the
+current repository. Create or continue docs/base-plan.md. Do not implement
+application code during this stage.
+
+The plan must:
+1. Map every acceptance criterion to concrete implementation and pytest tasks.
+2. Define a small Flask application structure, SQLite initialization approach,
+   session-cart representation, routes, templates, and validation behavior.
+3. Order tasks so another fresh agent can implement one coherent group at a
+   time.
+4. Use Markdown checkboxes for implementation tasks and keep them unchecked.
+5. Include exact local verification commands and a Definition of Done.
+6. Stay strictly inside the reviewed base scope; do not plan extension work.
+
+If docs/base-plan.md already exists, critically verify it against the reviewed
+specification, correct gaps or contradictions, and record a brief iteration
+note in the plan. Only edit docs/base-plan.md. Do not edit the specification,
+review, prompt log, or any application file.
+
+LOOP ITERATION 2 OF 2
+This is a fresh agent context. Read the repository artifacts before acting.
+Continue from the current repository state; do not redo completed work.
+Do not run git commit or git push. The supervising human commits after the
+whole stage. End your final response with LOOP_COMPLETE only if this stage is
+fully complete and verified; otherwise end with LOOP_CONTINUE.
+
+
+===== AGENT OUTPUT =====
+Updated and verified [docs/base-plan.md](</C:/学习资料/研1/Summer/devops/作业/作业4/campus-mini-shop/docs/base-plan.md>).
+
+- All 15 acceptance criteria map to implementation and pytest tasks.
+- All 28 checkboxes remain unchecked.
+- Added the iteration-2 note and clarified validation behavior.
+- Included exact verification commands and Definition of Done.
+- No specification, review, or application files were edited.
+
+LOOP_COMPLETE
+
+
+===== STDERR =====
+2026-07-12T02:26:11.302353Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-07-12T02:26:11.302397Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-07-12T02:26:14.369746Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.144.1
+--------
+workdir: C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019f5425-7e93-7d20-abf8-527d3a099990
+--------
+user
+You are the Planning Loop Agent for the Campus Mini Shop base system.
+
+Read docs/base-specification.md and docs/base-review.md, then inspect the
+current repository. Create or continue docs/base-plan.md. Do not implement
+application code during this stage.
+
+The plan must:
+1. Map every acceptance criterion to concrete implementation and pytest tasks.
+2. Define a small Flask application structure, SQLite initialization approach,
+   session-cart representation, routes, templates, and validation behavior.
+3. Order tasks so another fresh agent can implement one coherent group at a
+   time.
+4. Use Markdown checkboxes for implementation tasks and keep them unchecked.
+5. Include exact local verification commands and a Definition of Done.
+6. Stay strictly inside the reviewed base scope; do not plan extension work.
+
+If docs/base-plan.md already exists, critically verify it against the reviewed
+specification, correct gaps or contradictions, and record a brief iteration
+note in the plan. Only edit docs/base-plan.md. Do not edit the specification,
+review, prompt log, or any application file.
+
+LOOP ITERATION 2 OF 2
+This is a fresh agent context. Read the repository artifacts before acting.
+Continue from the current repository state; do not redo completed work.
+Do not run git commit or git push. The supervising human commits after the
+whole stage. End your final response with LOOP_COMPLETE only if this stage is
+fully complete and verified; otherwise end with LOOP_CONTINUE.
+
+codex
+I’ll compare the reviewed specification, current plan, and repository structure, then update only `docs/base-plan.md`. I’ll also verify the final diff and scope before marking the loop complete.
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$files = @('"'docs/base-specification.md','docs/base-review.md','docs/base-plan.md','AGENTS.md'); foreach ("'$f in $files) { if (Test-Path -LiteralPath $f) { Write-Output "FILE: $f"; Get-Content -LiteralPath $f -Raw -Encoding UTF8 } else { Write-Output "MISSING: $f" } }; Write-Output '"'REPO FILES:'; rg --files -g '"'!docs/base-plan.md'"'" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 763ms:
+FILE: docs/base-specification.md
+# Campus Mini Shop: Base System Specification
+
+## 1. Purpose
+
+Campus Mini Shop is a small, locally run shopping website for common campus supplies. The base system demonstrates a complete but intentionally limited shopping flow: a visitor can browse products, inspect one product, place products in a temporary cart, change cart quantities, remove products, and see the current subtotal.
+
+The base system is designed for a teaching assignment. It must be easy for a teaching assistant to install, run, understand, and test on a local computer. It does not attempt to provide accounts, checkout, payment, order processing, or production e-commerce features.
+
+## 2. Personas
+
+### 2.1 Student shopper
+
+A student who wants to browse inexpensive campus supplies and assemble a temporary shopping cart. The student does not need to create an account or provide personal information.
+
+### 2.2 Teaching assistant
+
+A reviewer who installs the project locally, starts the Flask application, follows the user flow, and runs automated tests to verify that the documented requirements are satisfied.
+
+## 3. Base-System User Flow
+
+1. The visitor opens the product-list page.
+2. The visitor browses the seeded products.
+3. The visitor opens a product-detail page.
+4. The visitor adds one or more units of a product to the cart.
+5. The visitor opens the cart and may update quantities or remove items.
+6. The system recalculates and displays the cart subtotal.
+
+The cart is temporary and belongs only to the visitor's current Flask session. The flow ends at the cart; there is no checkout in the base system.
+
+## 4. Functional Requirements
+
+### FR-1: Browse products
+
+- The home page must display all seeded products that are available in the SQLite database.
+- Each product listing must show at least its name, price, category, and a link to its detail page.
+- Prices must be displayed as currency with exactly two decimal places.
+- The product list must be useful without client-side JavaScript.
+
+### FR-2: View product details
+
+- A visitor must be able to open a detail page for any existing product.
+- The detail page must show the product's name, description, category, price, and image reference or local placeholder presentation.
+- Requesting a product ID that does not exist must return an HTTP 404 response with an understandable page or message.
+
+### FR-3: Add a product to the cart
+
+- A visitor must be able to add an existing product to the session cart from the product-detail page.
+- The add action must accept a positive whole-number quantity and must default to one when the quantity field is left empty.
+- Adding a product that is already in the cart must increase that product's quantity rather than create a duplicate cart line.
+- An invalid quantity must leave the cart unchanged and return an understandable validation response with HTTP status 400.
+- A nonexistent product ID must leave the cart unchanged and return HTTP status 404.
+- After a successful add action, the visitor must be redirected to the cart page.
+
+### FR-4: View the cart
+
+- The cart page must display every product currently stored in the session cart.
+- Each cart line must show the product name, unit price, quantity, and line total.
+- An empty cart must display a clear empty-state message rather than an error or blank table.
+- Cart data must persist across requests within the same browser session.
+
+### FR-5: Update cart quantities
+
+- A visitor must be able to replace a cart line's quantity with a positive whole number.
+- After an update, the cart line total and subtotal must reflect the new quantity.
+- Invalid values, including non-numeric, fractional, zero, negative, and missing quantities, must leave the existing cart quantity unchanged and return an understandable validation response with HTTP status 400.
+
+### FR-6: Remove cart items
+
+- A visitor must be able to remove an individual product from the cart.
+- Removing one product must not change other cart lines.
+- Attempting to remove a product that is not in the cart must leave the cart unchanged and redirect to the cart page without a server error.
+
+### FR-7: Calculate and display subtotal
+
+- The cart page must display a subtotal equal to the sum of each unit price multiplied by its quantity.
+- The subtotal and line totals must be displayed as currency with exactly two decimal places.
+- The server must calculate authoritative totals from current database prices and session quantities; totals submitted by the browser must not be trusted.
+- An empty cart must have a subtotal of `$0.00`.
+
+### FR-8: Basic navigation and feedback
+
+- Every main page must provide clear navigation to the product list and cart.
+- State-changing form submissions must use POST requests.
+- Successful add, update, and remove actions must show a brief confirmation message after redirecting to the cart.
+- Validation errors must show an understandable message in the HTTP 400 response.
+
+## 5. Data Requirements
+
+### 5.1 Product data
+
+Products must be stored in SQLite and seeded so that a fresh local installation has products to browse. Each product must contain:
+
+| Field | Requirement |
+|---|---|
+| `id` | Unique integer identifier and primary key |
+| `name` | Required, human-readable product name |
+| `description` | Required short product description |
+| `category` | Required category label |
+| `price_cents` | Required positive integer price in cents |
+| `image` | Optional local image path or placeholder identifier |
+
+The seed data must contain at least six distinct campus-related products and at least two categories. Seed prices must be positive.
+
+### 5.2 Cart data
+
+- The cart must be stored in the Flask session, not in a database table.
+- The session cart should map product identifiers to positive whole-number quantities.
+- Product names and prices must be loaded from SQLite when rendering totals so that stale client data is not treated as authoritative.
+- No personally identifying information may be collected for the base system.
+
+### 5.3 Monetary calculations
+
+- Monetary values must be stored and calculated as integer cents to avoid floating-point rounding errors.
+- Currency formatting must occur only when values are presented to the user.
+
+## 6. Acceptance Criteria
+
+The base system is accepted when all of the following observable checks pass:
+
+1. Starting with a fresh database shows at least six seeded products across at least two categories on the product-list page.
+2. Selecting a product opens a detail page containing the correct name, description, category, and two-decimal price.
+3. Requesting an unknown product detail returns HTTP 404 rather than HTTP 500.
+4. Adding one unit of a product creates one cart line with quantity one and the correct line total.
+5. Adding the same product again increases its existing quantity and does not create a duplicate line.
+6. Adding a second product preserves the first product and shows two distinct cart lines.
+7. Updating a quantity to a positive whole number updates both the line total and subtotal.
+8. Invalid add quantities return HTTP 400 without changing the cart; invalid update quantities return HTTP 400 without changing the existing quantity.
+9. Removing one cart item removes only that item and recalculates the subtotal.
+10. An empty cart displays a clear message and a subtotal of `$0.00`.
+11. Refreshing or navigating between pages within the same browser session preserves cart contents.
+12. A successful add, update, or remove redirects to the cart and displays a confirmation message.
+13. Adding an unknown product returns HTTP 404 without changing the cart, and removing a product that is absent leaves the cart unchanged without a server error.
+14. Automated pytest coverage verifies the main product, cart, validation, subtotal, feedback, and 404 behaviors.
+15. The documented local setup and test commands work from a clean project checkout.
+
+## 7. Nonfunctional Constraints
+
+### 7.1 Required technology
+
+- Python and Flask for the web application.
+- SQLite for persistent product data.
+- Server-rendered HTML templates and CSS for the interface.
+- Minimal JavaScript only where it improves usability; core flows must work without it.
+- pytest for automated tests.
+
+### 7.2 Simplicity and maintainability
+
+- The project must run locally without a separate database server or external service.
+- A fresh checkout must provide one documented command that creates and seeds the SQLite database safely; running that initialization command again must not duplicate products.
+- Application structure, route names, templates, and tests must be understandable to a student familiar with introductory Python and web concepts.
+- Configuration suitable for local development and testing must be separated where practical.
+- Repeated business logic, especially cart validation and total calculation, should be centralized rather than copied between routes.
+
+### 7.3 Usability and accessibility
+
+- Pages must use clear headings, labels, buttons, and navigation.
+- Forms must have associated labels and understandable validation messages.
+- The layout must remain usable at common desktop and mobile viewport widths.
+- Color must not be the only way important information is communicated.
+
+### 7.4 Reliability and security boundaries
+
+- User-supplied quantities and route identifiers must be validated on the server.
+- Templates must use Flask/Jinja escaping rather than rendering untrusted HTML as safe.
+- A development secret key may be configured locally, but no real credentials or secrets may be committed.
+- The application must respond predictably to invalid product IDs and malformed cart input without an uncaught server error.
+
+### 7.5 Testability and reproducibility
+
+- Tests must use an isolated temporary database and test client/session where appropriate.
+- Tests must not depend on network access, test order, or a user's existing local database.
+- Setup, run, and test instructions must require only a small number of documented commands.
+
+## 8. Explicit Exclusions from the Base System
+
+The following features are outside the base-system scope and must not be implemented in this stage:
+
+- User registration, login, profiles, or role-based access.
+- Real or simulated payment.
+- Checkout forms, shipping details, order placement, order confirmation, or order persistence.
+- Product search, category filtering controls, or sorting controls.
+- Administrative product, inventory, or order management.
+- Inventory reservation, stock decrementing, or concurrent stock handling.
+- Coupons, tax, shipping fees, recommendations, reviews, ratings, or wish lists.
+- Email, SMS, notifications, analytics, or external APIs.
+- Cloud hosting, deployment automation, containers, or production infrastructure.
+
+Search, category filtering, simulated checkout, and order persistence may be considered only as a separately specified extension after the base system has been completed and verified.
+
+## 9. Stage-Completion Checklist
+
+The base specification stage is complete only when:
+
+- [x] Purpose and intended personas are documented.
+- [x] The end-to-end base user flow is documented.
+- [x] Each required base feature has a numbered functional requirement.
+- [x] Product, cart, and monetary data rules are unambiguous.
+- [x] Acceptance criteria are observable and testable.
+- [x] Technology, usability, reliability, and testing constraints are recorded.
+- [x] Excluded features clearly prevent extension work from entering the base stage.
+- [x] A separate reviewer has checked this specification for ambiguity, missing cases, and unnecessary complexity.
+- [x] Any approved review corrections have been incorporated before implementation planning begins.
+
+FILE: docs/base-review.md
+# Base System Specification Review
+
+## Review scope
+
+This review checks `docs/base-specification.md` against the Assignment 4 instructions and the project goal of producing a small, locally reproducible interactive application. It covers only the base system. No extension design or implementation is approved by this review.
+
+## Must Fix
+
+### 1. Invalid-input behavior allowed multiple incompatible implementations
+
+**Finding:** FR-3 and FR-5 previously said invalid quantities could be “rejected or handled,” without defining a response status or whether the existing cart should change. Different implementation iterations could therefore satisfy the wording while behaving differently, and tests would not have one expected result.
+
+**Correction applied:** Invalid add and update quantities now return an understandable HTTP 400 response. An invalid add leaves the cart unchanged, and an invalid update preserves the existing quantity. The acceptance criteria now state these observable outcomes.
+
+### 2. Successful-add destination was not deterministic
+
+**Finding:** FR-3 allowed a redirect to the cart or to the originating page. This made the required user flow and test expectations ambiguous.
+
+**Correction applied:** A successful add now redirects to the cart. Successful add, update, and remove operations must display brief confirmation feedback there.
+
+### 3. Fresh-database setup was not sufficiently reproducible
+
+**Finding:** The specification required seeded products and clean-checkout instructions but did not explicitly require a safe, repeatable database-initialization command. A TA could encounter missing data or duplicated seed rows when following setup instructions more than once.
+
+**Correction applied:** The reproducibility constraints now require one documented, idempotent initialization command that creates and seeds SQLite without duplicating products.
+
+## Should Fix
+
+### 1. Product-list add behavior increased scope without an acceptance check
+
+**Finding:** FR-3 allowed adding from the product list or detail page. The phrase did not clearly require one location or both, while the documented flow already sends the visitor through product details. Supporting list-page quantity forms would add interface and validation work without strengthening the base-system demonstration.
+
+**Correction applied:** The required add form is now limited to the product-detail page. An implementation may later add another entry point only if it does not alter the specified behavior, but it is not part of base acceptance.
+
+### 2. Missing and unknown cart actions needed explicit outcomes
+
+**Finding:** The original text required safe handling but did not say what the user or tests should observe.
+
+**Correction applied:** Adding an unknown product now returns HTTP 404 without changing the cart. Removing a product absent from the cart leaves the cart unchanged and redirects normally to the cart. These cases were added to acceptance criteria.
+
+## Accepted
+
+### Assignment structure
+
+The base specification is appropriate for the first of the assignment's two required steps. It can be completed through separate specification, review, planning, and build stages, with a repository commit after each stage. Loop use belongs in a later planning or build stage and is not incorrectly claimed in this document.
+
+### Nontrivial but controlled scope
+
+The product database, server-rendered pages, session cart, server-side validation, and automated tests constitute a small interactive backend. The campus theme, original seed data, and project-specific implementation keep this from being an exact copy of a classroom example. Accounts, checkout, payment, search, filtering, and order persistence are correctly excluded from the base step.
+
+### Technology and reproducibility
+
+Flask, SQLite, server-rendered templates, and pytest are suitable for a TA to run locally without network services. Integer-cent price storage and an isolated test database reduce avoidable implementation and testing problems.
+
+### Testability
+
+The revised acceptance criteria cover the central happy paths and failure paths: seeded products, details, 404 handling, cart accumulation, session persistence, quantity validation, subtotal calculation, feedback, removal, and clean-checkout setup.
+
+## Review decision
+
+**Approved for planning.** All Must Fix findings and the narrowly scoped Should Fix findings have been incorporated into `docs/base-specification.md`. The base scope remains intentionally limited, and extension features must remain deferred until the base system has been implemented, tested, and committed as its own step.
+
+FILE: docs/base-plan.md
+# Campus Mini Shop Base Implementation Plan
+
+## Planning status and iteration note
+
+Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+`docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+No earlier `docs/base-plan.md` existed and no application code is currently
+present. The plan incorporates every approved correction from the review:
+deterministic cart redirects, HTTP 400 responses that preserve cart state,
+explicit unknown/absent-product behavior, and repeatable database
+initialization. All implementation checkboxes remain intentionally unchecked
+for the build stage.
+
+## Scope boundary
+
+Implement only the reviewed base flow: browse seeded products, view a product,
+add it to a session cart, view the cart, update quantities, remove lines, and
+display authoritative totals. Do not add accounts, checkout, payment, orders,
+search, filtering, sorting, administration, inventory handling, coupons, tax,
+shipping, reviews, recommendations, notifications, analytics, external APIs,
+deployment, containers, or other extension work.
+
+## Target project structure
+
+```text
+campus-mini-shop/
+├── campus_shop/
+│   ├── __init__.py          # create_app and local/test configuration
+│   ├── db.py                # SQLite connection, teardown, init-db command
+│   ├── schema.sql           # products table and idempotent seed statements
+│   ├── shop.py              # catalog/cart routes and shared cart helpers
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── products.html
+│   │   ├── product_detail.html
+│   │   ├── cart.html
+│   │   └── error.html
+│   └── static/
+│       └── style.css
+├── tests/
+│   ├── conftest.py
+│   ├── test_database.py
+│   ├── test_products.py
+│   └── test_cart.py
+├── requirements.txt
+└── README.md
+```
+
+Keep application logic in this single small package. A separate model layer,
+ORM, JavaScript bundle, database migration framework, and API are unnecessary
+for the base scope.
+
+## Fixed implementation decisions
+
+### Application and database
+
+- `create_app(test_config=None)` creates the Flask application, sets an
+  instance-local default database path such as `instance/campus_shop.sqlite`,
+  and reads a development secret from an environment variable with a clearly
+  non-production local fallback. Tests pass an isolated `TESTING`, `DATABASE`,
+  and `SECRET_KEY` configuration.
+- `db.py` opens one `sqlite3` connection per request through `flask.g`, uses
+  `sqlite3.Row`, closes it at teardown, and registers `flask init-db`.
+- `schema.sql` uses `CREATE TABLE IF NOT EXISTS product` with `id INTEGER
+  PRIMARY KEY`, required name/description/category, positive integer
+  `price_cents`, and nullable image. Seed at least six distinct campus products
+  in at least two categories with stable IDs and `INSERT OR IGNORE` (or an
+  equivalent unique-key upsert) so rerunning initialization never duplicates
+  them or destroys existing data.
+- Store and calculate all prices and totals as integer cents. A shared Jinja
+  filter/helper formats cents as `$0.00`; routes never accept browser-provided
+  prices or totals.
+
+### Session cart and shared behavior
+
+- Store the cart under `session["cart"]` as a JSON-serializable mapping of
+  string product IDs to positive integers, for example `{"1": 2, "4": 1}`.
+  Reassign the mapping to the session after each mutation so Flask persists it.
+- A shared quantity parser accepts only base-10 whole-number text greater than
+  zero. For add only, a missing form field or a value empty after trimming
+  defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+  fractional, signed, zero, and negative values are invalid.
+- Validate the database product and the submitted quantity before copying and
+  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+  produce 400 without partial session changes. Invalid update input likewise
+  leaves the old quantity unchanged.
+- A shared cart-loading helper fetches current product rows for the IDs in the
+  session, combines them with session quantities, and computes each line total
+  and the subtotal in cents. Product names, categories, descriptions, prices,
+  and totals never come from form input or copied session metadata.
+- Render an understandable `error.html` response for 400 and 404 cases, with
+  main navigation intact. Jinja autoescaping remains enabled; do not mark user
+  input as safe.
+
+### Routes and observable responses
+
+| Method and path | Endpoint behavior |
+|---|---|
+| `GET /` | Query all products in stable ID order and render `products.html`. |
+| `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+| `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+| `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
+| `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+
+All state changes are POST-only. Flask's default method handling should reject
+GET requests to mutation URLs. `base.html` supplies links to Products and Cart,
+renders flashed feedback as text (not color alone), and provides the page shell.
+Forms have associated labels. CSS should provide a simple responsive layout
+that remains usable on mobile and desktop without JavaScript. The image field
+is presented as a local reference when supplied and as a clearly labeled local
+placeholder when absent; no remote image service is introduced.
+
+## Ordered implementation groups
+
+Each group is a coherent handoff unit. Complete and verify a group before a
+fresh agent starts the next one.
+
+### Group 1 — Reproducible skeleton and product database
+
+- [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
+  `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+  and test instructions in `README.md`.
+- [ ] **G1.2** Create the application factory and configuration described above,
+  including automatic creation of the instance directory and test overrides.
+- [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+  stable seed data (six or more products and two or more categories), and the
+  idempotent `init-db` CLI command.
+- [ ] **G1.4** Add `tests/conftest.py` fixtures that build a fresh temporary
+  SQLite database for each test, initialize it through application code, and
+  expose an isolated Flask test client/database connection without network or
+  test-order dependencies.
+- [ ] **G1.5** Add database tests proving required columns/data constraints,
+  positive seed prices, seed counts/categories, and unchanged product count and
+  IDs after invoking initialization twice.
+
+### Group 2 — Catalog pages, navigation, and presentation
+
+- [ ] **G2.1** Implement `GET /` and `GET /products/<int:product_id>` using
+  parameterized SQLite queries and stable product ordering.
+- [ ] **G2.2** Add the shared base, product-list, product-detail, and error
+  templates with escaped output, required fields, exact two-decimal currency,
+  labeled controls, Products/Cart navigation, and local image placeholder
+  behavior.
+- [ ] **G2.3** Add minimal responsive CSS and confirm the catalog/detail flow
+  remains complete with JavaScript disabled and does not rely on color alone.
+- [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+  detail data and price formatting, valid detail links/navigation, and an
+  understandable HTTP 404 response for an unknown product.
+
+### Group 3 — Cart read/add flow and authoritative totals
+
+- [ ] **G3.1** Implement the centralized quantity parser, session-cart access,
+  current-product lookup, cart-line construction, integer-cent total
+  calculation, and currency formatting helpers.
+- [ ] **G3.2** Implement `GET /cart`, including current database unit prices,
+  quantities, line totals, subtotal, and the explicit empty state with `$0.00`.
+- [ ] **G3.3** Implement the detail-page add form and
+  `POST /cart/add/<int:product_id>` with empty-as-one behavior, accumulation,
+  POST/redirect/GET, and flashed success feedback.
+- [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+  and negative quantities return an understandable HTTP 400 and do not mutate
+  the cart; an unknown product returns 404 and also leaves it unchanged.
+- [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+  duplicate accumulation without duplicate HTML lines, two distinct products,
+  correct integer-cent line/subtotal rendering, current database price
+  authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
+  mutation, and persistence across requests with one client session.
+
+### Group 4 — Update/remove flow and regression completion
+
+- [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+  `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+  the existing quantity and redirects with confirmation.
+- [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+  negative update quantities with an understandable HTTP 400 while preserving
+  the prior session quantity.
+- [ ] **G4.3** Implement `POST /cart/remove/<int:product_id>` so only the selected
+  line is removed, totals recalculate, successful removal redirects with
+  confirmation, and removal of an absent key redirects without error or changes.
+- [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+  update class and state preservation, removal isolation, absent removal,
+  confirmation feedback, redirect destinations, and POST-only methods.
+- [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+  the documented browser smoke flow, and correct only base-scope defects found.
+
+## Acceptance-criterion traceability
+
+Every numbered criterion in the reviewed specification maps to implementation
+and pytest work below. Test names are targets; minor naming changes are allowed
+only if equivalent coverage remains obvious.
+
+| AC | Concrete implementation task(s) | Concrete pytest task(s) |
+|---:|---|---|
+| 1 | G1.3 seeds six or more products in two or more categories; G2.1/G2.2 list every database product. | G1.5 `test_seed_data_is_complete` and G2.4 `test_product_list_shows_all_seeded_products`. |
+| 2 | G2.1/G2.2 render the selected product's name, description, category, and formatted price. | G2.4 `test_product_detail_shows_correct_fields_and_price`. |
+| 3 | G2.1/G2.2 return an understandable 404 for an unknown detail ID. | G2.4 `test_unknown_product_detail_returns_404`. |
+| 4 | G3.2/G3.3 create one session line, default add quantity to one, and calculate its line total. | G3.5 `test_add_defaults_to_one_and_shows_correct_total`. |
+| 5 | G3.3 increments the existing session-map entry rather than appending a line. | G3.5 `test_repeated_add_accumulates_single_line`. |
+| 6 | G3.3 preserves other keys when adding a new product. | G3.5 `test_add_second_product_preserves_first`. |
+| 7 | G4.1 replaces quantity; G3.1/G3.2 recalculate line and subtotal from cents. | G4.4 `test_update_quantity_recalculates_line_and_subtotal`. |
+| 8 | G3.4 and G4.2 validate before mutation and return 400 with a message. | G3.5 parametrized `test_invalid_add_keeps_cart`; G4.4 parametrized `test_invalid_update_keeps_quantity`, including missing, empty, text, fraction, signed, zero, and negative inputs as applicable. |
+| 9 | G4.3 removes only the requested key and reuses authoritative total calculation. | G4.4 `test_remove_one_item_preserves_other_and_recalculates`. |
+| 10 | G3.2 renders a clear empty message and `$0.00`. | G3.5 `test_empty_cart_message_and_zero_subtotal`. |
+| 11 | G3.1 stores only the cart mapping in Flask session and reuses it across requests. | G3.5 `test_cart_persists_across_navigation_and_refresh`. |
+| 12 | G3.3, G4.1, and G4.3 use redirects to `/cart` and flash success messages. | G3.5 `test_successful_add_redirects_and_flashes`; G4.4 `test_successful_update_redirects_and_flashes` and `test_successful_remove_redirects_and_flashes`. |
+| 13 | G3.4 returns 404 before mutation for unknown add; G4.3 makes absent removal a safe no-op redirect. | G3.5 `test_unknown_add_returns_404_and_keeps_cart`; G4.4 `test_remove_absent_item_redirects_and_keeps_cart`. |
+| 14 | G1.4 plus G1.5, G2.4, G3.5, and G4.4 provide isolated database, product, cart, validation, subtotal, feedback, and 404 coverage. | G4.5 runs the full pytest suite; test files must collectively exercise every behavior listed in AC 1–13. |
+| 15 | G1.1 documents and G1.2/G1.3 implement clean setup and idempotent initialization. | G1.5 tests repeat initialization; G4.5 executes the exact clean-checkout commands and smoke check below. |
+
+## Exact local verification commands
+
+Run these commands from the repository root in PowerShell. The database
+initialization command is deliberately safe to run more than once.
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m flask --app campus_shop init-db
+.\.venv\Scripts\python.exe -m flask --app campus_shop init-db
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m flask --app campus_shop run --debug
+```
+
+After the final command, use `http://127.0.0.1:5000/` for a manual smoke test:
+browse at least two products; open a detail; add with blank and explicit
+quantities; confirm accumulation and session persistence; add a second item;
+try invalid add/update values and confirm existing state remains; update a
+valid quantity; remove one line; remove all lines; and confirm the final empty
+message and `$0.00` subtotal. Stop the development server with `Ctrl+C`.
+
+## Definition of Done
+
+- [ ] Only the reviewed base scope is implemented; no excluded extension is
+  present.
+- [ ] Groups 1–4 are complete and all acceptance criteria 1–15 have both the
+  mapped implementation and automated coverage shown above.
+- [ ] A fresh checkout can install dependencies, initialize a database, and
+  start the application using the documented commands.
+- [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+  products.
+- [ ] `python -m pytest -q` passes with an isolated temporary database, no
+  network access, no ordering dependency, and coverage of happy and failure
+  paths.
+- [ ] The manual browser flow works without JavaScript at desktop and mobile
+  widths, with clear navigation, labels, feedback, error messages, and escaped
+  content.
+- [ ] All cart mutations use POST; successful mutations redirect to the cart;
+  invalid quantities preserve state and return 400; required unknown IDs return
+  404; absent removal is a safe redirect.
+- [ ] Cart line totals and subtotal are calculated from current SQLite prices
+  and positive session quantities in integer cents and display with exactly two
+  decimal places.
+- [ ] No real credential, personal information, generated local database,
+  virtual environment, cache, or other machine-specific artifact is committed.
+
+MISSING: AGENTS.md
+REPO FILES:
+loop_engineering.py
+prompts.txt
+loop_logs\base-plan-iteration-01.txt
+loop_logs\base-plan-codex-iteration-01.txt
+agent_prompts\base-plan-loop.txt
+agent_prompts\base-build-loop.txt
+docs\base-specification.md
+docs\base-review.md
+
+codex
+The existing plan is already strong and covers all 15 criteria. I’m checking iteration-1 evidence and repository state now for subtle contradictions—especially initialization idempotence, cart validation semantics, and whether the verification commands match the proposed Flask factory.
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Write-Output 'GIT STATUS:'; git status --short; Write-Output 'PLAN DIFF:'; git diff -- docs/base-plan.md; Write-Output 'LOOP PROMPT:'; Get-Content -LiteralPath 'agent_prompts/base-plan-loop.txt' -Raw -Encoding UTF8; Write-Output 'ITERATION LOG TAIL:'; Get-Content -LiteralPath 'loop_logs/base-plan-codex-iteration-01.txt' -Tail 160 -Encoding UTF8" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 836ms:
+GIT STATUS:
+ M prompts.txt
+?? agent_prompts/
+?? docs/base-plan.md
+?? loop_engineering.py
+?? loop_logs/
+PLAN DIFF:
+LOOP PROMPT:
+You are the Planning Loop Agent for the Campus Mini Shop base system.
+
+Read docs/base-specification.md and docs/base-review.md, then inspect the
+current repository. Create or continue docs/base-plan.md. Do not implement
+application code during this stage.
+
+The plan must:
+1. Map every acceptance criterion to concrete implementation and pytest tasks.
+2. Define a small Flask application structure, SQLite initialization approach,
+   session-cart representation, routes, templates, and validation behavior.
+3. Order tasks so another fresh agent can implement one coherent group at a
+   time.
+4. Use Markdown checkboxes for implementation tasks and keep them unchecked.
+5. Include exact local verification commands and a Definition of Done.
+6. Stay strictly inside the reviewed base scope; do not plan extension work.
+
+If docs/base-plan.md already exists, critically verify it against the reviewed
+specification, correct gaps or contradictions, and record a brief iteration
+note in the plan. Only edit docs/base-plan.md. Do not edit the specification,
+review, prompt log, or any application file.
+
+
+ITERATION LOG TAIL:
++| `GET /` | Query all products in stable ID order and render `products.html`. |
++| `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
++| `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
++| `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
++
++All state changes are POST-only. Flask's default method handling should reject
++GET requests to mutation URLs. `base.html` supplies links to Products and Cart,
++renders flashed feedback as text (not color alone), and provides the page shell.
++Forms have associated labels. CSS should provide a simple responsive layout
++that remains usable on mobile and desktop without JavaScript. The image field
++is presented as a local reference when supplied and as a clearly labeled local
++placeholder when absent; no remote image service is introduced.
++
++## Ordered implementation groups
++
++Each group is a coherent handoff unit. Complete and verify a group before a
++fresh agent starts the next one.
++
++### Group 1 — Reproducible skeleton and product database
++
++- [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
++  `requirements.txt`, plus concise clean-checkout setup, initialization, run,
++  and test instructions in `README.md`.
++- [ ] **G1.2** Create the application factory and configuration described above,
++  including automatic creation of the instance directory and test overrides.
++- [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
++  stable seed data (six or more products and two or more categories), and the
++  idempotent `init-db` CLI command.
++- [ ] **G1.4** Add `tests/conftest.py` fixtures that build a fresh temporary
++  SQLite database for each test, initialize it through application code, and
++  expose an isolated Flask test client/database connection without network or
++  test-order dependencies.
++- [ ] **G1.5** Add database tests proving required columns/data constraints,
++  positive seed prices, seed counts/categories, and unchanged product count and
++  IDs after invoking initialization twice.
++
++### Group 2 — Catalog pages, navigation, and presentation
++
++- [ ] **G2.1** Implement `GET /` and `GET /products/<int:product_id>` using
++  parameterized SQLite queries and stable product ordering.
++- [ ] **G2.2** Add the shared base, product-list, product-detail, and error
++  templates with escaped output, required fields, exact two-decimal currency,
++  labeled controls, Products/Cart navigation, and local image placeholder
++  behavior.
++- [ ] **G2.3** Add minimal responsive CSS and confirm the catalog/detail flow
++  remains complete with JavaScript disabled and does not rely on color alone.
++- [ ] **G2.4** Add product tests for all seeded listings and fields, correct
++  detail data and price formatting, valid detail links/navigation, and an
++  understandable HTTP 404 response for an unknown product.
++
++### Group 3 — Cart read/add flow and authoritative totals
++
++- [ ] **G3.1** Implement the centralized quantity parser, session-cart access,
++  current-product lookup, cart-line construction, integer-cent total
++  calculation, and currency formatting helpers.
++- [ ] **G3.2** Implement `GET /cart`, including current database unit prices,
++  quantities, line totals, subtotal, and the explicit empty state with `$0.00`.
++- [ ] **G3.3** Implement the detail-page add form and
++  `POST /cart/add/<int:product_id>` with empty-as-one behavior, accumulation,
++  POST/redirect/GET, and flashed success feedback.
++- [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
++  and negative quantities return an understandable HTTP 400 and do not mutate
++  the cart; an unknown product returns 404 and also leaves it unchanged.
++- [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
++  duplicate accumulation without duplicate HTML lines, two distinct products,
++  correct integer-cent line/subtotal rendering, current database price
++  authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
++  mutation, and persistence across requests with one client session.
++
++### Group 4 — Update/remove flow and regression completion
++
++- [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
++  `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
++  the existing quantity and redirects with confirmation.
++- [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
++  negative update quantities with an understandable HTTP 400 while preserving
++  the prior session quantity.
++- [ ] **G4.3** Implement `POST /cart/remove/<int:product_id>` so only the selected
++  line is removed, totals recalculate, successful removal redirects with
++  confirmation, and removal of an absent key redirects without error or changes.
++- [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
++  update class and state preservation, removal isolation, absent removal,
++  confirmation feedback, redirect destinations, and POST-only methods.
++- [ ] **G4.5** Run the full suite from a newly initialized local database, perform
++  the documented browser smoke flow, and correct only base-scope defects found.
++
++## Acceptance-criterion traceability
++
++Every numbered criterion in the reviewed specification maps to implementation
++and pytest work below. Test names are targets; minor naming changes are allowed
++only if equivalent coverage remains obvious.
++
++| AC | Concrete implementation task(s) | Concrete pytest task(s) |
++|---:|---|---|
++| 1 | G1.3 seeds six or more products in two or more categories; G2.1/G2.2 list every database product. | G1.5 `test_seed_data_is_complete` and G2.4 `test_product_list_shows_all_seeded_products`. |
++| 2 | G2.1/G2.2 render the selected product's name, description, category, and formatted price. | G2.4 `test_product_detail_shows_correct_fields_and_price`. |
++| 3 | G2.1/G2.2 return an understandable 404 for an unknown detail ID. | G2.4 `test_unknown_product_detail_returns_404`. |
++| 4 | G3.2/G3.3 create one session line, default add quantity to one, and calculate its line total. | G3.5 `test_add_defaults_to_one_and_shows_correct_total`. |
++| 5 | G3.3 increments the existing session-map entry rather than appending a line. | G3.5 `test_repeated_add_accumulates_single_line`. |
++| 6 | G3.3 preserves other keys when adding a new product. | G3.5 `test_add_second_product_preserves_first`. |
++| 7 | G4.1 replaces quantity; G3.1/G3.2 recalculate line and subtotal from cents. | G4.4 `test_update_quantity_recalculates_line_and_subtotal`. |
++| 8 | G3.4 and G4.2 validate before mutation and return 400 with a message. | G3.5 parametrized `test_invalid_add_keeps_cart`; G4.4 parametrized `test_invalid_update_keeps_quantity`, including missing, empty, text, fraction, signed, zero, and negative inputs as applicable. |
++| 9 | G4.3 removes only the requested key and reuses authoritative total calculation. | G4.4 `test_remove_one_item_preserves_other_and_recalculates`. |
++| 10 | G3.2 renders a clear empty message and `$0.00`. | G3.5 `test_empty_cart_message_and_zero_subtotal`. |
++| 11 | G3.1 stores only the cart mapping in Flask session and reuses it across requests. | G3.5 `test_cart_persists_across_navigation_and_refresh`. |
++| 12 | G3.3, G4.1, and G4.3 use redirects to `/cart` and flash success messages. | G3.5 `test_successful_add_redirects_and_flashes`; G4.4 `test_successful_update_redirects_and_flashes` and `test_successful_remove_redirects_and_flashes`. |
++| 13 | G3.4 returns 404 before mutation for unknown add; G4.3 makes absent removal a safe no-op redirect. | G3.5 `test_unknown_add_returns_404_and_keeps_cart`; G4.4 `test_remove_absent_item_redirects_and_keeps_cart`. |
++| 14 | G1.4 plus G1.5, G2.4, G3.5, and G4.4 provide isolated database, product, cart, validation, subtotal, feedback, and 404 coverage. | G4.5 runs the full pytest suite; test files must collectively exercise every behavior listed in AC 1–13. |
++| 15 | G1.1 documents and G1.2/G1.3 implement clean setup and idempotent initialization. | G1.5 tests repeat initialization; G4.5 executes the exact clean-checkout commands and smoke check below. |
++
++## Exact local verification commands
++
++Run these commands from the repository root in PowerShell. The database
++initialization command is deliberately safe to run more than once.
++
++```powershell
++py -m venv .venv
++.\.venv\Scripts\python.exe -m pip install -r requirements.txt
++.\.venv\Scripts\python.exe -m flask --app campus_shop init-db
++.\.venv\Scripts\python.exe -m flask --app campus_shop init-db
++.\.venv\Scripts\python.exe -m pytest -q
++.\.venv\Scripts\python.exe -m flask --app campus_shop run --debug
++```
++
++After the final command, use `http://127.0.0.1:5000/` for a manual smoke test:
++browse at least two products; open a detail; add with blank and explicit
++quantities; confirm accumulation and session persistence; add a second item;
++try invalid add/update values and confirm existing state remains; update a
++valid quantity; remove one line; remove all lines; and confirm the final empty
++message and `$0.00` subtotal. Stop the development server with `Ctrl+C`.
++
++## Definition of Done
++
++- [ ] Only the reviewed base scope is implemented; no excluded extension is
++  present.
++- [ ] Groups 1–4 are complete and all acceptance criteria 1–15 have both the
++  mapped implementation and automated coverage shown above.
++- [ ] A fresh checkout can install dependencies, initialize a database, and
++  start the application using the documented commands.
++- [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
++  products.
++- [ ] `python -m pytest -q` passes with an isolated temporary database, no
++  network access, no ordering dependency, and coverage of happy and failure
++  paths.
++- [ ] The manual browser flow works without JavaScript at desktop and mobile
++  widths, with clear navigation, labels, feedback, error messages, and escaped
++  content.
++- [ ] All cart mutations use POST; successful mutations redirect to the cart;
++  invalid quantities preserve state and return 400; required unknown IDs return
++  404; absent removal is a safe redirect.
++- [ ] Cart line totals and subtotal are calculated from current SQLite prices
++  and positive session quantities in integer cents and display with exactly two
++  decimal places.
++- [ ] No real credential, personal information, generated local database,
++  virtual environment, cache, or other machine-specific artifact is committed.
+
+tokens used
+25,546
+
+codex
+I found a few planning-level gaps worth correcting: iteration 2 was not recorded, generated local artifacts lacked an explicit ignore task, unknown update behavior was underspecified, and unknown-product add precedence could vary when the quantity is also invalid. I’m tightening those points without adding features beyond the reviewed base system.
+apply patch
+patch: completed
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\docs\base-plan.md
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 14b7c5a154e151ea22cc251a844a53f544e0d57c..b1122c5495db480af953d25a647126e1c8a01184
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -4,12 +4,15 @@
+ 
+ Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+ `docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+-No earlier `docs/base-plan.md` existed and no application code is currently
+-present. The plan incorporates every approved correction from the review:
+-deterministic cart redirects, HTTP 400 responses that preserve cart state,
+-explicit unknown/absent-product behavior, and repeatable database
+-initialization. All implementation checkboxes remain intentionally unchecked
+-for the build stage.
++Iteration 2 re-read those artifacts and critically checked the complete plan
++against all 15 acceptance criteria and the current repository, which still has
++no application code. This iteration clarified deterministic validation order,
++safe handling of an update for a missing cart line, and exclusion of generated
++local artifacts; no extension work was introduced. The plan incorporates every
++approved correction from the review: deterministic cart redirects, HTTP 400
++responses that preserve cart state, explicit unknown/absent-product behavior,
++and repeatable database initialization. All implementation checkboxes remain
++intentionally unchecked for the build stage.
+ 
+ ## Scope boundary
+ 
+@@ -42,6 +45,7 @@
+ │   ├── test_database.py
+ │   ├── test_products.py
+ │   └── test_cart.py
++├── .gitignore
+ ├── requirements.txt
+ └── README.md
+ ```
+@@ -81,9 +85,12 @@
+   defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+   fractional, signed, zero, and negative values are invalid.
+ - Validate the database product and the submitted quantity before copying and
+-  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+-  produce 400 without partial session changes. Invalid update input likewise
+-  leaves the old quantity unchanged.
++  mutating the cart. On add, check product existence first so an unknown ID
++  deterministically produces 404 even if its submitted quantity is also bad;
++  otherwise invalid quantities produce 400 without partial session changes.
++  Invalid update input likewise leaves the old quantity unchanged. An update
++  for a product ID that has no current cart line returns an understandable 404
++  without changing the cart.
+ - A shared cart-loading helper fetches current product rows for the IDs in the
+   session, combines them with session quantities, and computes each line total
+   and the subtotal in cents. Product names, categories, descriptions, prices,
+@@ -100,7 +107,7 @@
+ | `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+ | `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+ | `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+-| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+ | `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+ 
+ All state changes are POST-only. Flask's default method handling should reject
+@@ -120,7 +127,8 @@
+ 
+ - [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
+   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+-  and test instructions in `README.md`.
++  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
++  Flask instance data, SQLite files, Python caches, and pytest caches.
+ - [ ] **G1.2** Create the application factory and configuration described above,
+   including automatic creation of the instance directory and test overrides.
+ - [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+@@ -160,7 +168,8 @@
+   POST/redirect/GET, and flashed success feedback.
+ - [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+   and negative quantities return an understandable HTTP 400 and do not mutate
+-  the cart; an unknown product returns 404 and also leaves it unchanged.
++  the cart; check existence first so an unknown product returns 404 and also
++  leaves it unchanged even when the submitted quantity is invalid.
+ - [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+   duplicate accumulation without duplicate HTML lines, two distinct products,
+   correct integer-cent line/subtotal rendering, current database price
+@@ -171,7 +180,8 @@
+ 
+ - [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+-  the existing quantity and redirects with confirmation.
++  the existing quantity and redirects with confirmation; an ID with no current
++  cart line returns an understandable 404 without changing the cart.
+ - [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+   negative update quantities with an understandable HTTP 400 while preserving
+   the prior session quantity.
+@@ -179,8 +189,9 @@
+   line is removed, totals recalculate, successful removal redirects with
+   confirmation, and removal of an absent key redirects without error or changes.
+ - [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+-  update class and state preservation, removal isolation, absent removal,
+-  confirmation feedback, redirect destinations, and POST-only methods.
++  update class and state preservation, a missing update line returning 404
++  unchanged, removal isolation, absent removal, confirmation feedback, redirect
++  destinations, and POST-only methods.
+ - [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+   the documented browser smoke flow, and correct only base-scope defects found.
+ 
+
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 14b7c5a154e151ea22cc251a844a53f544e0d57c..b1122c5495db480af953d25a647126e1c8a01184
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -4,12 +4,15 @@
+ 
+ Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+ `docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+-No earlier `docs/base-plan.md` existed and no application code is currently
+-present. The plan incorporates every approved correction from the review:
+-deterministic cart redirects, HTTP 400 responses that preserve cart state,
+-explicit unknown/absent-product behavior, and repeatable database
+-initialization. All implementation checkboxes remain intentionally unchecked
+-for the build stage.
++Iteration 2 re-read those artifacts and critically checked the complete plan
++against all 15 acceptance criteria and the current repository, which still has
++no application code. This iteration clarified deterministic validation order,
++safe handling of an update for a missing cart line, and exclusion of generated
++local artifacts; no extension work was introduced. The plan incorporates every
++approved correction from the review: deterministic cart redirects, HTTP 400
++responses that preserve cart state, explicit unknown/absent-product behavior,
++and repeatable database initialization. All implementation checkboxes remain
++intentionally unchecked for the build stage.
+ 
+ ## Scope boundary
+ 
+@@ -42,6 +45,7 @@
+ │   ├── test_database.py
+ │   ├── test_products.py
+ │   └── test_cart.py
++├── .gitignore
+ ├── requirements.txt
+ └── README.md
+ ```
+@@ -81,9 +85,12 @@
+   defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+   fractional, signed, zero, and negative values are invalid.
+ - Validate the database product and the submitted quantity before copying and
+-  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+-  produce 400 without partial session changes. Invalid update input likewise
+-  leaves the old quantity unchanged.
++  mutating the cart. On add, check product existence first so an unknown ID
++  deterministically produces 404 even if its submitted quantity is also bad;
++  otherwise invalid quantities produce 400 without partial session changes.
++  Invalid update input likewise leaves the old quantity unchanged. An update
++  for a product ID that has no current cart line returns an understandable 404
++  without changing the cart.
+ - A shared cart-loading helper fetches current product rows for the IDs in the
+   session, combines them with session quantities, and computes each line total
+   and the subtotal in cents. Product names, categories, descriptions, prices,
+@@ -100,7 +107,7 @@
+ | `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+ | `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+ | `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+-| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+ | `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+ 
+ All state changes are POST-only. Flask's default method handling should reject
+@@ -120,7 +127,8 @@
+ 
+ - [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
+   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+-  and test instructions in `README.md`.
++  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
++  Flask instance data, SQLite files, Python caches, and pytest caches.
+ - [ ] **G1.2** Create the application factory and configuration described above,
+   including automatic creation of the instance directory and test overrides.
+ - [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+@@ -160,7 +168,8 @@
+   POST/redirect/GET, and flashed success feedback.
+ - [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+   and negative quantities return an understandable HTTP 400 and do not mutate
+-  the cart; an unknown product returns 404 and also leaves it unchanged.
++  the cart; check existence first so an unknown product returns 404 and also
++  leaves it unchanged even when the submitted quantity is invalid.
+ - [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+   duplicate accumulation without duplicate HTML lines, two distinct products,
+   correct integer-cent line/subtotal rendering, current database price
+@@ -171,7 +180,8 @@
+ 
+ - [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+-  the existing quantity and redirects with confirmation.
++  the existing quantity and redirects with confirmation; an ID with no current
++  cart line returns an understandable 404 without changing the cart.
+ - [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+   negative update quantities with an understandable HTTP 400 while preserving
+   the prior session quantity.
+@@ -179,8 +189,9 @@
+   line is removed, totals recalculate, successful removal redirects with
+   confirmation, and removal of an absent key redirects without error or changes.
+ - [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+-  update class and state preservation, removal isolation, absent removal,
+-  confirmation feedback, redirect destinations, and POST-only methods.
++  update class and state preservation, a missing update line returning 404
++  unchanged, removal isolation, absent removal, confirmation feedback, redirect
++  destinations, and POST-only methods.
+ - [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+   the documented browser smoke flow, and correct only base-scope defects found.
+ 
+
+apply patch
+patch: completed
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\docs\base-plan.md
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 14b7c5a154e151ea22cc251a844a53f544e0d57c..ba06ea1dd2103070b5d8f2473ba5931d1186b454
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -4,12 +4,15 @@
+ 
+ Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+ `docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+-No earlier `docs/base-plan.md` existed and no application code is currently
+-present. The plan incorporates every approved correction from the review:
+-deterministic cart redirects, HTTP 400 responses that preserve cart state,
+-explicit unknown/absent-product behavior, and repeatable database
+-initialization. All implementation checkboxes remain intentionally unchecked
+-for the build stage.
++Iteration 2 re-read those artifacts and critically checked the complete plan
++against all 15 acceptance criteria and the current repository, which still has
++no application code. This iteration clarified deterministic validation order,
++safe handling of an update for a missing cart line, and exclusion of generated
++local artifacts; no extension work was introduced. The plan incorporates every
++approved correction from the review: deterministic cart redirects, HTTP 400
++responses that preserve cart state, explicit unknown/absent-product behavior,
++and repeatable database initialization. All implementation checkboxes remain
++intentionally unchecked for the build stage.
+ 
+ ## Scope boundary
+ 
+@@ -42,6 +45,7 @@
+ │   ├── test_database.py
+ │   ├── test_products.py
+ │   └── test_cart.py
++├── .gitignore
+ ├── requirements.txt
+ └── README.md
+ ```
+@@ -81,9 +85,12 @@
+   defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+   fractional, signed, zero, and negative values are invalid.
+ - Validate the database product and the submitted quantity before copying and
+-  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+-  produce 400 without partial session changes. Invalid update input likewise
+-  leaves the old quantity unchanged.
++  mutating the cart. On add, check product existence first so an unknown ID
++  deterministically produces 404 even if its submitted quantity is also bad;
++  otherwise invalid quantities produce 400 without partial session changes.
++  Invalid update input likewise leaves the old quantity unchanged. An update
++  for a product ID that has no current cart line returns an understandable 404
++  without changing the cart.
+ - A shared cart-loading helper fetches current product rows for the IDs in the
+   session, combines them with session quantities, and computes each line total
+   and the subtotal in cents. Product names, categories, descriptions, prices,
+@@ -100,7 +107,7 @@
+ | `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+ | `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+ | `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+-| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+ | `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+ 
+ All state changes are POST-only. Flask's default method handling should reject
+@@ -118,9 +125,10 @@
+ 
+ ### Group 1 — Reproducible skeleton and product database
+ 
+-- [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
++- [ ] **G1.1** Add explicit compatible Flask and pytest version constraints to
+   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+-  and test instructions in `README.md`.
++  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
++  Flask instance data, SQLite files, Python caches, and pytest caches.
+ - [ ] **G1.2** Create the application factory and configuration described above,
+   including automatic creation of the instance directory and test overrides.
+ - [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+@@ -146,7 +154,8 @@
+   remains complete with JavaScript disabled and does not rely on color alone.
+ - [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+   detail data and price formatting, valid detail links/navigation, and an
+-  understandable HTTP 404 response for an unknown product.
++  understandable HTTP 404 response for an unknown product; assert Products and
++  Cart navigation is present on list, detail, and error responses.
+ 
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+@@ -160,18 +169,22 @@
+   POST/redirect/GET, and flashed success feedback.
+ - [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+   and negative quantities return an understandable HTTP 400 and do not mutate
+-  the cart; an unknown product returns 404 and also leaves it unchanged.
++  the cart; check existence first so an unknown product returns 404 and also
++  leaves it unchanged even when the submitted quantity is invalid.
+ - [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+   duplicate accumulation without duplicate HTML lines, two distinct products,
+   correct integer-cent line/subtotal rendering, current database price
+   authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
+-  mutation, and persistence across requests with one client session.
++  mutation, cart-page navigation, and persistence across requests with one
++  client session. Every invalid/unknown case must assert response status,
++  understandable message, and unchanged session state.
+ 
+ ### Group 4 — Update/remove flow and regression completion
+ 
+ - [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+-  the existing quantity and redirects with confirmation.
++  the existing quantity and redirects with confirmation; an ID with no current
++  cart line returns an understandable 404 without changing the cart.
+ - [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+   negative update quantities with an understandable HTTP 400 while preserving
+   the prior session quantity.
+@@ -179,8 +192,10 @@
+   line is removed, totals recalculate, successful removal redirects with
+   confirmation, and removal of an absent key redirects without error or changes.
+ - [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+-  update class and state preservation, removal isolation, absent removal,
+-  confirmation feedback, redirect destinations, and POST-only methods.
++  update class and state preservation, a missing update line returning 404
++  unchanged, removal isolation, absent removal, confirmation feedback, redirect
++  destinations, and POST-only methods; 400 and 404 cases must assert an
++  understandable message as well as status and unchanged state.
+ - [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+   the documented browser smoke flow, and correct only base-scope defects found.
+ 
+@@ -239,7 +254,8 @@
+   start the application using the documented commands.
+ - [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+   products.
+-- [ ] `python -m pytest -q` passes with an isolated temporary database, no
++- [ ] `\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
++  temporary database, no
+   network access, no ordering dependency, and coverage of happy and failure
+   paths.
+ - [ ] The manual browser flow works without JavaScript at desktop and mobile
+
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 14b7c5a154e151ea22cc251a844a53f544e0d57c..ba06ea1dd2103070b5d8f2473ba5931d1186b454
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -4,12 +4,15 @@
+ 
+ Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+ `docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+-No earlier `docs/base-plan.md` existed and no application code is currently
+-present. The plan incorporates every approved correction from the review:
+-deterministic cart redirects, HTTP 400 responses that preserve cart state,
+-explicit unknown/absent-product behavior, and repeatable database
+-initialization. All implementation checkboxes remain intentionally unchecked
+-for the build stage.
++Iteration 2 re-read those artifacts and critically checked the complete plan
++against all 15 acceptance criteria and the current repository, which still has
++no application code. This iteration clarified deterministic validation order,
++safe handling of an update for a missing cart line, and exclusion of generated
++local artifacts; no extension work was introduced. The plan incorporates every
++approved correction from the review: deterministic cart redirects, HTTP 400
++responses that preserve cart state, explicit unknown/absent-product behavior,
++and repeatable database initialization. All implementation checkboxes remain
++intentionally unchecked for the build stage.
+ 
+ ## Scope boundary
+ 
+@@ -42,6 +45,7 @@
+ │   ├── test_database.py
+ │   ├── test_products.py
+ │   └── test_cart.py
++├── .gitignore
+ ├── requirements.txt
+ └── README.md
+ ```
+@@ -81,9 +85,12 @@
+   defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+   fractional, signed, zero, and negative values are invalid.
+ - Validate the database product and the submitted quantity before copying and
+-  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+-  produce 400 without partial session changes. Invalid update input likewise
+-  leaves the old quantity unchanged.
++  mutating the cart. On add, check product existence first so an unknown ID
++  deterministically produces 404 even if its submitted quantity is also bad;
++  otherwise invalid quantities produce 400 without partial session changes.
++  Invalid update input likewise leaves the old quantity unchanged. An update
++  for a product ID that has no current cart line returns an understandable 404
++  without changing the cart.
+ - A shared cart-loading helper fetches current product rows for the IDs in the
+   session, combines them with session quantities, and computes each line total
+   and the subtotal in cents. Product names, categories, descriptions, prices,
+@@ -100,7 +107,7 @@
+ | `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+ | `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+ | `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+-| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+ | `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+ 
+ All state changes are POST-only. Flask's default method handling should reject
+@@ -118,9 +125,10 @@
+ 
+ ### Group 1 — Reproducible skeleton and product database
+ 
+-- [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
++- [ ] **G1.1** Add explicit compatible Flask and pytest version constraints to
+   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+-  and test instructions in `README.md`.
++  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
++  Flask instance data, SQLite files, Python caches, and pytest caches.
+ - [ ] **G1.2** Create the application factory and configuration described above,
+   including automatic creation of the instance directory and test overrides.
+ - [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+@@ -146,7 +154,8 @@
+   remains complete with JavaScript disabled and does not rely on color alone.
+ - [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+   detail data and price formatting, valid detail links/navigation, and an
+-  understandable HTTP 404 response for an unknown product.
++  understandable HTTP 404 response for an unknown product; assert Products and
++  Cart navigation is present on list, detail, and error responses.
+ 
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+@@ -160,18 +169,22 @@
+   POST/redirect/GET, and flashed success feedback.
+ - [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+   and negative quantities return an understandable HTTP 400 and do not mutate
+-  the cart; an unknown product returns 404 and also leaves it unchanged.
++  the cart; check existence first so an unknown product returns 404 and also
++  leaves it unchanged even when the submitted quantity is invalid.
+ - [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+   duplicate accumulation without duplicate HTML lines, two distinct products,
+   correct integer-cent line/subtotal rendering, current database price
+   authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
+-  mutation, and persistence across requests with one client session.
++  mutation, cart-page navigation, and persistence across requests with one
++  client session. Every invalid/unknown case must assert response status,
++  understandable message, and unchanged session state.
+ 
+ ### Group 4 — Update/remove flow and regression completion
+ 
+ - [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+-  the existing quantity and redirects with confirmation.
++  the existing quantity and redirects with confirmation; an ID with no current
++  cart line returns an understandable 404 without changing the cart.
+ - [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+   negative update quantities with an understandable HTTP 400 while preserving
+   the prior session quantity.
+@@ -179,8 +192,10 @@
+   line is removed, totals recalculate, successful removal redirects with
+   confirmation, and removal of an absent key redirects without error or changes.
+ - [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+-  update class and state preservation, removal isolation, absent removal,
+-  confirmation feedback, redirect destinations, and POST-only methods.
++  update class and state preservation, a missing update line returning 404
++  unchanged, removal isolation, absent removal, confirmation feedback, redirect
++  destinations, and POST-only methods; 400 and 404 cases must assert an
++  understandable message as well as status and unchanged state.
+ - [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+   the documented browser smoke flow, and correct only base-scope defects found.
+ 
+@@ -239,7 +254,8 @@
+   start the application using the documented commands.
+ - [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+   products.
+-- [ ] `python -m pytest -q` passes with an isolated temporary database, no
++- [ ] `\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
++  temporary database, no
+   network access, no ordering dependency, and coverage of happy and failure
+   paths.
+ - [ ] The manual browser flow works without JavaScript at desktop and mobile
+
+codex
+The plan now specifies observable status/message/state assertions for validation failures and navigation coverage across normal and error pages. I’m doing the final mechanical audit: 15 acceptance rows, no checked implementation boxes, no application files, and no edits outside the allowed plan file.
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$plan = Get-Content -LiteralPath '"'docs/base-plan.md' -Raw -Encoding UTF8; "'$acRows = [regex]::Matches($plan, '"'(?m)"'^'"\\|\\s*(?:[1-9]|1[0-5])\\s*\\|').Count; "'$unchecked = [regex]::Matches($plan, '"'(?m)"'^- '"\\[ \\]').Count; "'$checked = [regex]::Matches($plan, '"'(?m)"'^- '"\\[[xX]\\]').Count; Write-Output \"AC_ROWS="'$acRows"; Write-Output "UNCHECKED_BOXES=$unchecked"; Write-Output "CHECKED_BOXES=$checked"; Write-Output '"'PLAN STATUS:'; git status --short -- docs/base-plan.md; Write-Output 'OTHER STATUS (pre-existing workspace changes shown for scope check):'; git status --short | Where-Object { "'$_ -notmatch '"'docs/base-plan\\.md"'$'"' }; Write-Output 'KEY SECTIONS:'; rg -n \""'^## (Planning status|Target project structure|Fixed implementation decisions|Ordered implementation groups|Acceptance-criterion traceability|Exact local verification commands|Definition of Done)|Iteration 2|missing cart line|'"\\.venv\\\\Scripts\\\\python.exe -m pytest\" docs/base-plan.md" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 837ms:
+AC_ROWS=15
+UNCHECKED_BOXES=28
+CHECKED_BOXES=0
+PLAN STATUS:
+?? docs/base-plan.md
+OTHER STATUS (pre-existing workspace changes shown for scope check):
+ M prompts.txt
+?? agent_prompts/
+?? loop_engineering.py
+?? loop_logs/
+KEY SECTIONS:
+3:## Planning status and iteration note
+7:Iteration 2 re-read those artifacts and critically checked the complete plan
+10:safe handling of an update for a missing cart line, and exclusion of generated
+26:## Target project structure
+57:## Fixed implementation decisions
+110:| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+121:## Ordered implementation groups
+202:## Acceptance-criterion traceability
+226:## Exact local verification commands
+236:.\.venv\Scripts\python.exe -m pytest -q
+247:## Definition of Done
+257:- [ ] `\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
+
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 14b7c5a154e151ea22cc251a844a53f544e0d57c..ba06ea1dd2103070b5d8f2473ba5931d1186b454
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -4,12 +4,15 @@
+ 
+ Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+ `docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+-No earlier `docs/base-plan.md` existed and no application code is currently
+-present. The plan incorporates every approved correction from the review:
+-deterministic cart redirects, HTTP 400 responses that preserve cart state,
+-explicit unknown/absent-product behavior, and repeatable database
+-initialization. All implementation checkboxes remain intentionally unchecked
+-for the build stage.
++Iteration 2 re-read those artifacts and critically checked the complete plan
++against all 15 acceptance criteria and the current repository, which still has
++no application code. This iteration clarified deterministic validation order,
++safe handling of an update for a missing cart line, and exclusion of generated
++local artifacts; no extension work was introduced. The plan incorporates every
++approved correction from the review: deterministic cart redirects, HTTP 400
++responses that preserve cart state, explicit unknown/absent-product behavior,
++and repeatable database initialization. All implementation checkboxes remain
++intentionally unchecked for the build stage.
+ 
+ ## Scope boundary
+ 
+@@ -42,6 +45,7 @@
+ │   ├── test_database.py
+ │   ├── test_products.py
+ │   └── test_cart.py
++├── .gitignore
+ ├── requirements.txt
+ └── README.md
+ ```
+@@ -81,9 +85,12 @@
+   defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+   fractional, signed, zero, and negative values are invalid.
+ - Validate the database product and the submitted quantity before copying and
+-  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+-  produce 400 without partial session changes. Invalid update input likewise
+-  leaves the old quantity unchanged.
++  mutating the cart. On add, check product existence first so an unknown ID
++  deterministically produces 404 even if its submitted quantity is also bad;
++  otherwise invalid quantities produce 400 without partial session changes.
++  Invalid update input likewise leaves the old quantity unchanged. An update
++  for a product ID that has no current cart line returns an understandable 404
++  without changing the cart.
+ - A shared cart-loading helper fetches current product rows for the IDs in the
+   session, combines them with session quantities, and computes each line total
+   and the subtotal in cents. Product names, categories, descriptions, prices,
+@@ -100,7 +107,7 @@
+ | `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+ | `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+ | `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+-| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+ | `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+ 
+ All state changes are POST-only. Flask's default method handling should reject
+@@ -118,9 +125,10 @@
+ 
+ ### Group 1 — Reproducible skeleton and product database
+ 
+-- [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
++- [ ] **G1.1** Add explicit compatible Flask and pytest version constraints to
+   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+-  and test instructions in `README.md`.
++  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
++  Flask instance data, SQLite files, Python caches, and pytest caches.
+ - [ ] **G1.2** Create the application factory and configuration described above,
+   including automatic creation of the instance directory and test overrides.
+ - [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+@@ -146,7 +154,8 @@
+   remains complete with JavaScript disabled and does not rely on color alone.
+ - [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+   detail data and price formatting, valid detail links/navigation, and an
+-  understandable HTTP 404 response for an unknown product.
++  understandable HTTP 404 response for an unknown product; assert Products and
++  Cart navigation is present on list, detail, and error responses.
+ 
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+@@ -160,18 +169,22 @@
+   POST/redirect/GET, and flashed success feedback.
+ - [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+   and negative quantities return an understandable HTTP 400 and do not mutate
+-  the cart; an unknown product returns 404 and also leaves it unchanged.
++  the cart; check existence first so an unknown product returns 404 and also
++  leaves it unchanged even when the submitted quantity is invalid.
+ - [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+   duplicate accumulation without duplicate HTML lines, two distinct products,
+   correct integer-cent line/subtotal rendering, current database price
+   authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
+-  mutation, and persistence across requests with one client session.
++  mutation, cart-page navigation, and persistence across requests with one
++  client session. Every invalid/unknown case must assert response status,
++  understandable message, and unchanged session state.
+ 
+ ### Group 4 — Update/remove flow and regression completion
+ 
+ - [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+-  the existing quantity and redirects with confirmation.
++  the existing quantity and redirects with confirmation; an ID with no current
++  cart line returns an understandable 404 without changing the cart.
+ - [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+   negative update quantities with an understandable HTTP 400 while preserving
+   the prior session quantity.
+@@ -179,8 +192,10 @@
+   line is removed, totals recalculate, successful removal redirects with
+   confirmation, and removal of an absent key redirects without error or changes.
+ - [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+-  update class and state preservation, removal isolation, absent removal,
+-  confirmation feedback, redirect destinations, and POST-only methods.
++  update class and state preservation, a missing update line returning 404
++  unchanged, removal isolation, absent removal, confirmation feedback, redirect
++  destinations, and POST-only methods; 400 and 404 cases must assert an
++  understandable message as well as status and unchanged state.
+ - [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+   the documented browser smoke flow, and correct only base-scope defects found.
+ 
+@@ -239,7 +254,8 @@
+   start the application using the documented commands.
+ - [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+   products.
+-- [ ] `python -m pytest -q` passes with an isolated temporary database, no
++- [ ] `\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
++  temporary database, no
+   network access, no ordering dependency, and coverage of happy and failure
+   paths.
+ - [ ] The manual browser flow works without JavaScript at desktop and mobile
+
+apply patch
+patch: completed
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\docs\base-plan.md
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 14b7c5a154e151ea22cc251a844a53f544e0d57c..269605e2ec44e6718cee6e2dd94c9eb11b0878df
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -4,12 +4,15 @@
+ 
+ Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+ `docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+-No earlier `docs/base-plan.md` existed and no application code is currently
+-present. The plan incorporates every approved correction from the review:
+-deterministic cart redirects, HTTP 400 responses that preserve cart state,
+-explicit unknown/absent-product behavior, and repeatable database
+-initialization. All implementation checkboxes remain intentionally unchecked
+-for the build stage.
++Iteration 2 re-read those artifacts and critically checked the complete plan
++against all 15 acceptance criteria and the current repository, which still has
++no application code. This iteration clarified deterministic validation order,
++safe handling of an update for a missing cart line, and exclusion of generated
++local artifacts; no extension work was introduced. The plan incorporates every
++approved correction from the review: deterministic cart redirects, HTTP 400
++responses that preserve cart state, explicit unknown/absent-product behavior,
++and repeatable database initialization. All implementation checkboxes remain
++intentionally unchecked for the build stage.
+ 
+ ## Scope boundary
+ 
+@@ -42,6 +45,7 @@
+ │   ├── test_database.py
+ │   ├── test_products.py
+ │   └── test_cart.py
++├── .gitignore
+ ├── requirements.txt
+ └── README.md
+ ```
+@@ -81,9 +85,12 @@
+   defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+   fractional, signed, zero, and negative values are invalid.
+ - Validate the database product and the submitted quantity before copying and
+-  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+-  produce 400 without partial session changes. Invalid update input likewise
+-  leaves the old quantity unchanged.
++  mutating the cart. On add, check product existence first so an unknown ID
++  deterministically produces 404 even if its submitted quantity is also bad;
++  otherwise invalid quantities produce 400 without partial session changes.
++  Invalid update input likewise leaves the old quantity unchanged. An update
++  for a product ID that has no current cart line returns an understandable 404
++  without changing the cart.
+ - A shared cart-loading helper fetches current product rows for the IDs in the
+   session, combines them with session quantities, and computes each line total
+   and the subtotal in cents. Product names, categories, descriptions, prices,
+@@ -100,7 +107,7 @@
+ | `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+ | `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+ | `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+-| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+ | `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+ 
+ All state changes are POST-only. Flask's default method handling should reject
+@@ -118,9 +125,10 @@
+ 
+ ### Group 1 — Reproducible skeleton and product database
+ 
+-- [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
++- [ ] **G1.1** Add explicit compatible Flask and pytest version constraints to
+   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+-  and test instructions in `README.md`.
++  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
++  Flask instance data, SQLite files, Python caches, and pytest caches.
+ - [ ] **G1.2** Create the application factory and configuration described above,
+   including automatic creation of the instance directory and test overrides.
+ - [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+@@ -146,7 +154,8 @@
+   remains complete with JavaScript disabled and does not rely on color alone.
+ - [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+   detail data and price formatting, valid detail links/navigation, and an
+-  understandable HTTP 404 response for an unknown product.
++  understandable HTTP 404 response for an unknown product; assert Products and
++  Cart navigation is present on list, detail, and error responses.
+ 
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+@@ -160,18 +169,22 @@
+   POST/redirect/GET, and flashed success feedback.
+ - [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+   and negative quantities return an understandable HTTP 400 and do not mutate
+-  the cart; an unknown product returns 404 and also leaves it unchanged.
++  the cart; check existence first so an unknown product returns 404 and also
++  leaves it unchanged even when the submitted quantity is invalid.
+ - [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+   duplicate accumulation without duplicate HTML lines, two distinct products,
+   correct integer-cent line/subtotal rendering, current database price
+   authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
+-  mutation, and persistence across requests with one client session.
++  mutation, cart-page navigation, and persistence across requests with one
++  client session. Every invalid/unknown case must assert response status,
++  understandable message, and unchanged session state.
+ 
+ ### Group 4 — Update/remove flow and regression completion
+ 
+ - [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+-  the existing quantity and redirects with confirmation.
++  the existing quantity and redirects with confirmation; an ID with no current
++  cart line returns an understandable 404 without changing the cart.
+ - [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+   negative update quantities with an understandable HTTP 400 while preserving
+   the prior session quantity.
+@@ -179,8 +192,10 @@
+   line is removed, totals recalculate, successful removal redirects with
+   confirmation, and removal of an absent key redirects without error or changes.
+ - [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+-  update class and state preservation, removal isolation, absent removal,
+-  confirmation feedback, redirect destinations, and POST-only methods.
++  update class and state preservation, a missing update line returning 404
++  unchanged, removal isolation, absent removal, confirmation feedback, redirect
++  destinations, and POST-only methods; 400 and 404 cases must assert an
++  understandable message as well as status and unchanged state.
+ - [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+   the documented browser smoke flow, and correct only base-scope defects found.
+ 
+@@ -239,7 +254,8 @@
+   start the application using the documented commands.
+ - [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+   products.
+-- [ ] `python -m pytest -q` passes with an isolated temporary database, no
++- [ ] `.\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
++  temporary database, no
+   network access, no ordering dependency, and coverage of happy and failure
+   paths.
+ - [ ] The manual browser flow works without JavaScript at desktop and mobile
+
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 14b7c5a154e151ea22cc251a844a53f544e0d57c..269605e2ec44e6718cee6e2dd94c9eb11b0878df
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -4,12 +4,15 @@
+ 
+ Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+ `docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+-No earlier `docs/base-plan.md` existed and no application code is currently
+-present. The plan incorporates every approved correction from the review:
+-deterministic cart redirects, HTTP 400 responses that preserve cart state,
+-explicit unknown/absent-product behavior, and repeatable database
+-initialization. All implementation checkboxes remain intentionally unchecked
+-for the build stage.
++Iteration 2 re-read those artifacts and critically checked the complete plan
++against all 15 acceptance criteria and the current repository, which still has
++no application code. This iteration clarified deterministic validation order,
++safe handling of an update for a missing cart line, and exclusion of generated
++local artifacts; no extension work was introduced. The plan incorporates every
++approved correction from the review: deterministic cart redirects, HTTP 400
++responses that preserve cart state, explicit unknown/absent-product behavior,
++and repeatable database initialization. All implementation checkboxes remain
++intentionally unchecked for the build stage.
+ 
+ ## Scope boundary
+ 
+@@ -42,6 +45,7 @@
+ │   ├── test_database.py
+ │   ├── test_products.py
+ │   └── test_cart.py
++├── .gitignore
+ ├── requirements.txt
+ └── README.md
+ ```
+@@ -81,9 +85,12 @@
+   defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+   fractional, signed, zero, and negative values are invalid.
+ - Validate the database product and the submitted quantity before copying and
+-  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+-  produce 400 without partial session changes. Invalid update input likewise
+-  leaves the old quantity unchanged.
++  mutating the cart. On add, check product existence first so an unknown ID
++  deterministically produces 404 even if its submitted quantity is also bad;
++  otherwise invalid quantities produce 400 without partial session changes.
++  Invalid update input likewise leaves the old quantity unchanged. An update
++  for a product ID that has no current cart line returns an understandable 404
++  without changing the cart.
+ - A shared cart-loading helper fetches current product rows for the IDs in the
+   session, combines them with session quantities, and computes each line total
+   and the subtotal in cents. Product names, categories, descriptions, prices,
+@@ -100,7 +107,7 @@
+ | `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+ | `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+ | `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+-| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+ | `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+ 
+ All state changes are POST-only. Flask's default method handling should reject
+@@ -118,9 +125,10 @@
+ 
+ ### Group 1 — Reproducible skeleton and product database
+ 
+-- [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
++- [ ] **G1.1** Add explicit compatible Flask and pytest version constraints to
+   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+-  and test instructions in `README.md`.
++  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
++  Flask instance data, SQLite files, Python caches, and pytest caches.
+ - [ ] **G1.2** Create the application factory and configuration described above,
+   including automatic creation of the instance directory and test overrides.
+ - [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+@@ -146,7 +154,8 @@
+   remains complete with JavaScript disabled and does not rely on color alone.
+ - [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+   detail data and price formatting, valid detail links/navigation, and an
+-  understandable HTTP 404 response for an unknown product.
++  understandable HTTP 404 response for an unknown product; assert Products and
++  Cart navigation is present on list, detail, and error responses.
+ 
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+@@ -160,18 +169,22 @@
+   POST/redirect/GET, and flashed success feedback.
+ - [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+   and negative quantities return an understandable HTTP 400 and do not mutate
+-  the cart; an unknown product returns 404 and also leaves it unchanged.
++  the cart; check existence first so an unknown product returns 404 and also
++  leaves it unchanged even when the submitted quantity is invalid.
+ - [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+   duplicate accumulation without duplicate HTML lines, two distinct products,
+   correct integer-cent line/subtotal rendering, current database price
+   authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
+-  mutation, and persistence across requests with one client session.
++  mutation, cart-page navigation, and persistence across requests with one
++  client session. Every invalid/unknown case must assert response status,
++  understandable message, and unchanged session state.
+ 
+ ### Group 4 — Update/remove flow and regression completion
+ 
+ - [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+-  the existing quantity and redirects with confirmation.
++  the existing quantity and redirects with confirmation; an ID with no current
++  cart line returns an understandable 404 without changing the cart.
+ - [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+   negative update quantities with an understandable HTTP 400 while preserving
+   the prior session quantity.
+@@ -179,8 +192,10 @@
+   line is removed, totals recalculate, successful removal redirects with
+   confirmation, and removal of an absent key redirects without error or changes.
+ - [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+-  update class and state preservation, removal isolation, absent removal,
+-  confirmation feedback, redirect destinations, and POST-only methods.
++  update class and state preservation, a missing update line returning 404
++  unchanged, removal isolation, absent removal, confirmation feedback, redirect
++  destinations, and POST-only methods; 400 and 404 cases must assert an
++  understandable message as well as status and unchanged state.
+ - [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+   the documented browser smoke flow, and correct only base-scope defects found.
+ 
+@@ -239,7 +254,8 @@
+   start the application using the documented commands.
+ - [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+   products.
+-- [ ] `python -m pytest -q` passes with an isolated temporary database, no
++- [ ] `.\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
++  temporary database, no
+   network access, no ordering dependency, and coverage of happy and failure
+   paths.
+ - [ ] The manual browser flow works without JavaScript at desktop and mobile
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$plan = Get-Content -LiteralPath '"'docs/base-plan.md' -Raw -Encoding UTF8; if ([regex]::Matches("'$plan, '"'(?m)"'^'"\\|\\s*(?:[1-9]|1[0-5])\\s*\\|').Count -ne 15) { throw 'Acceptance row count is not 15' }; if ("'$plan -match '"'(?m)"'^- '"\\[[xX]\\]') { throw 'Found checked task' }; "'$required = @('"'## Target project structure','## Fixed implementation decisions','## Ordered implementation groups','## Acceptance-criterion traceability','## Exact local verification commands','## Definition of Done','Iteration 2'); foreach ("'$item in $required) { if (-not $plan.Contains($item)) { throw "Missing $item" } }; Write-Output '"'FINAL_PLAN_AUDIT=PASS'; Get-Content -LiteralPath 'docs/base-plan.md' -Encoding UTF8 | Select-Object -Skip 247 -First 22; Write-Output 'WORKTREE_SCOPE:'; git status --short -- docs/base-specification.md docs/base-review.md docs/base-plan.md" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 804ms:
+FINAL_PLAN_AUDIT=PASS
+
+- [ ] Only the reviewed base scope is implemented; no excluded extension is
+  present.
+- [ ] Groups 1–4 are complete and all acceptance criteria 1–15 have both the
+  mapped implementation and automated coverage shown above.
+- [ ] A fresh checkout can install dependencies, initialize a database, and
+  start the application using the documented commands.
+- [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+  products.
+- [ ] `.\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
+  temporary database, no
+  network access, no ordering dependency, and coverage of happy and failure
+  paths.
+- [ ] The manual browser flow works without JavaScript at desktop and mobile
+  widths, with clear navigation, labels, feedback, error messages, and escaped
+  content.
+- [ ] All cart mutations use POST; successful mutations redirect to the cart;
+  invalid quantities preserve state and return 400; required unknown IDs return
+  404; absent removal is a safe redirect.
+- [ ] Cart line totals and subtotal are calculated from current SQLite prices
+  and positive session quantities in integer cents and display with exactly two
+  decimal places.
+WORKTREE_SCOPE:
+?? docs/base-plan.md
+
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 14b7c5a154e151ea22cc251a844a53f544e0d57c..269605e2ec44e6718cee6e2dd94c9eb11b0878df
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -4,12 +4,15 @@
+ 
+ Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+ `docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+-No earlier `docs/base-plan.md` existed and no application code is currently
+-present. The plan incorporates every approved correction from the review:
+-deterministic cart redirects, HTTP 400 responses that preserve cart state,
+-explicit unknown/absent-product behavior, and repeatable database
+-initialization. All implementation checkboxes remain intentionally unchecked
+-for the build stage.
++Iteration 2 re-read those artifacts and critically checked the complete plan
++against all 15 acceptance criteria and the current repository, which still has
++no application code. This iteration clarified deterministic validation order,
++safe handling of an update for a missing cart line, and exclusion of generated
++local artifacts; no extension work was introduced. The plan incorporates every
++approved correction from the review: deterministic cart redirects, HTTP 400
++responses that preserve cart state, explicit unknown/absent-product behavior,
++and repeatable database initialization. All implementation checkboxes remain
++intentionally unchecked for the build stage.
+ 
+ ## Scope boundary
+ 
+@@ -42,6 +45,7 @@
+ │   ├── test_database.py
+ │   ├── test_products.py
+ │   └── test_cart.py
++├── .gitignore
+ ├── requirements.txt
+ └── README.md
+ ```
+@@ -81,9 +85,12 @@
+   defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+   fractional, signed, zero, and negative values are invalid.
+ - Validate the database product and the submitted quantity before copying and
+-  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+-  produce 400 without partial session changes. Invalid update input likewise
+-  leaves the old quantity unchanged.
++  mutating the cart. On add, check product existence first so an unknown ID
++  deterministically produces 404 even if its submitted quantity is also bad;
++  otherwise invalid quantities produce 400 without partial session changes.
++  Invalid update input likewise leaves the old quantity unchanged. An update
++  for a product ID that has no current cart line returns an understandable 404
++  without changing the cart.
+ - A shared cart-loading helper fetches current product rows for the IDs in the
+   session, combines them with session quantities, and computes each line total
+   and the subtotal in cents. Product names, categories, descriptions, prices,
+@@ -100,7 +107,7 @@
+ | `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+ | `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+ | `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+-| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+ | `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+ 
+ All state changes are POST-only. Flask's default method handling should reject
+@@ -118,9 +125,10 @@
+ 
+ ### Group 1 — Reproducible skeleton and product database
+ 
+-- [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
++- [ ] **G1.1** Add explicit compatible Flask and pytest version constraints to
+   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+-  and test instructions in `README.md`.
++  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
++  Flask instance data, SQLite files, Python caches, and pytest caches.
+ - [ ] **G1.2** Create the application factory and configuration described above,
+   including automatic creation of the instance directory and test overrides.
+ - [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+@@ -146,7 +154,8 @@
+   remains complete with JavaScript disabled and does not rely on color alone.
+ - [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+   detail data and price formatting, valid detail links/navigation, and an
+-  understandable HTTP 404 response for an unknown product.
++  understandable HTTP 404 response for an unknown product; assert Products and
++  Cart navigation is present on list, detail, and error responses.
+ 
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+@@ -160,18 +169,22 @@
+   POST/redirect/GET, and flashed success feedback.
+ - [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+   and negative quantities return an understandable HTTP 400 and do not mutate
+-  the cart; an unknown product returns 404 and also leaves it unchanged.
++  the cart; check existence first so an unknown product returns 404 and also
++  leaves it unchanged even when the submitted quantity is invalid.
+ - [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+   duplicate accumulation without duplicate HTML lines, two distinct products,
+   correct integer-cent line/subtotal rendering, current database price
+   authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
+-  mutation, and persistence across requests with one client session.
++  mutation, cart-page navigation, and persistence across requests with one
++  client session. Every invalid/unknown case must assert response status,
++  understandable message, and unchanged session state.
+ 
+ ### Group 4 — Update/remove flow and regression completion
+ 
+ - [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+-  the existing quantity and redirects with confirmation.
++  the existing quantity and redirects with confirmation; an ID with no current
++  cart line returns an understandable 404 without changing the cart.
+ - [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+   negative update quantities with an understandable HTTP 400 while preserving
+   the prior session quantity.
+@@ -179,8 +192,10 @@
+   line is removed, totals recalculate, successful removal redirects with
+   confirmation, and removal of an absent key redirects without error or changes.
+ - [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+-  update class and state preservation, removal isolation, absent removal,
+-  confirmation feedback, redirect destinations, and POST-only methods.
++  update class and state preservation, a missing update line returning 404
++  unchanged, removal isolation, absent removal, confirmation feedback, redirect
++  destinations, and POST-only methods; 400 and 404 cases must assert an
++  understandable message as well as status and unchanged state.
+ - [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+   the documented browser smoke flow, and correct only base-scope defects found.
+ 
+@@ -239,7 +254,8 @@
+   start the application using the documented commands.
+ - [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+   products.
+-- [ ] `python -m pytest -q` passes with an isolated temporary database, no
++- [ ] `.\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
++  temporary database, no
+   network access, no ordering dependency, and coverage of happy and failure
+   paths.
+ - [ ] The manual browser flow works without JavaScript at desktop and mobile
+
+codex
+Updated and verified [docs/base-plan.md](</C:/学习资料/研1/Summer/devops/作业/作业4/campus-mini-shop/docs/base-plan.md>).
+
+- All 15 acceptance criteria map to implementation and pytest tasks.
+- All 28 checkboxes remain unchecked.
+- Added the iteration-2 note and clarified validation behavior.
+- Included exact verification commands and Definition of Done.
+- No specification, review, or application files were edited.
+
+LOOP_COMPLETE
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 14b7c5a154e151ea22cc251a844a53f544e0d57c..269605e2ec44e6718cee6e2dd94c9eb11b0878df
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -4,12 +4,15 @@
+ 
+ Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+ `docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+-No earlier `docs/base-plan.md` existed and no application code is currently
+-present. The plan incorporates every approved correction from the review:
+-deterministic cart redirects, HTTP 400 responses that preserve cart state,
+-explicit unknown/absent-product behavior, and repeatable database
+-initialization. All implementation checkboxes remain intentionally unchecked
+-for the build stage.
++Iteration 2 re-read those artifacts and critically checked the complete plan
++against all 15 acceptance criteria and the current repository, which still has
++no application code. This iteration clarified deterministic validation order,
++safe handling of an update for a missing cart line, and exclusion of generated
++local artifacts; no extension work was introduced. The plan incorporates every
++approved correction from the review: deterministic cart redirects, HTTP 400
++responses that preserve cart state, explicit unknown/absent-product behavior,
++and repeatable database initialization. All implementation checkboxes remain
++intentionally unchecked for the build stage.
+ 
+ ## Scope boundary
+ 
+@@ -42,6 +45,7 @@
+ │   ├── test_database.py
+ │   ├── test_products.py
+ │   └── test_cart.py
++├── .gitignore
+ ├── requirements.txt
+ └── README.md
+ ```
+@@ -81,9 +85,12 @@
+   defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+   fractional, signed, zero, and negative values are invalid.
+ - Validate the database product and the submitted quantity before copying and
+-  mutating the cart. Thus unknown add IDs produce 404, and invalid quantities
+-  produce 400 without partial session changes. Invalid update input likewise
+-  leaves the old quantity unchanged.
++  mutating the cart. On add, check product existence first so an unknown ID
++  deterministically produces 404 even if its submitted quantity is also bad;
++  otherwise invalid quantities produce 400 without partial session changes.
++  Invalid update input likewise leaves the old quantity unchanged. An update
++  for a product ID that has no current cart line returns an understandable 404
++  without changing the cart.
+ - A shared cart-loading helper fetches current product rows for the IDs in the
+   session, combines them with session quantities, and computes each line total
+   and the subtotal in cents. Product names, categories, descriptions, prices,
+@@ -100,7 +107,7 @@
+ | `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+ | `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+ | `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+-| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged. |
++| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+ | `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+ 
+ All state changes are POST-only. Flask's default method handling should reject
+@@ -118,9 +125,10 @@
+ 
+ ### Group 1 — Reproducible skeleton and product database
+ 
+-- [ ] **G1.1** Add pinned/minimum-compatible Flask and pytest dependencies to
++- [ ] **G1.1** Add explicit compatible Flask and pytest version constraints to
+   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+-  and test instructions in `README.md`.
++  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
++  Flask instance data, SQLite files, Python caches, and pytest caches.
+ - [ ] **G1.2** Create the application factory and configuration described above,
+   including automatic creation of the instance directory and test overrides.
+ - [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+@@ -146,7 +154,8 @@
+   remains complete with JavaScript disabled and does not rely on color alone.
+ - [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+   detail data and price formatting, valid detail links/navigation, and an
+-  understandable HTTP 404 response for an unknown product.
++  understandable HTTP 404 response for an unknown product; assert Products and
++  Cart navigation is present on list, detail, and error responses.
+ 
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+@@ -160,18 +169,22 @@
+   POST/redirect/GET, and flashed success feedback.
+ - [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+   and negative quantities return an understandable HTTP 400 and do not mutate
+-  the cart; an unknown product returns 404 and also leaves it unchanged.
++  the cart; check existence first so an unknown product returns 404 and also
++  leaves it unchanged even when the submitted quantity is invalid.
+ - [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+   duplicate accumulation without duplicate HTML lines, two distinct products,
+   correct integer-cent line/subtotal rendering, current database price
+   authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
+-  mutation, and persistence across requests with one client session.
++  mutation, cart-page navigation, and persistence across requests with one
++  client session. Every invalid/unknown case must assert response status,
++  understandable message, and unchanged session state.
+ 
+ ### Group 4 — Update/remove flow and regression completion
+ 
+ - [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+-  the existing quantity and redirects with confirmation.
++  the existing quantity and redirects with confirmation; an ID with no current
++  cart line returns an understandable 404 without changing the cart.
+ - [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+   negative update quantities with an understandable HTTP 400 while preserving
+   the prior session quantity.
+@@ -179,8 +192,10 @@
+   line is removed, totals recalculate, successful removal redirects with
+   confirmation, and removal of an absent key redirects without error or changes.
+ - [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+-  update class and state preservation, removal isolation, absent removal,
+-  confirmation feedback, redirect destinations, and POST-only methods.
++  update class and state preservation, a missing update line returning 404
++  unchanged, removal isolation, absent removal, confirmation feedback, redirect
++  destinations, and POST-only methods; 400 and 404 cases must assert an
++  understandable message as well as status and unchanged state.
+ - [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+   the documented browser smoke flow, and correct only base-scope defects found.
+ 
+@@ -239,7 +254,8 @@
+   start the application using the documented commands.
+ - [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+   products.
+-- [ ] `python -m pytest -q` passes with an isolated temporary database, no
++- [ ] `.\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
++  temporary database, no
+   network access, no ordering dependency, and coverage of happy and failure
+   paths.
+ - [ ] The manual browser flow works without JavaScript at desktop and mobile
+
+tokens used
+48,369
