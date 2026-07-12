@@ -125,53 +125,81 @@ fresh agent starts the next one.
 
 ### Group 1 — Reproducible skeleton and product database
 
-- [ ] **G1.1** Add explicit compatible Flask and pytest version constraints to
+- [x] **G1.1** Add explicit compatible Flask and pytest version constraints to
   `requirements.txt`, plus concise clean-checkout setup, initialization, run,
   and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
   Flask instance data, SQLite files, Python caches, and pytest caches.
-- [ ] **G1.2** Create the application factory and configuration described above,
+- [x] **G1.2** Create the application factory and configuration described above,
   including automatic creation of the instance directory and test overrides.
-- [ ] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+- [x] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
   stable seed data (six or more products and two or more categories), and the
   idempotent `init-db` CLI command.
-- [ ] **G1.4** Add `tests/conftest.py` fixtures that build a fresh temporary
+- [x] **G1.4** Add `tests/conftest.py` fixtures that build a fresh temporary
   SQLite database for each test, initialize it through application code, and
   expose an isolated Flask test client/database connection without network or
   test-order dependencies.
-- [ ] **G1.5** Add database tests proving required columns/data constraints,
+- [x] **G1.5** Add database tests proving required columns/data constraints,
   positive seed prices, seed counts/categories, and unchanged product count and
   IDs after invoking initialization twice.
 
+#### Group 1 iteration 1 verification evidence
+
+- Added the Group 1 application factory, database module/schema, isolated test
+  fixtures, database tests, dependency constraints, local instructions, and
+  generated-artifact exclusions. `python -m compileall -q campus_shop tests`
+  completed successfully.
+- Executed `schema.sql` twice against a temporary SQLite database: both runs
+  produced the same six stable product rows, spanning three categories with
+  positive prices and the required columns.
+- `git diff --check` passed. The pytest run could not start because this
+  sandbox has neither Flask nor pytest installed, and dependency installation
+  was blocked by restricted network access. G1.2, G1.4, and G1.5 therefore
+  remain unchecked until the automated suite runs successfully.
+
 ### Group 2 — Catalog pages, navigation, and presentation
 
-- [ ] **G2.1** Implement `GET /` and `GET /products/<int:product_id>` using
+- [x] **G2.1** Implement `GET /` and `GET /products/<int:product_id>` using
   parameterized SQLite queries and stable product ordering.
-- [ ] **G2.2** Add the shared base, product-list, product-detail, and error
+- [x] **G2.2** Add the shared base, product-list, product-detail, and error
   templates with escaped output, required fields, exact two-decimal currency,
   labeled controls, Products/Cart navigation, and local image placeholder
   behavior.
-- [ ] **G2.3** Add minimal responsive CSS and confirm the catalog/detail flow
+- [x] **G2.3** Add minimal responsive CSS and confirm the catalog/detail flow
   remains complete with JavaScript disabled and does not rely on color alone.
-- [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+- [x] **G2.4** Add product tests for all seeded listings and fields, correct
   detail data and price formatting, valid detail links/navigation, and an
   understandable HTTP 404 response for an unknown product; assert Products and
   Cart navigation is present on list, detail, and error responses.
 
+#### Group 2 iteration 2 verification evidence
+
+- Added the catalog blueprint, parameterized stable-order product queries,
+  integer-cent currency filter, list/detail/error templates, shared navigation,
+  local image placeholders, and responsive CSS with no JavaScript dependency.
+- Added `tests/test_products.py` coverage for every seeded listing, required
+  detail fields, two-decimal prices, detail links, navigation, understandable
+  unknown-product 404 behavior, and Jinja escaping of database content.
+- `python -m compileall -q campus_shop tests` and `git diff --check` passed.
+  The repository virtual environment still lacks Flask and pytest, and
+  `pip install -r requirements.txt` could not reach the package index because
+  network access is restricted. Group 2 remains unchecked until its automated
+  tests can execute successfully.
+
 ### Group 3 — Cart read/add flow and authoritative totals
 
-- [ ] **G3.1** Implement the centralized quantity parser, session-cart access,
+- [x] **G3.1** Implement the centralized quantity parser, session-cart access,
   current-product lookup, cart-line construction, integer-cent total
   calculation, and currency formatting helpers.
-- [ ] **G3.2** Implement `GET /cart`, including current database unit prices,
+- [x] **G3.2** Implement `GET /cart`, including current database unit prices,
   quantities, line totals, subtotal, and the explicit empty state with `$0.00`.
-- [ ] **G3.3** Implement the detail-page add form and
+- [x] **G3.3** Implement the detail-page add form and
   `POST /cart/add/<int:product_id>` with empty-as-one behavior, accumulation,
   POST/redirect/GET, and flashed success feedback.
-- [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+- [x] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
   and negative quantities return an understandable HTTP 400 and do not mutate
   the cart; check existence first so an unknown product returns 404 and also
   leaves it unchanged even when the submitted quantity is invalid.
-- [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+- [x] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
   duplicate accumulation without duplicate HTML lines, two distinct products,
   correct integer-cent line/subtotal rendering, current database price
   authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
@@ -179,25 +207,76 @@ fresh agent starts the next one.
   client session. Every invalid/unknown case must assert response status,
   understandable message, and unchanged session state.
 
+#### Group 3 iteration 3 verification evidence
+
+- Added centralized quantity/session/cart helpers, database-backed integer-cent
+  totals, the empty and populated cart page, the labeled detail-page add form,
+  POST/redirect/GET add behavior, accumulation, feedback, and deterministic
+  400/404 validation without partial cart mutation.
+- Added `tests/test_cart.py` coverage for empty/default/explicit/duplicate and
+  multi-product flows, authoritative current prices, exact totals, redirects,
+  feedback, invalid and unknown input state preservation, POST-only mutation,
+  navigation, and same-client session persistence.
+- `python -m compileall -q campus_shop tests` and `git diff --check` passed.
+  The documented pytest run remains blocked because Flask and pytest are not
+  installed in the project virtual environment, the package index is blocked
+  by sandbox network policy, and no existing local Conda environment contains
+  both dependencies. G3.1--G3.5 therefore remain unchecked until pytest can
+  execute successfully.
+
 ### Group 4 — Update/remove flow and regression completion
 
-- [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+- [x] **G4.1** Add labeled update and remove forms to each cart line and implement
   `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
   the existing quantity and redirects with confirmation; an ID with no current
   cart line returns an understandable 404 without changing the cart.
-- [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+- [x] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
   negative update quantities with an understandable HTTP 400 while preserving
   the prior session quantity.
-- [ ] **G4.3** Implement `POST /cart/remove/<int:product_id>` so only the selected
+- [x] **G4.3** Implement `POST /cart/remove/<int:product_id>` so only the selected
   line is removed, totals recalculate, successful removal redirects with
   confirmation, and removal of an absent key redirects without error or changes.
-- [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+- [x] **G4.4** Add update/remove tests covering valid recalculation, every invalid
   update class and state preservation, a missing update line returning 404
   unchanged, removal isolation, absent removal, confirmation feedback, redirect
   destinations, and POST-only methods; 400 and 404 cases must assert an
   understandable message as well as status and unchanged state.
-- [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+- [x] **G4.5** Run the full suite from a newly initialized local database, perform
   the documented browser smoke flow, and correct only base-scope defects found.
+
+#### Group 4 iteration 4 verification evidence
+
+- Added labeled per-line update/remove forms, POST-only update/remove routes,
+  success feedback, missing-line 404 handling, update validation that preserves
+  state, isolated removal, absent-key no-op behavior, and focused cart tests.
+- A temporary-database Flask test-client smoke run passed the complete base flow,
+  including repeat initialization, recalculation, all update-invalid classes,
+  redirects, feedback, state preservation, and POST-only checks. Compileall and
+  `git diff --check` also passed.
+- The pytest suite could not run: the repository `.venv` references a missing
+  Python 3.14 installation, no local environment contains both Flask and pytest,
+  and network policy blocked dependency installation. G4.4, G4.5, and the final
+  Definition of Done therefore remain unchecked pending a working test environment.
+
+#### Final base-build verification evidence
+
+- After dependencies became available, added Flask's application-context
+  wrapper to the `init-db` CLI command and resolved the suite's only failure.
+  The complete isolated test suite then reported `45 passed in 1.95s`.
+- Ran the real `init-db` command twice successfully. Automated tests also prove
+  stable seed IDs and counts across repeated initialization. `pip check`,
+  `compileall`, and `git diff --check` completed without errors.
+- Exercised the running application through a cookie-preserving HTTP session:
+  six catalog products and product detail loaded; blank and explicit adds
+  accumulated; a second line was preserved; invalid update returned 400 without
+  mutation; valid update recalculated; isolated removals ended at the empty
+  state with `$0.00`.
+- A supervising browser pass confirmed the desktop catalog and product-detail
+  presentation, labeled quantity controls, cart navigation, add confirmation,
+  quantity update from 2 to 3 with subtotal recalculation from `$9.98` to
+  `$14.97`, removal confirmation, and the final empty `$0.00` state. G4.5 is
+  complete. The separate mobile-width Definition of Done item remains unchecked
+  because the browser viewport override did not apply reliably in this runtime.
 
 ## Acceptance-criterion traceability
 
@@ -246,26 +325,26 @@ message and `$0.00` subtotal. Stop the development server with `Ctrl+C`.
 
 ## Definition of Done
 
-- [ ] Only the reviewed base scope is implemented; no excluded extension is
+- [x] Only the reviewed base scope is implemented; no excluded extension is
   present.
-- [ ] Groups 1–4 are complete and all acceptance criteria 1–15 have both the
+- [x] Groups 1–4 are complete and all acceptance criteria 1–15 have both the
   mapped implementation and automated coverage shown above.
 - [ ] A fresh checkout can install dependencies, initialize a database, and
   start the application using the documented commands.
-- [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+- [x] Running `init-db` twice succeeds and does not duplicate or erase seeded
   products.
-- [ ] `.\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
+- [x] `.\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
   temporary database, no
   network access, no ordering dependency, and coverage of happy and failure
   paths.
 - [ ] The manual browser flow works without JavaScript at desktop and mobile
   widths, with clear navigation, labels, feedback, error messages, and escaped
   content.
-- [ ] All cart mutations use POST; successful mutations redirect to the cart;
+- [x] All cart mutations use POST; successful mutations redirect to the cart;
   invalid quantities preserve state and return 400; required unknown IDs return
   404; absent removal is a safe redirect.
-- [ ] Cart line totals and subtotal are calculated from current SQLite prices
+- [x] Cart line totals and subtotal are calculated from current SQLite prices
   and positive session quantities in integer cents and display with exactly two
   decimal places.
-- [ ] No real credential, personal information, generated local database,
+- [x] No real credential, personal information, generated local database,
   virtual environment, cache, or other machine-specific artifact is committed.

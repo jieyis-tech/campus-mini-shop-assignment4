@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
+
+{% block content %}
+  <section class="error-panel" role="alert">
+    <h1>Error {{ status_code }}</h1>
+    <p>{{ message }}</p>
+    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
+  </section>
+{% endblock %}

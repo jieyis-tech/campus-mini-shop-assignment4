@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Cart | Campus Mini Shop{% endblock %}
+
+{% block content %}
+  <h1>Your cart</h1>
+
+  {% if lines %}
+    <div class="cart-lines">
+      {% for line in lines %}
+        <article class="cart-line" data-product-id="{{ line['product']['id'] }}">
+          <div>
+            <h2>{{ line['product']['name'] }}</h2>
+            <p>Unit price: {{ line['product']['price_cents'] | currency }}</p>
+          </div>
+          <div>
+            <p>Quantity: <span class="quantity">{{ line['quantity'] }}</span></p>
+            <form method="post" action="{{ url_for('shop.update_cart', product_id=line['product']['id']) }}">
+              <label for="quantity-{{ line['product']['id'] }}">New quantity</label>
+              <input
+                id="quantity-{{ line['product']['id'] }}"
+                name="quantity"
+                inputmode="numeric"
+                value="{{ line['quantity'] }}"
+              >
+              <button type="submit">Update</button>
+            </form>
+          </div>
+          <p>Line total: <span class="line-total">{{ line['line_total_cents'] | currency }}</span></p>
+          <form method="post" action="{{ url_for('shop.remove_from_cart', product_id=line['product']['id']) }}">
+            <button class="secondary-button" type="submit">Remove</button>
+          </form>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-cart">Your cart is empty.</p>
+  {% endif %}
+
+  <p class="subtotal">Subtotal: <strong>{{ subtotal_cents | currency }}</strong></p>
+{% endblock %}

@@ -16,17 +16,20 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("plan", "build"))
     parser.add_argument("--iterations", type=int, default=2)
+    parser.add_argument("--start-at", type=int, default=1)
     args = parser.parse_args()
 
     if args.iterations < 1:
         parser.error("--iterations must be at least 1")
+    if args.start_at < 1 or args.start_at > args.iterations:
+        parser.error("--start-at must be between 1 and --iterations")
 
     prompt_path = ROOT / "agent_prompts" / f"base-{args.mode}-loop.txt"
     base_prompt = prompt_path.read_text(encoding="utf-8")
     log_dir = ROOT / "loop_logs"
     log_dir.mkdir(exist_ok=True)
 
-    for iteration in range(1, args.iterations + 1):
+    for iteration in range(args.start_at, args.iterations + 1):
         wrapper = f"""
 
 LOOP ITERATION {iteration} OF {args.iterations}

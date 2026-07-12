@@ -1,12 +1,7 @@
+.venv/
+instance/
+*.sqlite
+*.sqlite3
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.coverage
-htmlcov/
-.venv/
-venv/
-instance/*.db
-*.sqlite3
-.env
-.DS_Store
-

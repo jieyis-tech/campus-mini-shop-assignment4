@@ -1,0 +1,5712 @@
+started_utc: 2026-07-12T02:33:15.198995+00:00
+mode: build
+runner: OpenAI Codex CLI 0.144.1
+iteration: 2
+return_code: 0
+
+===== EXACT PROMPT =====
+You are the Build Loop Agent for the Campus Mini Shop base system.
+
+Read docs/base-specification.md, docs/base-review.md, and docs/base-plan.md,
+then inspect the current repository. Implement the next coherent group of
+unchecked tasks from docs/base-plan.md.
+
+For this iteration:
+1. Implement only reviewed base-system behavior.
+2. Add or update automated tests for the implemented behavior.
+3. Run the relevant tests and fix failures caused by your work.
+4. Check off only tasks that are implemented and verified.
+5. Add concise verification evidence to docs/base-plan.md.
+6. Keep the application simple and locally reproducible.
+
+Do not add search, filtering, checkout, orders, accounts, real payment, admin
+features, external APIs, cloud deployment, or extension work. Do not edit
+prompts.txt or loop logs.
+
+LOOP ITERATION 2 OF 4
+This is a fresh agent context. Read the repository artifacts before acting.
+Continue from the current repository state; do not redo completed work.
+Do not run git commit or git push. The supervising human commits after the
+whole stage. End your final response with LOOP_COMPLETE only if this stage is
+fully complete and verified; otherwise end with LOOP_CONTINUE.
+
+
+===== AGENT OUTPUT =====
+Implemented the Group 2 catalog slice:
+
+- Product list and detail routes with parameterized SQLite queries.
+- Currency formatting using integer cents.
+- Shared navigation and understandable 404 page.
+- Responsive templates/CSS with local image placeholders and no JavaScript dependency.
+- Product, navigation, 404, formatting, and escaping tests.
+- Added verification evidence to [docs/base-plan.md](</C:/学习资料/研1/Summer/devops/作业/作业4/campus-mini-shop/docs/base-plan.md>).
+
+Verification:
+
+- Source compilation passed.
+- `git diff --check` passed.
+- Pytest could not run because Flask/pytest are unavailable and network restrictions blocked installation.
+- Group 2 tasks remain unchecked because automated verification could not complete.
+- `prompts.txt` and loop logs were not edited.
+
+LOOP_CONTINUE
+
+
+===== STDERR =====
+2026-07-12T02:33:16.913583Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-07-12T02:33:16.913628Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-07-12T02:33:19.834864Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-07-12T02:33:19.934034Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-07-12T02:33:19.934060Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+OpenAI Codex v0.144.1
+--------
+workdir: C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019f542b-fd30-75a2-80ab-47c6c8b89666
+--------
+user
+You are the Build Loop Agent for the Campus Mini Shop base system.
+
+Read docs/base-specification.md, docs/base-review.md, and docs/base-plan.md,
+then inspect the current repository. Implement the next coherent group of
+unchecked tasks from docs/base-plan.md.
+
+For this iteration:
+1. Implement only reviewed base-system behavior.
+2. Add or update automated tests for the implemented behavior.
+3. Run the relevant tests and fix failures caused by your work.
+4. Check off only tasks that are implemented and verified.
+5. Add concise verification evidence to docs/base-plan.md.
+6. Keep the application simple and locally reproducible.
+
+Do not add search, filtering, checkout, orders, accounts, real payment, admin
+features, external APIs, cloud deployment, or extension work. Do not edit
+prompts.txt or loop logs.
+
+LOOP ITERATION 2 OF 4
+This is a fresh agent context. Read the repository artifacts before acting.
+Continue from the current repository state; do not redo completed work.
+Do not run git commit or git push. The supervising human commits after the
+whole stage. End your final response with LOOP_COMPLETE only if this stage is
+fully complete and verified; otherwise end with LOOP_CONTINUE.
+
+codex
+I’ll first reconcile the reviewed specification, review notes, plan checkboxes, and current code. Then I’ll implement the next contiguous unchecked slice, test it, and record only verified evidence in the plan.
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-ChildItem -Force; rg --files -g "AGENTS.md" -g "docs/base-*.md" -g "!node_modules" -g "!venv"; git status --short' in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 757ms:
+
+
+    目录: C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         2026/7/11     22:25                .agents                                                              
+d--h--         2026/7/11     22:28                .git                                                                 
+d-----         2026/7/11     22:31                .venv                                                                
+d-----         2026/7/11     22:22                agent_prompts                                                        
+d-----         2026/7/11     22:32                campus_shop                                                          
+d-----         2026/7/11     22:25                docs                                                                 
+d-----         2026/7/11     22:33                loop_logs                                                            
+d-----         2026/7/11     22:32                tests                                                                
+-a----         2026/7/11     22:30             74 .gitignore                                                           
+-a----         2026/7/11     22:23           3142 loop_engineering.py                                                  
+-a----         2026/7/11     22:28           5789 prompts.txt                                                          
+-a----         2026/7/11     22:30            914 README.md                                                            
+-a----         2026/7/11     22:30             33 requirements.txt                                                     
+docs\base-specification.md
+docs\base-review.md
+docs\base-plan.md
+ M .gitignore
+ M docs/base-plan.md
+ M prompts.txt
+?? README.md
+?? campus_shop/
+?? loop_logs/base-build-codex-iteration-01.txt
+?? requirements.txt
+?? tests/
+
+
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-Content -Raw -Encoding UTF8 docs/base-specification.md; Get-Content -Raw -Encoding UTF8 docs/base-review.md; Get-Content -Raw -Encoding UTF8 docs/base-plan.md; rg --files campus_shop tests; Get-Content -Raw -Encoding UTF8 README.md; Get-Content -Raw -Encoding UTF8 requirements.txt' in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 649ms:
+# Campus Mini Shop: Base System Specification
+
+## 1. Purpose
+
+Campus Mini Shop is a small, locally run shopping website for common campus supplies. The base system demonstrates a complete but intentionally limited shopping flow: a visitor can browse products, inspect one product, place products in a temporary cart, change cart quantities, remove products, and see the current subtotal.
+
+The base system is designed for a teaching assignment. It must be easy for a teaching assistant to install, run, understand, and test on a local computer. It does not attempt to provide accounts, checkout, payment, order processing, or production e-commerce features.
+
+## 2. Personas
+
+### 2.1 Student shopper
+
+A student who wants to browse inexpensive campus supplies and assemble a temporary shopping cart. The student does not need to create an account or provide personal information.
+
+### 2.2 Teaching assistant
+
+A reviewer who installs the project locally, starts the Flask application, follows the user flow, and runs automated tests to verify that the documented requirements are satisfied.
+
+## 3. Base-System User Flow
+
+1. The visitor opens the product-list page.
+2. The visitor browses the seeded products.
+3. The visitor opens a product-detail page.
+4. The visitor adds one or more units of a product to the cart.
+5. The visitor opens the cart and may update quantities or remove items.
+6. The system recalculates and displays the cart subtotal.
+
+The cart is temporary and belongs only to the visitor's current Flask session. The flow ends at the cart; there is no checkout in the base system.
+
+## 4. Functional Requirements
+
+### FR-1: Browse products
+
+- The home page must display all seeded products that are available in the SQLite database.
+- Each product listing must show at least its name, price, category, and a link to its detail page.
+- Prices must be displayed as currency with exactly two decimal places.
+- The product list must be useful without client-side JavaScript.
+
+### FR-2: View product details
+
+- A visitor must be able to open a detail page for any existing product.
+- The detail page must show the product's name, description, category, price, and image reference or local placeholder presentation.
+- Requesting a product ID that does not exist must return an HTTP 404 response with an understandable page or message.
+
+### FR-3: Add a product to the cart
+
+- A visitor must be able to add an existing product to the session cart from the product-detail page.
+- The add action must accept a positive whole-number quantity and must default to one when the quantity field is left empty.
+- Adding a product that is already in the cart must increase that product's quantity rather than create a duplicate cart line.
+- An invalid quantity must leave the cart unchanged and return an understandable validation response with HTTP status 400.
+- A nonexistent product ID must leave the cart unchanged and return HTTP status 404.
+- After a successful add action, the visitor must be redirected to the cart page.
+
+### FR-4: View the cart
+
+- The cart page must display every product currently stored in the session cart.
+- Each cart line must show the product name, unit price, quantity, and line total.
+- An empty cart must display a clear empty-state message rather than an error or blank table.
+- Cart data must persist across requests within the same browser session.
+
+### FR-5: Update cart quantities
+
+- A visitor must be able to replace a cart line's quantity with a positive whole number.
+- After an update, the cart line total and subtotal must reflect the new quantity.
+- Invalid values, including non-numeric, fractional, zero, negative, and missing quantities, must leave the existing cart quantity unchanged and return an understandable validation response with HTTP status 400.
+
+### FR-6: Remove cart items
+
+- A visitor must be able to remove an individual product from the cart.
+- Removing one product must not change other cart lines.
+- Attempting to remove a product that is not in the cart must leave the cart unchanged and redirect to the cart page without a server error.
+
+### FR-7: Calculate and display subtotal
+
+- The cart page must display a subtotal equal to the sum of each unit price multiplied by its quantity.
+- The subtotal and line totals must be displayed as currency with exactly two decimal places.
+- The server must calculate authoritative totals from current database prices and session quantities; totals submitted by the browser must not be trusted.
+- An empty cart must have a subtotal of `$0.00`.
+
+### FR-8: Basic navigation and feedback
+
+- Every main page must provide clear navigation to the product list and cart.
+- State-changing form submissions must use POST requests.
+- Successful add, update, and remove actions must show a brief confirmation message after redirecting to the cart.
+- Validation errors must show an understandable message in the HTTP 400 response.
+
+## 5. Data Requirements
+
+### 5.1 Product data
+
+Products must be stored in SQLite and seeded so that a fresh local installation has products to browse. Each product must contain:
+
+| Field | Requirement |
+|---|---|
+| `id` | Unique integer identifier and primary key |
+| `name` | Required, human-readable product name |
+| `description` | Required short product description |
+| `category` | Required category label |
+| `price_cents` | Required positive integer price in cents |
+| `image` | Optional local image path or placeholder identifier |
+
+The seed data must contain at least six distinct campus-related products and at least two categories. Seed prices must be positive.
+
+### 5.2 Cart data
+
+- The cart must be stored in the Flask session, not in a database table.
+- The session cart should map product identifiers to positive whole-number quantities.
+- Product names and prices must be loaded from SQLite when rendering totals so that stale client data is not treated as authoritative.
+- No personally identifying information may be collected for the base system.
+
+### 5.3 Monetary calculations
+
+- Monetary values must be stored and calculated as integer cents to avoid floating-point rounding errors.
+- Currency formatting must occur only when values are presented to the user.
+
+## 6. Acceptance Criteria
+
+The base system is accepted when all of the following observable checks pass:
+
+1. Starting with a fresh database shows at least six seeded products across at least two categories on the product-list page.
+2. Selecting a product opens a detail page containing the correct name, description, category, and two-decimal price.
+3. Requesting an unknown product detail returns HTTP 404 rather than HTTP 500.
+4. Adding one unit of a product creates one cart line with quantity one and the correct line total.
+5. Adding the same product again increases its existing quantity and does not create a duplicate line.
+6. Adding a second product preserves the first product and shows two distinct cart lines.
+7. Updating a quantity to a positive whole number updates both the line total and subtotal.
+8. Invalid add quantities return HTTP 400 without changing the cart; invalid update quantities return HTTP 400 without changing the existing quantity.
+9. Removing one cart item removes only that item and recalculates the subtotal.
+10. An empty cart displays a clear message and a subtotal of `$0.00`.
+11. Refreshing or navigating between pages within the same browser session preserves cart contents.
+12. A successful add, update, or remove redirects to the cart and displays a confirmation message.
+13. Adding an unknown product returns HTTP 404 without changing the cart, and removing a product that is absent leaves the cart unchanged without a server error.
+14. Automated pytest coverage verifies the main product, cart, validation, subtotal, feedback, and 404 behaviors.
+15. The documented local setup and test commands work from a clean project checkout.
+
+## 7. Nonfunctional Constraints
+
+### 7.1 Required technology
+
+- Python and Flask for the web application.
+- SQLite for persistent product data.
+- Server-rendered HTML templates and CSS for the interface.
+- Minimal JavaScript only where it improves usability; core flows must work without it.
+- pytest for automated tests.
+
+### 7.2 Simplicity and maintainability
+
+- The project must run locally without a separate database server or external service.
+- A fresh checkout must provide one documented command that creates and seeds the SQLite database safely; running that initialization command again must not duplicate products.
+- Application structure, route names, templates, and tests must be understandable to a student familiar with introductory Python and web concepts.
+- Configuration suitable for local development and testing must be separated where practical.
+- Repeated business logic, especially cart validation and total calculation, should be centralized rather than copied between routes.
+
+### 7.3 Usability and accessibility
+
+- Pages must use clear headings, labels, buttons, and navigation.
+- Forms must have associated labels and understandable validation messages.
+- The layout must remain usable at common desktop and mobile viewport widths.
+- Color must not be the only way important information is communicated.
+
+### 7.4 Reliability and security boundaries
+
+- User-supplied quantities and route identifiers must be validated on the server.
+- Templates must use Flask/Jinja escaping rather than rendering untrusted HTML as safe.
+- A development secret key may be configured locally, but no real credentials or secrets may be committed.
+- The application must respond predictably to invalid product IDs and malformed cart input without an uncaught server error.
+
+### 7.5 Testability and reproducibility
+
+- Tests must use an isolated temporary database and test client/session where appropriate.
+- Tests must not depend on network access, test order, or a user's existing local database.
+- Setup, run, and test instructions must require only a small number of documented commands.
+
+## 8. Explicit Exclusions from the Base System
+
+The following features are outside the base-system scope and must not be implemented in this stage:
+
+- User registration, login, profiles, or role-based access.
+- Real or simulated payment.
+- Checkout forms, shipping details, order placement, order confirmation, or order persistence.
+- Product search, category filtering controls, or sorting controls.
+- Administrative product, inventory, or order management.
+- Inventory reservation, stock decrementing, or concurrent stock handling.
+- Coupons, tax, shipping fees, recommendations, reviews, ratings, or wish lists.
+- Email, SMS, notifications, analytics, or external APIs.
+- Cloud hosting, deployment automation, containers, or production infrastructure.
+
+Search, category filtering, simulated checkout, and order persistence may be considered only as a separately specified extension after the base system has been completed and verified.
+
+## 9. Stage-Completion Checklist
+
+The base specification stage is complete only when:
+
+- [x] Purpose and intended personas are documented.
+- [x] The end-to-end base user flow is documented.
+- [x] Each required base feature has a numbered functional requirement.
+- [x] Product, cart, and monetary data rules are unambiguous.
+- [x] Acceptance criteria are observable and testable.
+- [x] Technology, usability, reliability, and testing constraints are recorded.
+- [x] Excluded features clearly prevent extension work from entering the base stage.
+- [x] A separate reviewer has checked this specification for ambiguity, missing cases, and unnecessary complexity.
+- [x] Any approved review corrections have been incorporated before implementation planning begins.
+
+# Base System Specification Review
+
+## Review scope
+
+This review checks `docs/base-specification.md` against the Assignment 4 instructions and the project goal of producing a small, locally reproducible interactive application. It covers only the base system. No extension design or implementation is approved by this review.
+
+## Must Fix
+
+### 1. Invalid-input behavior allowed multiple incompatible implementations
+
+**Finding:** FR-3 and FR-5 previously said invalid quantities could be “rejected or handled,” without defining a response status or whether the existing cart should change. Different implementation iterations could therefore satisfy the wording while behaving differently, and tests would not have one expected result.
+
+**Correction applied:** Invalid add and update quantities now return an understandable HTTP 400 response. An invalid add leaves the cart unchanged, and an invalid update preserves the existing quantity. The acceptance criteria now state these observable outcomes.
+
+### 2. Successful-add destination was not deterministic
+
+**Finding:** FR-3 allowed a redirect to the cart or to the originating page. This made the required user flow and test expectations ambiguous.
+
+**Correction applied:** A successful add now redirects to the cart. Successful add, update, and remove operations must display brief confirmation feedback there.
+
+### 3. Fresh-database setup was not sufficiently reproducible
+
+**Finding:** The specification required seeded products and clean-checkout instructions but did not explicitly require a safe, repeatable database-initialization command. A TA could encounter missing data or duplicated seed rows when following setup instructions more than once.
+
+**Correction applied:** The reproducibility constraints now require one documented, idempotent initialization command that creates and seeds SQLite without duplicating products.
+
+## Should Fix
+
+### 1. Product-list add behavior increased scope without an acceptance check
+
+**Finding:** FR-3 allowed adding from the product list or detail page. The phrase did not clearly require one location or both, while the documented flow already sends the visitor through product details. Supporting list-page quantity forms would add interface and validation work without strengthening the base-system demonstration.
+
+**Correction applied:** The required add form is now limited to the product-detail page. An implementation may later add another entry point only if it does not alter the specified behavior, but it is not part of base acceptance.
+
+### 2. Missing and unknown cart actions needed explicit outcomes
+
+**Finding:** The original text required safe handling but did not say what the user or tests should observe.
+
+**Correction applied:** Adding an unknown product now returns HTTP 404 without changing the cart. Removing a product absent from the cart leaves the cart unchanged and redirects normally to the cart. These cases were added to acceptance criteria.
+
+## Accepted
+
+### Assignment structure
+
+The base specification is appropriate for the first of the assignment's two required steps. It can be completed through separate specification, review, planning, and build stages, with a repository commit after each stage. Loop use belongs in a later planning or build stage and is not incorrectly claimed in this document.
+
+### Nontrivial but controlled scope
+
+The product database, server-rendered pages, session cart, server-side validation, and automated tests constitute a small interactive backend. The campus theme, original seed data, and project-specific implementation keep this from being an exact copy of a classroom example. Accounts, checkout, payment, search, filtering, and order persistence are correctly excluded from the base step.
+
+### Technology and reproducibility
+
+Flask, SQLite, server-rendered templates, and pytest are suitable for a TA to run locally without network services. Integer-cent price storage and an isolated test database reduce avoidable implementation and testing problems.
+
+### Testability
+
+The revised acceptance criteria cover the central happy paths and failure paths: seeded products, details, 404 handling, cart accumulation, session persistence, quantity validation, subtotal calculation, feedback, removal, and clean-checkout setup.
+
+## Review decision
+
+**Approved for planning.** All Must Fix findings and the narrowly scoped Should Fix findings have been incorporated into `docs/base-specification.md`. The base scope remains intentionally limited, and extension features must remain deferred until the base system has been implemented, tested, and committed as its own step.
+
+# Campus Mini Shop Base Implementation Plan
+
+## Planning status and iteration note
+
+Iteration 1 created this plan after reviewing `docs/base-specification.md`,
+`docs/base-review.md`, the planning-loop artifacts, and the repository contents.
+Iteration 2 re-read those artifacts and critically checked the complete plan
+against all 15 acceptance criteria and the current repository, which still has
+no application code. This iteration clarified deterministic validation order,
+safe handling of an update for a missing cart line, and exclusion of generated
+local artifacts; no extension work was introduced. The plan incorporates every
+approved correction from the review: deterministic cart redirects, HTTP 400
+responses that preserve cart state, explicit unknown/absent-product behavior,
+and repeatable database initialization. All implementation checkboxes remain
+intentionally unchecked for the build stage.
+
+## Scope boundary
+
+Implement only the reviewed base flow: browse seeded products, view a product,
+add it to a session cart, view the cart, update quantities, remove lines, and
+display authoritative totals. Do not add accounts, checkout, payment, orders,
+search, filtering, sorting, administration, inventory handling, coupons, tax,
+shipping, reviews, recommendations, notifications, analytics, external APIs,
+deployment, containers, or other extension work.
+
+## Target project structure
+
+```text
+campus-mini-shop/
+├── campus_shop/
+│   ├── __init__.py          # create_app and local/test configuration
+│   ├── db.py                # SQLite connection, teardown, init-db command
+│   ├── schema.sql           # products table and idempotent seed statements
+│   ├── shop.py              # catalog/cart routes and shared cart helpers
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── products.html
+│   │   ├── product_detail.html
+│   │   ├── cart.html
+│   │   └── error.html
+│   └── static/
+│       └── style.css
+├── tests/
+│   ├── conftest.py
+│   ├── test_database.py
+│   ├── test_products.py
+│   └── test_cart.py
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
+
+Keep application logic in this single small package. A separate model layer,
+ORM, JavaScript bundle, database migration framework, and API are unnecessary
+for the base scope.
+
+## Fixed implementation decisions
+
+### Application and database
+
+- `create_app(test_config=None)` creates the Flask application, sets an
+  instance-local default database path such as `instance/campus_shop.sqlite`,
+  and reads a development secret from an environment variable with a clearly
+  non-production local fallback. Tests pass an isolated `TESTING`, `DATABASE`,
+  and `SECRET_KEY` configuration.
+- `db.py` opens one `sqlite3` connection per request through `flask.g`, uses
+  `sqlite3.Row`, closes it at teardown, and registers `flask init-db`.
+- `schema.sql` uses `CREATE TABLE IF NOT EXISTS product` with `id INTEGER
+  PRIMARY KEY`, required name/description/category, positive integer
+  `price_cents`, and nullable image. Seed at least six distinct campus products
+  in at least two categories with stable IDs and `INSERT OR IGNORE` (or an
+  equivalent unique-key upsert) so rerunning initialization never duplicates
+  them or destroys existing data.
+- Store and calculate all prices and totals as integer cents. A shared Jinja
+  filter/helper formats cents as `$0.00`; routes never accept browser-provided
+  prices or totals.
+
+### Session cart and shared behavior
+
+- Store the cart under `session["cart"]` as a JSON-serializable mapping of
+  string product IDs to positive integers, for example `{"1": 2, "4": 1}`.
+  Reassign the mapping to the session after each mutation so Flask persists it.
+- A shared quantity parser accepts only base-10 whole-number text greater than
+  zero. For add only, a missing form field or a value empty after trimming
+  defaults to `1`. For update, missing or empty is invalid. Non-numeric,
+  fractional, signed, zero, and negative values are invalid.
+- Validate the database product and the submitted quantity before copying and
+  mutating the cart. On add, check product existence first so an unknown ID
+  deterministically produces 404 even if its submitted quantity is also bad;
+  otherwise invalid quantities produce 400 without partial session changes.
+  Invalid update input likewise leaves the old quantity unchanged. An update
+  for a product ID that has no current cart line returns an understandable 404
+  without changing the cart.
+- A shared cart-loading helper fetches current product rows for the IDs in the
+  session, combines them with session quantities, and computes each line total
+  and the subtotal in cents. Product names, categories, descriptions, prices,
+  and totals never come from form input or copied session metadata.
+- Render an understandable `error.html` response for 400 and 404 cases, with
+  main navigation intact. Jinja autoescaping remains enabled; do not mark user
+  input as safe.
+
+### Routes and observable responses
+
+| Method and path | Endpoint behavior |
+|---|---|
+| `GET /` | Query all products in stable ID order and render `products.html`. |
+| `GET /products/<int:product_id>` | Render all required product fields and the labeled add form; return understandable 404 if absent. |
+| `GET /cart` | Render database-backed cart lines, line totals, subtotal, mutation forms, or a clear empty state plus `$0.00`. |
+| `POST /cart/add/<int:product_id>` | Validate product and add quantity, accumulate an existing line, flash confirmation, and redirect to `GET /cart`. |
+| `POST /cart/update/<int:product_id>` | Require an existing cart line and valid quantity, replace it, flash confirmation, and redirect to `GET /cart`; malformed input returns 400 unchanged, while a missing cart line returns 404 unchanged. |
+| `POST /cart/remove/<int:product_id>` | Remove only that key if present. Always redirect to `GET /cart`; flash confirmation only when a line was actually removed, and handle an absent line without error. |
+
+All state changes are POST-only. Flask's default method handling should reject
+GET requests to mutation URLs. `base.html` supplies links to Products and Cart,
+renders flashed feedback as text (not color alone), and provides the page shell.
+Forms have associated labels. CSS should provide a simple responsive layout
+that remains usable on mobile and desktop without JavaScript. The image field
+is presented as a local reference when supplied and as a clearly labeled local
+placeholder when absent; no remote image service is introduced.
+
+## Ordered implementation groups
+
+Each group is a coherent handoff unit. Complete and verify a group before a
+fresh agent starts the next one.
+
+### Group 1 — Reproducible skeleton and product database
+
+- [x] **G1.1** Add explicit compatible Flask and pytest version constraints to
+  `requirements.txt`, plus concise clean-checkout setup, initialization, run,
+  and test instructions in `README.md`; add `.gitignore` entries for `.venv`,
+  Flask instance data, SQLite files, Python caches, and pytest caches.
+- [ ] **G1.2** Create the application factory and configuration described above,
+  including automatic creation of the instance directory and test overrides.
+- [x] **G1.3** Implement the request-scoped SQLite helpers, teardown hook, schema,
+  stable seed data (six or more products and two or more categories), and the
+  idempotent `init-db` CLI command.
+- [ ] **G1.4** Add `tests/conftest.py` fixtures that build a fresh temporary
+  SQLite database for each test, initialize it through application code, and
+  expose an isolated Flask test client/database connection without network or
+  test-order dependencies.
+- [ ] **G1.5** Add database tests proving required columns/data constraints,
+  positive seed prices, seed counts/categories, and unchanged product count and
+  IDs after invoking initialization twice.
+
+#### Group 1 iteration 1 verification evidence
+
+- Added the Group 1 application factory, database module/schema, isolated test
+  fixtures, database tests, dependency constraints, local instructions, and
+  generated-artifact exclusions. `python -m compileall -q campus_shop tests`
+  completed successfully.
+- Executed `schema.sql` twice against a temporary SQLite database: both runs
+  produced the same six stable product rows, spanning three categories with
+  positive prices and the required columns.
+- `git diff --check` passed. The pytest run could not start because this
+  sandbox has neither Flask nor pytest installed, and dependency installation
+  was blocked by restricted network access. G1.2, G1.4, and G1.5 therefore
+  remain unchecked until the automated suite runs successfully.
+
+### Group 2 — Catalog pages, navigation, and presentation
+
+- [ ] **G2.1** Implement `GET /` and `GET /products/<int:product_id>` using
+  parameterized SQLite queries and stable product ordering.
+- [ ] **G2.2** Add the shared base, product-list, product-detail, and error
+  templates with escaped output, required fields, exact two-decimal currency,
+  labeled controls, Products/Cart navigation, and local image placeholder
+  behavior.
+- [ ] **G2.3** Add minimal responsive CSS and confirm the catalog/detail flow
+  remains complete with JavaScript disabled and does not rely on color alone.
+- [ ] **G2.4** Add product tests for all seeded listings and fields, correct
+  detail data and price formatting, valid detail links/navigation, and an
+  understandable HTTP 404 response for an unknown product; assert Products and
+  Cart navigation is present on list, detail, and error responses.
+
+### Group 3 — Cart read/add flow and authoritative totals
+
+- [ ] **G3.1** Implement the centralized quantity parser, session-cart access,
+  current-product lookup, cart-line construction, integer-cent total
+  calculation, and currency formatting helpers.
+- [ ] **G3.2** Implement `GET /cart`, including current database unit prices,
+  quantities, line totals, subtotal, and the explicit empty state with `$0.00`.
+- [ ] **G3.3** Implement the detail-page add form and
+  `POST /cart/add/<int:product_id>` with empty-as-one behavior, accumulation,
+  POST/redirect/GET, and flashed success feedback.
+- [ ] **G3.4** Implement add validation so non-numeric, fractional, signed, zero,
+  and negative quantities return an understandable HTTP 400 and do not mutate
+  the cart; check existence first so an unknown product returns 404 and also
+  leaves it unchanged even when the submitted quantity is invalid.
+- [ ] **G3.5** Add cart tests for empty state, default/explicit quantity adds,
+  duplicate accumulation without duplicate HTML lines, two distinct products,
+  correct integer-cent line/subtotal rendering, current database price
+  authority, redirect/flash behavior, invalid add cases, unknown add, POST-only
+  mutation, cart-page navigation, and persistence across requests with one
+  client session. Every invalid/unknown case must assert response status,
+  understandable message, and unchanged session state.
+
+### Group 4 — Update/remove flow and regression completion
+
+- [ ] **G4.1** Add labeled update and remove forms to each cart line and implement
+  `POST /cart/update/<int:product_id>` so a valid positive whole number replaces
+  the existing quantity and redirects with confirmation; an ID with no current
+  cart line returns an understandable 404 without changing the cart.
+- [ ] **G4.2** Reject missing, empty, non-numeric, fractional, signed, zero, and
+  negative update quantities with an understandable HTTP 400 while preserving
+  the prior session quantity.
+- [ ] **G4.3** Implement `POST /cart/remove/<int:product_id>` so only the selected
+  line is removed, totals recalculate, successful removal redirects with
+  confirmation, and removal of an absent key redirects without error or changes.
+- [ ] **G4.4** Add update/remove tests covering valid recalculation, every invalid
+  update class and state preservation, a missing update line returning 404
+  unchanged, removal isolation, absent removal, confirmation feedback, redirect
+  destinations, and POST-only methods; 400 and 404 cases must assert an
+  understandable message as well as status and unchanged state.
+- [ ] **G4.5** Run the full suite from a newly initialized local database, perform
+  the documented browser smoke flow, and correct only base-scope defects found.
+
+## Acceptance-criterion traceability
+
+Every numbered criterion in the reviewed specification maps to implementation
+and pytest work below. Test names are targets; minor naming changes are allowed
+only if equivalent coverage remains obvious.
+
+| AC | Concrete implementation task(s) | Concrete pytest task(s) |
+|---:|---|---|
+| 1 | G1.3 seeds six or more products in two or more categories; G2.1/G2.2 list every database product. | G1.5 `test_seed_data_is_complete` and G2.4 `test_product_list_shows_all_seeded_products`. |
+| 2 | G2.1/G2.2 render the selected product's name, description, category, and formatted price. | G2.4 `test_product_detail_shows_correct_fields_and_price`. |
+| 3 | G2.1/G2.2 return an understandable 404 for an unknown detail ID. | G2.4 `test_unknown_product_detail_returns_404`. |
+| 4 | G3.2/G3.3 create one session line, default add quantity to one, and calculate its line total. | G3.5 `test_add_defaults_to_one_and_shows_correct_total`. |
+| 5 | G3.3 increments the existing session-map entry rather than appending a line. | G3.5 `test_repeated_add_accumulates_single_line`. |
+| 6 | G3.3 preserves other keys when adding a new product. | G3.5 `test_add_second_product_preserves_first`. |
+| 7 | G4.1 replaces quantity; G3.1/G3.2 recalculate line and subtotal from cents. | G4.4 `test_update_quantity_recalculates_line_and_subtotal`. |
+| 8 | G3.4 and G4.2 validate before mutation and return 400 with a message. | G3.5 parametrized `test_invalid_add_keeps_cart`; G4.4 parametrized `test_invalid_update_keeps_quantity`, including missing, empty, text, fraction, signed, zero, and negative inputs as applicable. |
+| 9 | G4.3 removes only the requested key and reuses authoritative total calculation. | G4.4 `test_remove_one_item_preserves_other_and_recalculates`. |
+| 10 | G3.2 renders a clear empty message and `$0.00`. | G3.5 `test_empty_cart_message_and_zero_subtotal`. |
+| 11 | G3.1 stores only the cart mapping in Flask session and reuses it across requests. | G3.5 `test_cart_persists_across_navigation_and_refresh`. |
+| 12 | G3.3, G4.1, and G4.3 use redirects to `/cart` and flash success messages. | G3.5 `test_successful_add_redirects_and_flashes`; G4.4 `test_successful_update_redirects_and_flashes` and `test_successful_remove_redirects_and_flashes`. |
+| 13 | G3.4 returns 404 before mutation for unknown add; G4.3 makes absent removal a safe no-op redirect. | G3.5 `test_unknown_add_returns_404_and_keeps_cart`; G4.4 `test_remove_absent_item_redirects_and_keeps_cart`. |
+| 14 | G1.4 plus G1.5, G2.4, G3.5, and G4.4 provide isolated database, product, cart, validation, subtotal, feedback, and 404 coverage. | G4.5 runs the full pytest suite; test files must collectively exercise every behavior listed in AC 1–13. |
+| 15 | G1.1 documents and G1.2/G1.3 implement clean setup and idempotent initialization. | G1.5 tests repeat initialization; G4.5 executes the exact clean-checkout commands and smoke check below. |
+
+## Exact local verification commands
+
+Run these commands from the repository root in PowerShell. The database
+initialization command is deliberately safe to run more than once.
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m flask --app campus_shop init-db
+.\.venv\Scripts\python.exe -m flask --app campus_shop init-db
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m flask --app campus_shop run --debug
+```
+
+After the final command, use `http://127.0.0.1:5000/` for a manual smoke test:
+browse at least two products; open a detail; add with blank and explicit
+quantities; confirm accumulation and session persistence; add a second item;
+try invalid add/update values and confirm existing state remains; update a
+valid quantity; remove one line; remove all lines; and confirm the final empty
+message and `$0.00` subtotal. Stop the development server with `Ctrl+C`.
+
+## Definition of Done
+
+- [ ] Only the reviewed base scope is implemented; no excluded extension is
+  present.
+- [ ] Groups 1–4 are complete and all acceptance criteria 1–15 have both the
+  mapped implementation and automated coverage shown above.
+- [ ] A fresh checkout can install dependencies, initialize a database, and
+  start the application using the documented commands.
+- [ ] Running `init-db` twice succeeds and does not duplicate or erase seeded
+  products.
+- [ ] `.\.venv\Scripts\python.exe -m pytest -q` passes with an isolated
+  temporary database, no
+  network access, no ordering dependency, and coverage of happy and failure
+  paths.
+- [ ] The manual browser flow works without JavaScript at desktop and mobile
+  widths, with clear navigation, labels, feedback, error messages, and escaped
+  content.
+- [ ] All cart mutations use POST; successful mutations redirect to the cart;
+  invalid quantities preserve state and return 400; required unknown IDs return
+  404; absent removal is a safe redirect.
+- [ ] Cart line totals and subtotal are calculated from current SQLite prices
+  and positive session quantities in integer cents and display with exactly two
+  decimal places.
+- [ ] No real credential, personal information, generated local database,
+  virtual environment, cache, or other machine-specific artifact is committed.
+
+tests\test_database.py
+tests\conftest.py
+campus_shop\schema.sql
+campus_shop\db.py
+campus_shop\__init__.py
+# Campus Mini Shop
+
+Campus Mini Shop is a small Flask application for browsing campus supplies and
+building a temporary session cart. The base system runs entirely on a local
+computer with SQLite; it does not include accounts, checkout, orders, or
+payment.
+
+## Local setup
+
+From the repository root in PowerShell:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m flask --app campus_shop init-db
+.\.venv\Scripts\python.exe -m flask --app campus_shop run --debug
+```
+
+Open `http://127.0.0.1:5000/` after the server starts. The `init-db` command is
+safe to run again: it creates any missing schema and seed rows without
+duplicating or deleting existing products.
+
+## Tests
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q
+```
+
+Tests use a fresh temporary SQLite database and do not modify the local
+development database in `instance/`.
+
+Flask>=3.0,<4.0
+pytest>=8.0,<9.0
+
+
+codex
+The repository contains Group 1 work from iteration 1, but three checkboxes were deliberately left open because pytest could not run then. I’m checking that implementation first; if the existing local environment now supports it, I’ll verify and close Group 1 before moving into the next coherent group.
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw -Encoding UTF8 campus_shop/__init__.py; Get-Content -Raw -Encoding UTF8 campus_shop/db.py; Get-Content -Raw -Encoding UTF8 campus_shop/schema.sql; Get-Content -Raw -Encoding UTF8 tests/conftest.py; Get-Content -Raw -Encoding UTF8 tests/test_database.py; Get-Content -Raw -Encoding UTF8 .gitignore; .\\.venv\\Scripts\\python.exe -m pytest -q" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+2026-07-12T02:33:40.329094Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+import os
+
+from flask import Flask
+
+
+def create_app(test_config=None):
+    """Create and configure the Campus Mini Shop application."""
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(
+        DATABASE=os.path.join(app.instance_path, "campus_shop.sqlite"),
+        SECRET_KEY=os.environ.get(
+            "CAMPUS_SHOP_SECRET_KEY", "dev-only-change-this-secret"
+        ),
+    )
+
+    if test_config is not None:
+        app.config.from_mapping(test_config)
+
+    os.makedirs(app.instance_path, exist_ok=True)
+
+    from . import db
+
+    db.init_app(app)
+
+    return app
+
+import sqlite3
+
+import click
+from flask import current_app, g
+
+
+def get_db():
+    """Return the request-local SQLite connection."""
+    if "db" not in g:
+        g.db = sqlite3.connect(
+            current_app.config["DATABASE"],
+            detect_types=sqlite3.PARSE_DECLTYPES,
+        )
+        g.db.row_factory = sqlite3.Row
+
+    return g.db
+
+
+def close_db(error=None):
+    """Close the request-local connection, if one was opened."""
+    db = g.pop("db", None)
+
+    if db is not None:
+        db.close()
+
+
+def init_db():
+    """Create missing tables and insert any missing stable seed rows."""
+    db = get_db()
+
+    with current_app.open_resource("schema.sql") as schema_file:
+        db.executescript(schema_file.read().decode("utf-8"))
+
+
+@click.command("init-db")
+def init_db_command():
+    """Create the database schema and seed the catalog."""
+    init_db()
+    click.echo("Initialized the database.")
+
+
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
+
+CREATE TABLE IF NOT EXISTS product (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    category TEXT NOT NULL,
+    price_cents INTEGER NOT NULL CHECK (price_cents > 0),
+    image TEXT
+);
+
+INSERT OR IGNORE INTO product
+    (id, name, description, category, price_cents, image)
+VALUES
+    (1, 'Campus Notebook', 'A ruled notebook for lectures and study sessions.', 'Study Supplies', 499, NULL),
+    (2, 'Black Ink Pen Set', 'A set of three smooth-writing black ink pens.', 'Study Supplies', 349, NULL),
+    (3, 'Pastel Highlighters', 'Four pastel highlighters for notes and textbooks.', 'Study Supplies', 599, NULL),
+    (4, 'Reusable Water Bottle', 'A lightweight bottle for days around campus.', 'Campus Essentials', 1299, NULL),
+    (5, 'Canvas Book Tote', 'A sturdy canvas tote for books and daily supplies.', 'Campus Essentials', 1499, NULL),
+    (6, 'USB-C Charging Cable', 'A one-metre cable for compatible phones and laptops.', 'Tech Accessories', 899, NULL);
+
+import pytest
+
+from campus_shop import create_app
+from campus_shop.db import get_db, init_db
+
+
+@pytest.fixture
+def app(tmp_path):
+    database_path = tmp_path / "test.sqlite"
+    app = create_app(
+        {
+            "TESTING": True,
+            "DATABASE": str(database_path),
+            "SECRET_KEY": "test-secret",
+        }
+    )
+
+    with app.app_context():
+        init_db()
+
+    yield app
+
+
+@pytest.fixture
+def client(app):
+    return app.test_client()
+
+
+@pytest.fixture
+def db(app):
+    with app.app_context():
+        connection = get_db()
+        yield connection
+
+
+@pytest.fixture
+def database_path(app):
+    return app.config["DATABASE"]
+
+import sqlite3
+from pathlib import Path
+
+import pytest
+
+from campus_shop.db import get_db
+
+
+EXPECTED_COLUMNS = {
+    "id": {"type": "INTEGER", "notnull": 0, "pk": 1},
+    "name": {"type": "TEXT", "notnull": 1, "pk": 0},
+    "description": {"type": "TEXT", "notnull": 1, "pk": 0},
+    "category": {"type": "TEXT", "notnull": 1, "pk": 0},
+    "price_cents": {"type": "INTEGER", "notnull": 1, "pk": 0},
+    "image": {"type": "TEXT", "notnull": 0, "pk": 0},
+}
+
+
+def test_product_schema_has_required_columns_and_constraints(db):
+    columns = {
+        row["name"]: {
+            "type": row["type"],
+            "notnull": row["notnull"],
+            "pk": row["pk"],
+        }
+        for row in db.execute("PRAGMA table_info(product)").fetchall()
+    }
+
+    assert columns == EXPECTED_COLUMNS
+
+    with pytest.raises(sqlite3.IntegrityError):
+        db.execute(
+            """
+            INSERT INTO product
+                (id, name, description, category, price_cents)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (99, "Invalid", "Invalid price test", "Test", 0),
+        )
+
+
+def test_seed_data_is_complete(db):
+    products = db.execute(
+        "SELECT id, name, description, category, price_cents FROM product ORDER BY id"
+    ).fetchall()
+
+    assert len(products) >= 6
+    assert len({product["id"] for product in products}) == len(products)
+    assert len({product["category"] for product in products}) >= 2
+    assert all(product["name"] for product in products)
+    assert all(product["description"] for product in products)
+    assert all(product["category"] for product in products)
+    assert all(product["price_cents"] > 0 for product in products)
+
+
+def test_init_db_command_is_idempotent(app):
+    with app.app_context():
+        before = get_db().execute(
+            "SELECT id, name, price_cents FROM product ORDER BY id"
+        ).fetchall()
+        before_values = [tuple(row) for row in before]
+
+    runner = app.test_cli_runner()
+    first_result = runner.invoke(args=["init-db"])
+    second_result = runner.invoke(args=["init-db"])
+
+    assert first_result.exit_code == 0
+    assert second_result.exit_code == 0
+    assert "Initialized the database." in second_result.output
+
+    with app.app_context():
+        after = get_db().execute(
+            "SELECT id, name, price_cents FROM product ORDER BY id"
+        ).fetchall()
+
+    assert [tuple(row) for row in after] == before_values
+
+
+def test_application_factory_uses_isolated_test_configuration(
+    app, database_path, tmp_path
+):
+    assert app.config["TESTING"] is True
+    assert app.config["SECRET_KEY"] == "test-secret"
+    assert Path(database_path).parent == tmp_path
+    assert Path(app.instance_path).is_dir()
+
+.venv/
+instance/
+*.sqlite
+*.sqlite3
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\.venv\Scripts\python.exe: No module named pytest
+
+ exited 1 in 631ms:
+import os
+
+from flask import Flask
+
+
+def create_app(test_config=None):
+    """Create and configure the Campus Mini Shop application."""
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(
+        DATABASE=os.path.join(app.instance_path, "campus_shop.sqlite"),
+        SECRET_KEY=os.environ.get(
+            "CAMPUS_SHOP_SECRET_KEY", "dev-only-change-this-secret"
+        ),
+    )
+
+    if test_config is not None:
+        app.config.from_mapping(test_config)
+
+    os.makedirs(app.instance_path, exist_ok=True)
+
+    from . import db
+
+    db.init_app(app)
+
+    return app
+
+import sqlite3
+
+import click
+from flask import current_app, g
+
+
+def get_db():
+    """Return the request-local SQLite connection."""
+    if "db" not in g:
+        g.db = sqlite3.connect(
+            current_app.config["DATABASE"],
+            detect_types=sqlite3.PARSE_DECLTYPES,
+        )
+        g.db.row_factory = sqlite3.Row
+
+    return g.db
+
+
+def close_db(error=None):
+    """Close the request-local connection, if one was opened."""
+    db = g.pop("db", None)
+
+    if db is not None:
+        db.close()
+
+
+def init_db():
+    """Create missing tables and insert any missing stable seed rows."""
+    db = get_db()
+
+    with current_app.open_resource("schema.sql") as schema_file:
+        db.executescript(schema_file.read().decode("utf-8"))
+
+
+@click.command("init-db")
+def init_db_command():
+    """Create the database schema and seed the catalog."""
+    init_db()
+    click.echo("Initialized the database.")
+
+
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
+
+CREATE TABLE IF NOT EXISTS product (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    category TEXT NOT NULL,
+    price_cents INTEGER NOT NULL CHECK (price_cents > 0),
+    image TEXT
+);
+
+INSERT OR IGNORE INTO product
+    (id, name, description, category, price_cents, image)
+VALUES
+    (1, 'Campus Notebook', 'A ruled notebook for lectures and study sessions.', 'Study Supplies', 499, NULL),
+    (2, 'Black Ink Pen Set', 'A set of three smooth-writing black ink pens.', 'Study Supplies', 349, NULL),
+    (3, 'Pastel Highlighters', 'Four pastel highlighters for notes and textbooks.', 'Study Supplies', 599, NULL),
+    (4, 'Reusable Water Bottle', 'A lightweight bottle for days around campus.', 'Campus Essentials', 1299, NULL),
+    (5, 'Canvas Book Tote', 'A sturdy canvas tote for books and daily supplies.', 'Campus Essentials', 1499, NULL),
+    (6, 'USB-C Charging Cable', 'A one-metre cable for compatible phones and laptops.', 'Tech Accessories', 899, NULL);
+
+import pytest
+
+from campus_shop import create_app
+from campus_shop.db import get_db, init_db
+
+
+@pytest.fixture
+def app(tmp_path):
+    database_path = tmp_path / "test.sqlite"
+    app = create_app(
+        {
+            "TESTING": True,
+            "DATABASE": str(database_path),
+            "SECRET_KEY": "test-secret",
+        }
+    )
+
+    with app.app_context():
+        init_db()
+
+    yield app
+
+
+@pytest.fixture
+def client(app):
+    return app.test_client()
+
+
+@pytest.fixture
+def db(app):
+    with app.app_context():
+        connection = get_db()
+        yield connection
+
+
+@pytest.fixture
+def database_path(app):
+    return app.config["DATABASE"]
+
+import sqlite3
+from pathlib import Path
+
+import pytest
+
+from campus_shop.db import get_db
+
+
+EXPECTED_COLUMNS = {
+    "id": {"type": "INTEGER", "notnull": 0, "pk": 1},
+    "name": {"type": "TEXT", "notnull": 1, "pk": 0},
+    "description": {"type": "TEXT", "notnull": 1, "pk": 0},
+    "category": {"type": "TEXT", "notnull": 1, "pk": 0},
+    "price_cents": {"type": "INTEGER", "notnull": 1, "pk": 0},
+    "image": {"type": "TEXT", "notnull": 0, "pk": 0},
+}
+
+
+def test_product_schema_has_required_columns_and_constraints(db):
+    columns = {
+        row["name"]: {
+            "type": row["type"],
+            "notnull": row["notnull"],
+            "pk": row["pk"],
+        }
+        for row in db.execute("PRAGMA table_info(product)").fetchall()
+    }
+
+    assert columns == EXPECTED_COLUMNS
+
+    with pytest.raises(sqlite3.IntegrityError):
+        db.execute(
+            """
+            INSERT INTO product
+                (id, name, description, category, price_cents)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (99, "Invalid", "Invalid price test", "Test", 0),
+        )
+
+
+def test_seed_data_is_complete(db):
+    products = db.execute(
+        "SELECT id, name, description, category, price_cents FROM product ORDER BY id"
+    ).fetchall()
+
+    assert len(products) >= 6
+    assert len({product["id"] for product in products}) == len(products)
+    assert len({product["category"] for product in products}) >= 2
+    assert all(product["name"] for product in products)
+    assert all(product["description"] for product in products)
+    assert all(product["category"] for product in products)
+    assert all(product["price_cents"] > 0 for product in products)
+
+
+def test_init_db_command_is_idempotent(app):
+    with app.app_context():
+        before = get_db().execute(
+            "SELECT id, name, price_cents FROM product ORDER BY id"
+        ).fetchall()
+        before_values = [tuple(row) for row in before]
+
+    runner = app.test_cli_runner()
+    first_result = runner.invoke(args=["init-db"])
+    second_result = runner.invoke(args=["init-db"])
+
+    assert first_result.exit_code == 0
+    assert second_result.exit_code == 0
+    assert "Initialized the database." in second_result.output
+
+    with app.app_context():
+        after = get_db().execute(
+            "SELECT id, name, price_cents FROM product ORDER BY id"
+        ).fetchall()
+
+    assert [tuple(row) for row in after] == before_values
+
+
+def test_application_factory_uses_isolated_test_configuration(
+    app, database_path, tmp_path
+):
+    assert app.config["TESTING"] is True
+    assert app.config["SECRET_KEY"] == "test-secret"
+    assert Path(database_path).parent == tmp_path
+    assert Path(app.instance_path).is_dir()
+
+.venv/
+instance/
+*.sqlite
+*.sqlite3
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\.venv\Scripts\python.exe: No module named pytest
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command ".\\.venv\\Scripts\\python.exe -m pip install -r requirements.txt" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+2026-07-12T02:33:55.263942Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 10.8 seconds
+Output:
+WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC08E2690>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+WARNING: Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC07AA990>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+WARNING: Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC08E3170>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+WARNING: Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC08E3380>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+WARNING: Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC08E3590>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+ERROR: Could not find a version that satisfies the requirement Flask<4.0,>=3.0 (from versions: none)
+ERROR: No matching distribution found for Flask<4.0,>=3.0
+
+ exited 1 in 10788ms:
+WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC08E2690>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+WARNING: Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC07AA990>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+WARNING: Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC08E3170>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+WARNING: Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC08E3380>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+WARNING: Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x0000018FC08E3590>: Failed to establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/flask/
+ERROR: Could not find a version that satisfies the requirement Flask<4.0,>=3.0 (from versions: none)
+ERROR: No matching distribution found for Flask<4.0,>=3.0
+
+codex
+The existing virtual environment is present but empty. Dependency installation is still running; while preserving the iteration boundary, I’ll use its result to decide whether Group 1 can now be formally verified and then proceed with the catalog group.
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "py -0p; py -m pytest --version; py -c \"import flask; print(flask.__version__)\"; Get-ChildItem -Path C:\\Users\\15272 -Directory -Force -ErrorAction SilentlyContinue | Where-Object { "'$_.Name -match '"'venv|conda|env' } | Select-Object -ExpandProperty FullName" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+2026-07-12T02:34:02.134590Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 1
++ py -0p; py -m pytest --version; py -c "import flask; print(flask.__ve ...
++ ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 9
++ py -0p; py -m pytest --version; py -c "import flask; print(flask.__ve ...
++         ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 33
++ py -0p; py -m pytest --version; py -c "import flask; print(flask.__ve ...
++                                 ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+ exited 1 in 1622ms:
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 1
++ py -0p; py -m pytest --version; py -c "import flask; print(flask.__ve ...
++ ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 9
++ py -0p; py -m pytest --version; py -c "import flask; print(flask.__ve ...
++         ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 33
++ py -0p; py -m pytest --version; py -c "import flask; print(flask.__ve ...
++                                 ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Command python -All | Select-Object -ExpandProperty Source; Get-ChildItem -Path C:\\ -Filter pytest.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 20 -ExpandProperty FullName; Get-ChildItem -Path C:\\ -Filter flask.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 20 -ExpandProperty FullName" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-Command python -All -ErrorAction SilentlyContinue | Format-List Source,Path; where.exe python 2>$null; where.exe pytest 2>$null; where.exe flask 2>$null' in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+2026-07-12T02:34:35.631947Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+
+ exited 1 in 1891ms:
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command ".\\.venv\\Scripts\\python.exe -m pip cache list | Select-String -Pattern 'Flask|pytest|click|jinja|werkzeug'" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 969ms:
+codex
+Network restrictions still prevent installing Flask/pytest, so I can’t honestly mark test-dependent tasks verified yet. I’m proceeding with Group 2 as the next coherent implementation slice, adding isolated catalog tests and keeping its checkboxes open unless I find a runnable environment or can otherwise execute the suite.
+apply patch
+patch: completed
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\campus_shop\__init__.py
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\campus_shop\shop.py
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\campus_shop\static\style.css
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\campus_shop\templates\base.html
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\campus_shop\templates\error.html
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\campus_shop\templates\product_detail.html
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\campus_shop\templates\products.html
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\tests\test_products.py
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "rg --files campus_shop tests; Get-Content -Raw -Encoding UTF8 campus_shop/shop.py; git diff --check; .\\.venv\\Scripts\\python.exe -m compileall -q campus_shop tests" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 897ms:
+tests\test_products.py
+tests\test_database.py
+tests\conftest.py
+campus_shop\__init__.py
+campus_shop\schema.sql
+campus_shop\db.py
+campus_shop\shop.py
+campus_shop\static\style.css
+campus_shop\templates\error.html
+campus_shop\templates\base.html
+campus_shop\templates\products.html
+campus_shop\templates\product_detail.html
+from flask import Blueprint, abort, render_template
+
+from .db import get_db
+
+
+bp = Blueprint("shop", __name__)
+
+
+def format_currency(cents):
+    """Format an integer number of cents without floating-point arithmetic."""
+    cents = int(cents)
+    dollars, remainder = divmod(cents, 100)
+    return f"${dollars}.{remainder:02d}"
+
+
+def get_product(product_id):
+    """Load one product or return an understandable not-found response."""
+    product = get_db().execute(
+        """
+        SELECT id, name, description, category, price_cents, image
+        FROM product
+        WHERE id = ?
+        """,
+        (product_id,),
+    ).fetchone()
+
+    if product is None:
+        abort(404, description="The requested product was not found.")
+
+    return product
+
+
+@bp.get("/")
+def product_list():
+    products = get_db().execute(
+        """
+        SELECT id, name, description, category, price_cents, image
+        FROM product
+        ORDER BY id
+        """
+    ).fetchall()
+    return render_template("products.html", products=products)
+
+
+@bp.get("/products/<int:product_id>")
+def product_detail(product_id):
+    return render_template("product_detail.html", product=get_product(product_id))
+
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/base-plan.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prompts.txt', LF will be replaced by CRLF the next time Git touches it
+
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$paths = @('"'C:\\Users\\15272\\AppData\\Local\\Programs\\Python','C:\\ProgramData\\anaconda3','C:\\Users\\15272\\anaconda3','C:\\Users\\15272\\miniconda3','C:\\ProgramData\\miniconda3'); foreach ("'$path in $paths) { if (Test-Path -LiteralPath $path) { Get-ChildItem -LiteralPath $path -Recurse -Filter python.exe -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName } }' in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 8032ms:
+C:\Users\15272\miniconda3\python.exe
+C:\Users\15272\miniconda3\envs\MachineLearning_Experiment_1\python.exe
+C:\Users\15272\miniconda3\envs\MachineLearning_Experiment_1\Lib\venv\scripts\nt\python.exe
+C:\Users\15272\miniconda3\envs\qmt_py310\python.exe
+C:\Users\15272\miniconda3\envs\qmt_py310\Lib\venv\scripts\nt\python.exe
+C:\Users\15272\miniconda3\envs\qmt_py311\python.exe
+C:\Users\15272\miniconda3\envs\qmt_py311\Lib\venv\scripts\nt\python.exe
+C:\Users\15272\miniconda3\envs\qmt_py38\python.exe
+C:\Users\15272\miniconda3\envs\实验1\python.exe
+C:\Users\15272\miniconda3\envs\实验1\Lib\venv\scripts\nt\python.exe
+C:\Users\15272\miniconda3\Lib\venv\scripts\nt\python.exe
+C:\Users\15272\miniconda3\pkgs\python-3.10.20-hb00fc5c_1\python.exe
+C:\Users\15272\miniconda3\pkgs\python-3.10.20-hb00fc5c_1\Lib\venv\scripts\nt\python.exe
+C:\Users\15272\miniconda3\pkgs\python-3.11.15-hb00fc5c_1\python.exe
+C:\Users\15272\miniconda3\pkgs\python-3.11.15-hb00fc5c_1\Lib\venv\scripts\nt\python.exe
+C:\Users\15272\miniconda3\pkgs\python-3.12.11-h716150d_0\python.exe
+C:\Users\15272\miniconda3\pkgs\python-3.12.11-h716150d_0\Lib\venv\scripts\nt\python.exe
+C:\Users\15272\miniconda3\pkgs\python-3.12.7-h14ffc60_0\python.exe
+C:\Users\15272\miniconda3\pkgs\python-3.12.7-h14ffc60_0\Lib\venv\scripts\nt\python.exe
+C:\Users\15272\miniconda3\pkgs\python-3.8.20-h8205438_0\python.exe
+Test-Path : Access is denied
+所在位置 行:2 字符: 203
++ ...  foreach ($path in $paths) { if (Test-Path -LiteralPath $path) { Get- ...
++                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\15272\...Programs\Python:String) [Test-Path], UnauthorizedAc 
+   cessException
+    + FullyQualifiedErrorId : ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
+ 
+
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$pythons = @('"'C:\\Users\\15272\\miniconda3\\python.exe','C:\\Users\\15272\\miniconda3\\envs\\MachineLearning_Experiment_1\\python.exe','C:\\Users\\15272\\miniconda3\\envs\\qmt_py310\\python.exe','C:\\Users\\15272\\miniconda3\\envs\\qmt_py311\\python.exe','C:\\Users\\15272\\miniconda3\\envs\\实验1\\python.exe'); foreach ("'$python in $pythons) { & $python -c "import sys, importlib.util; print(sys.executable, bool(importlib.util.find_spec('"'flask')), bool(importlib.util.find_spec('pytest')))\" }" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 689ms:
+C:\Users\15272\miniconda3\python.exe False False
+C:\Users\15272\miniconda3\envs\MachineLearning_Experiment_1\python.exe False False
+C:\Users\15272\miniconda3\envs\qmt_py310\python.exe False False
+C:\Users\15272\miniconda3\envs\qmt_py311\python.exe False False
+C:\Users\15272\miniconda3\envs\สตั้1\python.exe False False
+
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath C:\\Users\\15272\\miniconda3\\pkgs -Directory -ErrorAction SilentlyContinue | Where-Object { "'$_.Name -match '"'"'^(flask|pytest|werkzeug|jinja2|click|itsdangerous|blinker)-'"' } | Select-Object -ExpandProperty FullName" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 695ms:
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+codex
+The catalog slice is now in place: parameterized list/detail queries, shared currency formatting, navigable/error-aware templates, responsive no-JavaScript styling, and catalog/404/escaping tests. Source compilation and whitespace validation pass; I’m recording the exact verification boundary in the plan without claiming pytest-backed completion.
+apply patch
+patch: completed
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\docs\base-plan.md
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 0840922a139c7e3e02dbe773ba75ea00f33a643f..133071c2b6049458dc98b6170c23a659955f4346
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -171,6 +171,20 @@
+   understandable HTTP 404 response for an unknown product; assert Products and
+   Cart navigation is present on list, detail, and error responses.
+ 
++#### Group 2 iteration 2 verification evidence
++
++- Added the catalog blueprint, parameterized stable-order product queries,
++  integer-cent currency filter, list/detail/error templates, shared navigation,
++  local image placeholders, and responsive CSS with no JavaScript dependency.
++- Added `tests/test_products.py` coverage for every seeded listing, required
++  detail fields, two-decimal prices, detail links, navigation, understandable
++  unknown-product 404 behavior, and Jinja escaping of database content.
++- `python -m compileall -q campus_shop tests` and `git diff --check` passed.
++  The repository virtual environment still lacks Flask and pytest, and
++  `pip install -r requirements.txt` could not reach the package index because
++  network access is restricted. Group 2 remains unchecked until its automated
++  tests can execute successfully.
++
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+ - [ ] **G3.1** Implement the centralized quantity parser, session-cart access,
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 0840922a139c7e3e02dbe773ba75ea00f33a643f..133071c2b6049458dc98b6170c23a659955f4346
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -171,6 +171,20 @@
+   understandable HTTP 404 response for an unknown product; assert Products and
+   Cart navigation is present on list, detail, and error responses.
+ 
++#### Group 2 iteration 2 verification evidence
++
++- Added the catalog blueprint, parameterized stable-order product queries,
++  integer-cent currency filter, list/detail/error templates, shared navigation,
++  local image placeholders, and responsive CSS with no JavaScript dependency.
++- Added `tests/test_products.py` coverage for every seeded listing, required
++  detail fields, two-decimal prices, detail links, navigation, understandable
++  unknown-product 404 behavior, and Jinja escaping of database content.
++- `python -m compileall -q campus_shop tests` and `git diff --check` passed.
++  The repository virtual environment still lacks Flask and pytest, and
++  `pip install -r requirements.txt` could not reach the package index because
++  network access is restricted. Group 2 remains unchecked until its automated
++  tests can execute successfully.
++
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+ - [ ] **G3.1** Implement the centralized quantity parser, session-cart access,
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+exec
+"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command ".\\.venv\\Scripts\\python.exe -m compileall -q campus_shop tests
+.\\.venv\\Scripts\\python.exe -m pytest -q
+git diff --check
+git status --short" in C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop
+ succeeded in 725ms:
+ M .gitignore
+ M docs/base-plan.md
+ M prompts.txt
+?? README.md
+?? campus_shop/
+?? loop_logs/base-build-codex-iteration-01.txt
+?? requirements.txt
+?? tests/
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop\.venv\Scripts\python.exe: No module named pytest
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/base-plan.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prompts.txt', LF will be replaced by CRLF the next time Git touches it
+
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 0840922a139c7e3e02dbe773ba75ea00f33a643f..133071c2b6049458dc98b6170c23a659955f4346
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -171,6 +171,20 @@
+   understandable HTTP 404 response for an unknown product; assert Products and
+   Cart navigation is present on list, detail, and error responses.
+ 
++#### Group 2 iteration 2 verification evidence
++
++- Added the catalog blueprint, parameterized stable-order product queries,
++  integer-cent currency filter, list/detail/error templates, shared navigation,
++  local image placeholders, and responsive CSS with no JavaScript dependency.
++- Added `tests/test_products.py` coverage for every seeded listing, required
++  detail fields, two-decimal prices, detail links, navigation, understandable
++  unknown-product 404 behavior, and Jinja escaping of database content.
++- `python -m compileall -q campus_shop tests` and `git diff --check` passed.
++  The repository virtual environment still lacks Flask and pytest, and
++  `pip install -r requirements.txt` could not reach the package index because
++  network access is restricted. Group 2 remains unchecked until its automated
++  tests can execute successfully.
++
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+ - [ ] **G3.1** Implement the centralized quantity parser, session-cart access,
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+codex
+Implemented the Group 2 catalog slice:
+
+- Product list and detail routes with parameterized SQLite queries.
+- Currency formatting using integer cents.
+- Shared navigation and understandable 404 page.
+- Responsive templates/CSS with local image placeholders and no JavaScript dependency.
+- Product, navigation, 404, formatting, and escaping tests.
+- Added verification evidence to [docs/base-plan.md](</C:/学习资料/研1/Summer/devops/作业/作业4/campus-mini-shop/docs/base-plan.md>).
+
+Verification:
+
+- Source compilation passed.
+- `git diff --check` passed.
+- Pytest could not run because Flask/pytest are unavailable and network restrictions blocked installation.
+- Group 2 tasks remain unchecked because automated verification could not complete.
+- `prompts.txt` and loop logs were not edited.
+
+LOOP_CONTINUE
+diff --git a/campus_shop/__init__.py b/campus_shop/__init__.py
+index 44f0798d47d061d09651d0fdaa3343b393ba0d9f..fe58ec6de15297a6cb07c8e3e5e82b97b04c05ed
+--- a/campus_shop/__init__.py
++++ b/campus_shop/__init__.py
+@@ -1,6 +1,7 @@
+ import os
+ 
+-from flask import Flask
++from flask import Flask, render_template
++from werkzeug.exceptions import HTTPException
+ 
+ 
+ def create_app(test_config=None):
+@@ -22,4 +23,29 @@
+ 
+     db.init_app(app)
+ 
++    from . import shop
++
++    app.register_blueprint(shop.bp)
++    app.add_template_filter(shop.format_currency, "currency")
++
++    @app.errorhandler(400)
++    @app.errorhandler(404)
++    def render_http_error(error):
++        """Show expected client errors within the normal application shell."""
++        if isinstance(error, HTTPException):
++            message = error.description
++            status_code = error.code
++        else:
++            message = "The requested page could not be displayed."
++            status_code = 500
++
++        return (
++            render_template(
++                "error.html",
++                status_code=status_code,
++                message=message,
++            ),
++            status_code,
++        )
++
+     return app
+diff --git a/campus_shop/shop.py b/campus_shop/shop.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dd5fb8906b737368516e656722328862d358faa
+--- /dev/null
++++ b/campus_shop/shop.py
+@@ -0,0 +1,47 @@
++from flask import Blueprint, abort, render_template
++
++from .db import get_db
++
++
++bp = Blueprint("shop", __name__)
++
++
++def format_currency(cents):
++    """Format an integer number of cents without floating-point arithmetic."""
++    cents = int(cents)
++    dollars, remainder = divmod(cents, 100)
++    return f"${dollars}.{remainder:02d}"
++
++
++def get_product(product_id):
++    """Load one product or return an understandable not-found response."""
++    product = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        WHERE id = ?
++        """,
++        (product_id,),
++    ).fetchone()
++
++    if product is None:
++        abort(404, description="The requested product was not found.")
++
++    return product
++
++
++@bp.get("/")
++def product_list():
++    products = get_db().execute(
++        """
++        SELECT id, name, description, category, price_cents, image
++        FROM product
++        ORDER BY id
++        """
++    ).fetchall()
++    return render_template("products.html", products=products)
++
++
++@bp.get("/products/<int:product_id>")
++def product_detail(product_id):
++    return render_template("product_detail.html", product=get_product(product_id))
+diff --git a/campus_shop/static/style.css b/campus_shop/static/style.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..924eafd0cd510ab6fd82d4504ddd61a7f25e0039
+--- /dev/null
++++ b/campus_shop/static/style.css
+@@ -0,0 +1,126 @@
++:root {
++  color: #17202a;
++  background: #f5f7fa;
++  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  line-height: 1.5;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++}
++
++a {
++  color: #174ea6;
++}
++
++a:focus-visible,
++a:hover {
++  text-decoration-thickness: 0.15em;
++}
++
++.site-header {
++  align-items: center;
++  background: #17202a;
++  color: white;
++  display: flex;
++  justify-content: space-between;
++  padding: 1rem max(1rem, calc((100% - 70rem) / 2));
++}
++
++.site-header a {
++  color: white;
++}
++
++.brand {
++  font-size: 1.2rem;
++  font-weight: 700;
++  text-decoration: none;
++}
++
++nav {
++  display: flex;
++  gap: 1rem;
++}
++
++.page-shell {
++  margin: 0 auto;
++  max-width: 70rem;
++  padding: 1.5rem 1rem 3rem;
++}
++
++.product-grid {
++  display: grid;
++  gap: 1rem;
++  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
++}
++
++.product-card,
++.product-detail,
++.error-panel,
++.feedback {
++  background: white;
++  border: 1px solid #cbd5e1;
++  border-radius: 0.5rem;
++  padding: 1rem;
++}
++
++.product-card h2 {
++  font-size: 1.15rem;
++}
++
++.category {
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++.price {
++  font-size: 1.1rem;
++  font-weight: 700;
++}
++
++.image-placeholder {
++  align-items: center;
++  background: #e8edf3;
++  border: 1px dashed #64748b;
++  display: flex;
++  justify-content: center;
++  min-height: 8rem;
++  padding: 1rem;
++  text-align: center;
++}
++
++.product-detail {
++  display: grid;
++  gap: 1.5rem;
++  grid-template-columns: minmax(12rem, 1fr) 2fr;
++}
++
++.image-placeholder-large {
++  min-height: 14rem;
++}
++
++.feedback {
++  border-left: 0.35rem solid #146c43;
++  margin-bottom: 1rem;
++}
++
++.feedback p {
++  margin: 0;
++}
++
++@media (max-width: 36rem) {
++  .site-header,
++  .product-detail {
++    align-items: stretch;
++    grid-template-columns: 1fr;
++  }
++
++  .site-header {
++    flex-direction: column;
++    gap: 0.75rem;
++  }
++}
+diff --git a/campus_shop/templates/base.html b/campus_shop/templates/base.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..7aa9bc7f6d0bbe626727568f4486ea61bed50000
+--- /dev/null
++++ b/campus_shop/templates/base.html
+@@ -0,0 +1,29 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>{% block title %}Campus Mini Shop{% endblock %}</title>
++    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
++  </head>
++  <body>
++    <header class="site-header">
++      <a class="brand" href="{{ url_for('shop.product_list') }}">Campus Mini Shop</a>
++      <nav aria-label="Main navigation">
++        <a href="{{ url_for('shop.product_list') }}">Products</a>
++        <a href="/cart">Cart</a>
++      </nav>
++    </header>
++
++    <main class="page-shell">
++      {% with messages = get_flashed_messages() %}
++        {% if messages %}
++          <div class="feedback" role="status">
++            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
++          </div>
++        {% endif %}
++      {% endwith %}
++      {% block content %}{% endblock %}
++    </main>
++  </body>
++</html>
+diff --git a/campus_shop/templates/error.html b/campus_shop/templates/error.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbfeb5e950505cdb1aab0526562c95fb59f37071
+--- /dev/null
++++ b/campus_shop/templates/error.html
+@@ -0,0 +1,11 @@
++{% extends "base.html" %}
++
++{% block title %}Error {{ status_code }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <section class="error-panel" role="alert">
++    <h1>Error {{ status_code }}</h1>
++    <p>{{ message }}</p>
++    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
++  </section>
++{% endblock %}
+diff --git a/campus_shop/templates/product_detail.html b/campus_shop/templates/product_detail.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..462ab18dea3238c50f423b8b5857e56df636469c
+--- /dev/null
++++ b/campus_shop/templates/product_detail.html
+@@ -0,0 +1,21 @@
++{% extends "base.html" %}
++
++{% block title %}{{ product['name'] }} | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <article class="product-detail">
++    <div class="image-placeholder image-placeholder-large" aria-label="No image available">
++      {% if product['image'] %}
++        Local image: {{ product['image'] }}
++      {% else %}
++        No image available
++      {% endif %}
++    </div>
++    <div>
++      <p class="category">{{ product['category'] }}</p>
++      <h1>{{ product['name'] }}</h1>
++      <p>{{ product['description'] }}</p>
++      <p class="price">{{ product['price_cents'] | currency }}</p>
++    </div>
++  </article>
++{% endblock %}
+diff --git a/campus_shop/templates/products.html b/campus_shop/templates/products.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e2902cfba28a967379ac7bd64443dc7b289a556
+--- /dev/null
++++ b/campus_shop/templates/products.html
+@@ -0,0 +1,24 @@
++{% extends "base.html" %}
++
++{% block title %}Products | Campus Mini Shop{% endblock %}
++
++{% block content %}
++  <h1>Campus supplies</h1>
++  <p>Browse everyday supplies for study and campus life.</p>
++
++  <div class="product-grid">
++    {% for product in products %}
++      <article class="product-card" data-product-id="{{ product['id'] }}">
++        <div class="image-placeholder" aria-label="No image available">No image available</div>
++        <p class="category">{{ product['category'] }}</p>
++        <h2>{{ product['name'] }}</h2>
++        <p class="price">{{ product['price_cents'] | currency }}</p>
++        <a href="{{ url_for('shop.product_detail', product_id=product['id']) }}">
++          View details for {{ product['name'] }}
++        </a>
++      </article>
++    {% else %}
++      <p>No products are currently available.</p>
++    {% endfor %}
++  </div>
++{% endblock %}
+diff --git a/docs/base-plan.md b/docs/base-plan.md
+index 0840922a139c7e3e02dbe773ba75ea00f33a643f..133071c2b6049458dc98b6170c23a659955f4346
+--- a/docs/base-plan.md
++++ b/docs/base-plan.md
+@@ -171,6 +171,20 @@
+   understandable HTTP 404 response for an unknown product; assert Products and
+   Cart navigation is present on list, detail, and error responses.
+ 
++#### Group 2 iteration 2 verification evidence
++
++- Added the catalog blueprint, parameterized stable-order product queries,
++  integer-cent currency filter, list/detail/error templates, shared navigation,
++  local image placeholders, and responsive CSS with no JavaScript dependency.
++- Added `tests/test_products.py` coverage for every seeded listing, required
++  detail fields, two-decimal prices, detail links, navigation, understandable
++  unknown-product 404 behavior, and Jinja escaping of database content.
++- `python -m compileall -q campus_shop tests` and `git diff --check` passed.
++  The repository virtual environment still lacks Flask and pytest, and
++  `pip install -r requirements.txt` could not reach the package index because
++  network access is restricted. Group 2 remains unchecked until its automated
++  tests can execute successfully.
++
+ ### Group 3 — Cart read/add flow and authoritative totals
+ 
+ - [ ] **G3.1** Implement the centralized quantity parser, session-cart access,
+diff --git a/tests/test_products.py b/tests/test_products.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..551ba4cbdaf80b872e269a5cc97957ab947182c7
+--- /dev/null
++++ b/tests/test_products.py
+@@ -0,0 +1,73 @@
++def test_product_list_shows_all_seeded_products(client, db):
++    products = db.execute(
++        "SELECT id, name, category, price_cents FROM product ORDER BY id"
++    ).fetchall()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert len(products) >= 6
++    for product in products:
++        assert product["name"] in page
++        assert product["category"] in page
++        assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++        assert f'/products/{product["id"]}' in page
++
++
++def test_product_detail_shows_correct_fields_and_price(client, db):
++    product = db.execute(
++        """
++        SELECT id, name, description, category, price_cents
++        FROM product
++        WHERE id = 4
++        """
++    ).fetchone()
++
++    response = client.get(f"/products/{product['id']}")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 200
++    assert product["name"] in page
++    assert product["description"] in page
++    assert product["category"] in page
++    assert f"${product['price_cents'] // 100}.{product['price_cents'] % 100:02d}" in page
++    assert "No image available" in page
++
++
++def test_unknown_product_detail_returns_understandable_404(client):
++    response = client.get("/products/99999")
++    page = response.get_data(as_text=True)
++
++    assert response.status_code == 404
++    assert "Error 404" in page
++    assert "requested product was not found" in page
++
++
++def test_main_navigation_is_present_on_catalog_detail_and_error_pages(client):
++    for path, expected_status in (("/", 200), ("/products/1", 200), ("/products/99999", 404)):
++        response = client.get(path)
++        page = response.get_data(as_text=True)
++
++        assert response.status_code == expected_status
++        assert 'href="/"' in page
++        assert ">Products</a>" in page
++        assert 'href="/cart"' in page
++        assert ">Cart</a>" in page
++
++
++def test_catalog_output_escapes_database_content(client, db):
++    db.execute(
++        """
++        INSERT INTO product (id, name, description, category, price_cents)
++        VALUES (?, ?, ?, ?, ?)
++        """,
++        (50, "<script>alert(1)</script>", "Description", "Test", 125),
++    )
++    db.commit()
++
++    response = client.get("/")
++    page = response.get_data(as_text=True)
++
++    assert "<script>alert(1)</script>" not in page
++    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+
+tokens used
+47,780
