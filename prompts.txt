@@ -93,6 +93,44 @@ whole stage. End your final response with LOOP_COMPLETE only if this stage is
 fully complete and verified; otherwise end with LOOP_CONTINUE.
 
 
+PROMPT 004
+Stage: Step 1 - Build Loop
+Agent role: Build Loop Agent
+Execution: OpenAI Codex CLI, fresh context per iteration
+Status: Executed with a bounded maximum of six iterations and early completion.
+The first command reached its 15-minute outer limit after three completed
+iterations. Dependencies were then installed by the supervising agent, the
+initial 44-pass/1-fail result was recorded, and the loop resumed from iteration
+4 without discarding earlier work.
+
+You are the Build Loop Agent for the Campus Mini Shop base system.
+
+Read docs/base-specification.md, docs/base-review.md, and docs/base-plan.md,
+then inspect the current repository. Implement the next coherent group of
+unchecked tasks from docs/base-plan.md.
+
+For this iteration:
+1. Implement only reviewed base-system behavior.
+2. Add or update automated tests for the implemented behavior.
+3. Run the relevant tests and fix failures caused by your work.
+4. Check off only tasks that are implemented and verified.
+5. Add concise verification evidence to docs/base-plan.md.
+6. Keep the application simple and locally reproducible.
+
+Do not add search, filtering, checkout, orders, accounts, real payment, admin
+features, external APIs, cloud deployment, or extension work. Do not edit
+prompts.txt or loop logs.
+
+For each iteration, loop_engineering.py appends this exact wrapper:
+
+LOOP ITERATION {iteration} OF {iterations}
+This is a fresh agent context. Read the repository artifacts before acting.
+Continue from the current repository state; do not redo completed work.
+Do not run git commit or git push. The supervising human commits after the
+whole stage. End your final response with LOOP_COMPLETE only if this stage is
+fully complete and verified; otherwise end with LOOP_CONTINUE.
+
+
 PROMPT 005
 Stage: Step 1 - Build and Test Continuation
 Agent role: Independent Build and Test Agent
@@ -155,28 +193,6 @@ Do not implement code, do not edit prompts.txt, and do not commit. Use
 apply_patch.
 
 
-PROMPT 009
-Stage: Step 2 - Extension Build and Test
-Agent role: Extension Build and Test Agent
-Execution: Independent Codex sub-agent
-Status: Executed
-
-You are the Extension Build and Test Agent for Assignment 4. Work only inside
-C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop. Read
-docs/extension-specification.md, docs/extension-review.md,
-docs/extension-plan.md, and the completed base code/tests. Implement all four
-extension plan groups without adding excluded features. Use the existing
-.venv. Add search/filter UI and literal wildcard-safe queries; harden
-effective-cart reads without breaking valid base behavior; add idempotent
-orders/order_item schema with FK enforcement; implement simulated checkout
-validation, atomic persistence/rollback, cart clearing on success, and
-snapshot-based confirmation; update templates/CSS and README; add comprehensive
-isolated pytest coverage. Work group by group, run focused tests, then the full
-suite. Check off only genuinely verified plan tasks and add concise evidence.
-Do not edit prompts.txt or loop logs, and do not commit or push. Use apply_patch
-for source edits.
-
-
 PROMPT 008
 Stage: Step 2 - Extension Plan
 Agent role: Extension Planning Agent
@@ -198,39 +214,23 @@ plan excluded features. Do not edit prompts.txt or other files and do not
 commit. Use apply_patch.
 
 
-PROMPT 004
-Stage: Step 1 - Build Loop
-Agent role: Build Loop Agent
-Execution: OpenAI Codex CLI, fresh context per iteration
-Status: Executed with a bounded maximum of six iterations and early completion.
-The first command reached its 15-minute outer limit after three completed
-iterations. Dependencies were then installed by the supervising agent, the
-initial 44-pass/1-fail result was recorded, and the loop resumed from iteration
-4 without discarding earlier work.
+PROMPT 009
+Stage: Step 2 - Extension Build and Test
+Agent role: Extension Build and Test Agent
+Execution: Independent Codex sub-agent
+Status: Executed
 
-You are the Build Loop Agent for the Campus Mini Shop base system.
-
-Read docs/base-specification.md, docs/base-review.md, and docs/base-plan.md,
-then inspect the current repository. Implement the next coherent group of
-unchecked tasks from docs/base-plan.md.
-
-For this iteration:
-1. Implement only reviewed base-system behavior.
-2. Add or update automated tests for the implemented behavior.
-3. Run the relevant tests and fix failures caused by your work.
-4. Check off only tasks that are implemented and verified.
-5. Add concise verification evidence to docs/base-plan.md.
-6. Keep the application simple and locally reproducible.
-
-Do not add search, filtering, checkout, orders, accounts, real payment, admin
-features, external APIs, cloud deployment, or extension work. Do not edit
-prompts.txt or loop logs.
-
-For each iteration, loop_engineering.py appends this exact wrapper:
-
-LOOP ITERATION {iteration} OF {iterations}
-This is a fresh agent context. Read the repository artifacts before acting.
-Continue from the current repository state; do not redo completed work.
-Do not run git commit or git push. The supervising human commits after the
-whole stage. End your final response with LOOP_COMPLETE only if this stage is
-fully complete and verified; otherwise end with LOOP_CONTINUE.
+You are the Extension Build and Test Agent for Assignment 4. Work only inside
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop. Read
+docs/extension-specification.md, docs/extension-review.md,
+docs/extension-plan.md, and the completed base code/tests. Implement all four
+extension plan groups without adding excluded features. Use the existing
+.venv. Add search/filter UI and literal wildcard-safe queries; harden
+effective-cart reads without breaking valid base behavior; add idempotent
+orders/order_item schema with FK enforcement; implement simulated checkout
+validation, atomic persistence/rollback, cart clearing on success, and
+snapshot-based confirmation; update templates/CSS and README; add comprehensive
+isolated pytest coverage. Work group by group, run focused tests, then the full
+suite. Check off only genuinely verified plan tasks and add concise evidence.
+Do not edit prompts.txt or loop logs, and do not commit or push. Use apply_patch
+for source edits.
