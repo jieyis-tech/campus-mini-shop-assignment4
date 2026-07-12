@@ -1,0 +1,37 @@
+Campus Mini Shop - AI Prompt Log
+================================
+
+This file records every project command given to an AI agent. Entries are
+added before or immediately after the corresponding stage is executed.
+
+PROJECT DIRECTION
+-----------------
+User request:
+"要不还是做一个传统的购物网站吧"
+
+Agreed scope:
+Build a small campus-themed shopping website in two steps. The base system
+provides a product catalog and shopping cart. The extension adds search,
+category filtering, simulated checkout, order persistence, and confirmation.
+Real payment, authentication, email, and administration are excluded.
+
+
+PROMPT 001
+Stage: Step 1 - Specification
+Agent role: Requirements Agent
+Execution: Independent Codex sub-agent
+Status: Executed
+
+You are the Requirements Agent for Assignment 4. Work only inside
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop. Create
+docs/base-specification.md for a small campus mini shopping website. Base
+system scope: browse seeded products, view product details, add items to a
+session cart, update quantities, remove items, and show subtotal. Technology
+constraints: Python Flask, SQLite, server-rendered HTML/CSS with minimal
+JavaScript, pytest; no login, payment, checkout/order persistence, admin panel,
+external APIs, or deployment. Include purpose, personas, functional
+requirements, data requirements, acceptance criteria, nonfunctional
+constraints, explicit exclusions, and a stage-completion checklist. Do not
+implement code, do not edit any other file, and do not commit. Use apply_patch
+for the file.
+
