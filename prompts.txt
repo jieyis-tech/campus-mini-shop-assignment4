@@ -137,6 +137,24 @@ stage checklist. Do not implement code, do not edit other files, and do not
 commit. Use apply_patch.
 
 
+PROMPT 007
+Stage: Step 2 - Extension Review
+Agent role: Extension Review Agent
+Execution: Independent Codex sub-agent
+Status: Executed
+
+You are the Extension Review Agent for Assignment 4. Work only inside
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop. Independently
+review docs/extension-specification.md against the completed base system and the
+goal of a small, reproducible Step 2. Identify contradictions, ambiguous
+validation/query/transaction behavior, missing acceptance checks, unnecessary
+scope, and migration risks. Create docs/extension-review.md with Must Fix,
+Should Fix, and Accepted findings. Apply only necessary corrections to
+docs/extension-specification.md and accurately complete its review checklist.
+Do not implement code, do not edit prompts.txt, and do not commit. Use
+apply_patch.
+
+
 PROMPT 004
 Stage: Step 1 - Build Loop
 Agent role: Build Loop Agent
