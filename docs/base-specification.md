@@ -44,11 +44,12 @@ The cart is temporary and belongs only to the visitor's current Flask session. T
 
 ### FR-3: Add a product to the cart
 
-- A visitor must be able to add an existing product to the session cart from the product list or product-detail page.
-- The add action must accept a positive whole-number quantity; the default quantity may be one.
+- A visitor must be able to add an existing product to the session cart from the product-detail page.
+- The add action must accept a positive whole-number quantity and must default to one when the quantity field is left empty.
 - Adding a product that is already in the cart must increase that product's quantity rather than create a duplicate cart line.
-- Invalid quantities and nonexistent product IDs must not corrupt or silently create cart data.
-- After a successful add action, the visitor must be redirected to a useful page, such as the cart or the originating product page.
+- An invalid quantity must leave the cart unchanged and return an understandable validation response with HTTP status 400.
+- A nonexistent product ID must leave the cart unchanged and return HTTP status 404.
+- After a successful add action, the visitor must be redirected to the cart page.
 
 ### FR-4: View the cart
 
@@ -61,13 +62,13 @@ The cart is temporary and belongs only to the visitor's current Flask session. T
 
 - A visitor must be able to replace a cart line's quantity with a positive whole number.
 - After an update, the cart line total and subtotal must reflect the new quantity.
-- Invalid values, including non-numeric, fractional, zero, and negative quantities, must be rejected or handled without leaving an invalid quantity in the cart.
+- Invalid values, including non-numeric, fractional, zero, negative, and missing quantities, must leave the existing cart quantity unchanged and return an understandable validation response with HTTP status 400.
 
 ### FR-6: Remove cart items
 
 - A visitor must be able to remove an individual product from the cart.
 - Removing one product must not change other cart lines.
-- Attempting to remove a product that is not in the cart must be handled safely and must not produce a server error.
+- Attempting to remove a product that is not in the cart must leave the cart unchanged and redirect to the cart page without a server error.
 
 ### FR-7: Calculate and display subtotal
 
@@ -80,7 +81,8 @@ The cart is temporary and belongs only to the visitor's current Flask session. T
 
 - Every main page must provide clear navigation to the product list and cart.
 - State-changing form submissions must use POST requests.
-- The application should provide clear success or validation feedback when a cart action completes or cannot be completed.
+- Successful add, update, and remove actions must show a brief confirmation message after redirecting to the cart.
+- Validation errors must show an understandable message in the HTTP 400 response.
 
 ## 5. Data Requirements
 
@@ -122,12 +124,14 @@ The base system is accepted when all of the following observable checks pass:
 5. Adding the same product again increases its existing quantity and does not create a duplicate line.
 6. Adding a second product preserves the first product and shows two distinct cart lines.
 7. Updating a quantity to a positive whole number updates both the line total and subtotal.
-8. Invalid add or update quantities do not leave zero, negative, fractional, or non-numeric quantities in the cart.
+8. Invalid add quantities return HTTP 400 without changing the cart; invalid update quantities return HTTP 400 without changing the existing quantity.
 9. Removing one cart item removes only that item and recalculates the subtotal.
 10. An empty cart displays a clear message and a subtotal of `$0.00`.
 11. Refreshing or navigating between pages within the same browser session preserves cart contents.
-12. Automated pytest coverage verifies the main product, cart, validation, subtotal, and 404 behaviors.
-13. The documented local setup and test commands work from a clean project checkout.
+12. A successful add, update, or remove redirects to the cart and displays a confirmation message.
+13. Adding an unknown product returns HTTP 404 without changing the cart, and removing a product that is absent leaves the cart unchanged without a server error.
+14. Automated pytest coverage verifies the main product, cart, validation, subtotal, feedback, and 404 behaviors.
+15. The documented local setup and test commands work from a clean project checkout.
 
 ## 7. Nonfunctional Constraints
 
@@ -142,6 +146,7 @@ The base system is accepted when all of the following observable checks pass:
 ### 7.2 Simplicity and maintainability
 
 - The project must run locally without a separate database server or external service.
+- A fresh checkout must provide one documented command that creates and seeds the SQLite database safely; running that initialization command again must not duplicate products.
 - Application structure, route names, templates, and tests must be understandable to a student familiar with introductory Python and web concepts.
 - Configuration suitable for local development and testing must be separated where practical.
 - Repeated business logic, especially cart validation and total calculation, should be centralized rather than copied between routes.
@@ -186,13 +191,12 @@ Search, category filtering, simulated checkout, and order persistence may be con
 
 The base specification stage is complete only when:
 
-- [ ] Purpose and intended personas are documented.
-- [ ] The end-to-end base user flow is documented.
-- [ ] Each required base feature has a numbered functional requirement.
-- [ ] Product, cart, and monetary data rules are unambiguous.
-- [ ] Acceptance criteria are observable and testable.
-- [ ] Technology, usability, reliability, and testing constraints are recorded.
-- [ ] Excluded features clearly prevent extension work from entering the base stage.
-- [ ] A separate reviewer has checked this specification for ambiguity, missing cases, and unnecessary complexity.
-- [ ] Any approved review corrections have been incorporated before implementation planning begins.
-
+- [x] Purpose and intended personas are documented.
+- [x] The end-to-end base user flow is documented.
+- [x] Each required base feature has a numbered functional requirement.
+- [x] Product, cart, and monetary data rules are unambiguous.
+- [x] Acceptance criteria are observable and testable.
+- [x] Technology, usability, reliability, and testing constraints are recorded.
+- [x] Excluded features clearly prevent extension work from entering the base stage.
+- [x] A separate reviewer has checked this specification for ambiguity, missing cases, and unnecessary complexity.
+- [x] Any approved review corrections have been incorporated before implementation planning begins.

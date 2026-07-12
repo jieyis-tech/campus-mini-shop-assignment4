@@ -35,3 +35,20 @@ constraints, explicit exclusions, and a stage-completion checklist. Do not
 implement code, do not edit any other file, and do not commit. Use apply_patch
 for the file.
 
+
+PROMPT 002
+Stage: Step 1 - Review
+Agent role: Review Agent
+Execution: Independent Codex sub-agent
+Status: Executed
+
+You are the Review Agent for Assignment 4. Work only inside
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop. Independently
+review docs/base-specification.md against the formal assignment constraints and
+the goal of keeping the project small and reproducible. Identify ambiguities,
+unnecessary complexity, missing acceptance criteria, and any conflict between
+requirements. Create docs/base-review.md with findings classified as Must Fix,
+Should Fix, or Accepted. Apply only necessary corrections directly to
+docs/base-specification.md, and mark its specification/review checklist
+accurately. Do not implement application code, do not edit prompts.txt, and do
+not commit. Use apply_patch.
