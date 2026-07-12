@@ -113,6 +113,30 @@ features, do not edit prompts.txt or loop logs, and do not commit or push. Use
 apply_patch for source edits.
 
 
+PROMPT 006
+Stage: Step 2 - Extension Specification
+Agent role: Extension Requirements Agent
+Execution: Independent Codex sub-agent
+Status: Executed
+
+You are the Extension Requirements Agent for Assignment 4. Work only inside
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop. Read the
+completed base specification, review, plan, and current application. Create
+docs/extension-specification.md for Step 2 only. Extension scope:
+case-insensitive product-name search, exact category filtering, using both
+together, clear no-results state, a simulated checkout form for a non-empty
+cart, server-side validation of customer name and delivery address, SQLite
+order and order-item persistence with integer-cent snapshot prices, session
+cart clearing only after a successful order, and an order-confirmation page.
+Keep it small: no login, real payment, email, inventory, admin, shipping
+calculation, tax, coupons, external APIs, or cloud deployment. Include purpose,
+user flow, numbered functional requirements, data/schema additions,
+deterministic validation behavior, testable acceptance criteria, nonfunctional
+constraints, explicit exclusions, migration/idempotency expectations, and a
+stage checklist. Do not implement code, do not edit other files, and do not
+commit. Use apply_patch.
+
+
 PROMPT 004
 Stage: Step 1 - Build Loop
 Agent role: Build Loop Agent
