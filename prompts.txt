@@ -155,6 +155,27 @@ Do not implement code, do not edit prompts.txt, and do not commit. Use
 apply_patch.
 
 
+PROMPT 008
+Stage: Step 2 - Extension Plan
+Agent role: Extension Planning Agent
+Execution: Independent Codex sub-agent
+Status: Executed
+
+You are the Extension Planning Agent for Assignment 4. Work only inside
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop. Read
+docs/extension-specification.md, docs/extension-review.md, all base documents,
+and inspect the completed base code/tests. Create docs/extension-plan.md only;
+do not implement code. Map all 17 extension acceptance criteria to concrete
+implementation and pytest tasks. Define the smallest compatible schema updates,
+query escaping/filter behavior, hardened effective-cart helper, checkout
+routes/templates, atomic order persistence seam, confirmation lookup, README
+updates, and regression verification. Organize tasks into 3-4 coherent groups
+with unchecked Markdown checkboxes, exact PowerShell verification commands,
+traceability table, and Definition of Done. Preserve base behavior and do not
+plan excluded features. Do not edit prompts.txt or other files and do not
+commit. Use apply_patch.
+
+
 PROMPT 004
 Stage: Step 1 - Build Loop
 Agent role: Build Loop Agent
