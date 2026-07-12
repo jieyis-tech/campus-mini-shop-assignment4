@@ -155,6 +155,28 @@ Do not implement code, do not edit prompts.txt, and do not commit. Use
 apply_patch.
 
 
+PROMPT 009
+Stage: Step 2 - Extension Build and Test
+Agent role: Extension Build and Test Agent
+Execution: Independent Codex sub-agent
+Status: Executed
+
+You are the Extension Build and Test Agent for Assignment 4. Work only inside
+C:\学习资料\研1\Summer\devops\作业\作业4\campus-mini-shop. Read
+docs/extension-specification.md, docs/extension-review.md,
+docs/extension-plan.md, and the completed base code/tests. Implement all four
+extension plan groups without adding excluded features. Use the existing
+.venv. Add search/filter UI and literal wildcard-safe queries; harden
+effective-cart reads without breaking valid base behavior; add idempotent
+orders/order_item schema with FK enforcement; implement simulated checkout
+validation, atomic persistence/rollback, cart clearing on success, and
+snapshot-based confirmation; update templates/CSS and README; add comprehensive
+isolated pytest coverage. Work group by group, run focused tests, then the full
+suite. Check off only genuinely verified plan tasks and add concise evidence.
+Do not edit prompts.txt or loop logs, and do not commit or push. Use apply_patch
+for source edits.
+
+
 PROMPT 008
 Stage: Step 2 - Extension Plan
 Agent role: Extension Planning Agent

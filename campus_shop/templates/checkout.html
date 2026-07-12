@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout | Campus Mini Shop{% endblock %}
+
+{% block content %}
+  <h1>Simulated checkout</h1>
+  <p class="notice">This is a classroom simulation. Do not enter real payment or banking information.</p>
+
+  <div class="order-summary">
+    <h2>Order summary</h2>
+    {% for line in lines %}
+      <article class="summary-line" data-product-id="{{ line['product']['id'] }}">
+        <strong>{{ line['product']['name'] }}</strong>
+        <span>Unit price: {{ line['product']['price_cents'] | currency }}</span>
+        <span>Quantity: {{ line['quantity'] }}</span>
+        <span>Line total: {{ line['line_total_cents'] | currency }}</span>
+      </article>
+    {% endfor %}
+    <p class="subtotal">Subtotal: <strong>{{ subtotal_cents | currency }}</strong></p>
+  </div>
+
+  <form class="checkout-form" method="post" action="{{ url_for('shop.checkout') }}" novalidate>
+    <div>
+      <label for="customer_name">Customer name</label>
+      <input id="customer_name" name="customer_name" value="{{ customer_name }}" maxlength="100" aria-describedby="customer-name-error">
+      {% if errors.get('customer_name') %}<p class="field-error" id="customer-name-error">{{ errors['customer_name'] }}</p>{% endif %}
+    </div>
+    <div>
+      <label for="delivery_address">Delivery address</label>
+      <textarea id="delivery_address" name="delivery_address" rows="4" maxlength="300" aria-describedby="delivery-address-error">{{ delivery_address }}</textarea>
+      {% if errors.get('delivery_address') %}<p class="field-error" id="delivery-address-error">{{ errors['delivery_address'] }}</p>{% endif %}
+    </div>
+    <button type="submit">Place simulated order</button>
+  </form>
+{% endblock %}

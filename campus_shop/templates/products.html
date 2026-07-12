@@ -6,6 +6,26 @@
   <h1>Campus supplies</h1>
   <p>Browse everyday supplies for study and campus life.</p>
 
+  <form class="catalog-controls" method="get" action="{{ url_for('shop.product_list') }}">
+    <div>
+      <label for="q">Search product names</label>
+      <input id="q" name="q" type="search" value="{{ q }}">
+    </div>
+    <div>
+      <label for="category">Category</label>
+      <select id="category" name="category">
+        <option value="">All categories</option>
+        {% if unknown_category %}
+          <option value="{{ category }}" selected>{{ category }}</option>
+        {% endif %}
+        {% for category_name in categories %}
+          <option value="{{ category_name }}"{% if category == category_name %} selected{% endif %}>{{ category_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit">Search</button>
+  </form>
+
   <div class="product-grid">
     {% for product in products %}
       <article class="product-card" data-product-id="{{ product['id'] }}">
@@ -18,7 +38,14 @@
         </a>
       </article>
     {% else %}
-      <p>No products are currently available.</p>
+      {% if filters_active %}
+        <div class="no-results">
+          <p>No products match your search and filter.</p>
+          <a href="{{ url_for('shop.product_list') }}">View all products</a>
+        </div>
+      {% else %}
+        <p>No products are currently available.</p>
+      {% endif %}
     {% endfor %}
   </div>
 {% endblock %}

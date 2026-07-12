@@ -105,28 +105,31 @@ named verification succeeds.
 
 ### Group 1 — Idempotent order schema and effective-cart foundation
 
-- [ ] **G1.1** Extend `campus_shop/schema.sql` with the minimal `orders` and
+- [x] **G1.1** Extend `campus_shop/schema.sql` with the minimal `orders` and
   `order_item` definitions above, including positive-value, text-length, and
   order-item cascade constraints while deliberately leaving `product_id`
   without a product foreign key.
-- [ ] **G1.2** Enable SQLite foreign-key enforcement on every request-scoped
+- [x] **G1.2** Enable SQLite foreign-key enforcement on every request-scoped
   application connection without changing connection lifetime, row factory, or
   CLI behavior.
-- [ ] **G1.3** Harden the shared effective-cart path against a non-mapping cart,
+- [x] **G1.3** Harden the shared effective-cart path against a non-mapping cart,
   malformed/noncanonical product IDs, deleted products, and non-positive or
   non-`int` quantities (including booleans), without mutating the session or
   changing valid base cart output.
-- [ ] **G1.4** Extend `tests/test_database.py` (or add a focused order-schema test
+- [x] **G1.4** Extend `tests/test_database.py` (or add a focused order-schema test
   module) to verify exact new columns and checks, enabled foreign keys,
   `ON DELETE CASCADE`, absence of a product foreign key, fresh initialization,
   and repeat initialization after an order/item exists with unchanged products
   and saved rows.
-- [ ] **G1.5** Extend cart tests with deliberately malformed and deleted-product
+- [x] **G1.5** Extend cart tests with deliberately malformed and deleted-product
   session entries. Assert cart rendering ignores them without an exception,
   shows only effective lines/totals, leaves the original session mapping
   unchanged, and leaves all existing valid-cart tests passing.
 
 Focused verification:
+
+Verified: `44 passed` for the database/cart focus set; compile and diff checks
+also passed.
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q tests/test_database.py tests/test_cart.py
@@ -136,29 +139,32 @@ git diff --check
 
 ### Group 2 — Search, exact category filter, and no-results UI
 
-- [ ] **G2.1** Add the normalization and SQL-`LIKE` literal escaping helper, then
+- [x] **G2.1** Add the normalization and SQL-`LIKE` literal escaping helper, then
   update `GET /` to construct only parameterized active predicates, combine
   search and category with `AND`, use explicit `NOCASE`/`BINARY` comparison as
   specified, and retain product-ID ordering.
-- [ ] **G2.2** Query distinct categories in ascending case-sensitive order and
+- [x] **G2.2** Query distinct categories in ascending case-sensitive order and
   pass products, categories, normalized `q`, normalized `category`, and unknown-
   category state to `products.html`.
-- [ ] **G2.3** Add a labeled GET search/filter form to `products.html`, preserve
+- [x] **G2.3** Add a labeled GET search/filter form to `products.html`, preserve
   both values after submission, render an unknown submitted category as a
   temporary selected option, and render the exact no-results message plus an
   unparameterized product-list link. Preserve the existing base empty-catalog
   fallback and every displayed product's detail link.
-- [ ] **G2.4** Add `tests/test_catalog_filters.py` covering mixed-case partial
+- [x] **G2.4** Add `tests/test_catalog_filters.py` covering mixed-case partial
   name matches; description/category-only exclusions; literal `%`, `_`, and
   escape-character input; missing/blank search; labeled GET controls; exact
   case-sensitive known and unknown category behavior; deterministic category
   ordering; combined intersection; normalized control preservation; no-results
   text/reset link; stable product order; and unchanged detail navigation.
-- [ ] **G2.5** Add only the minimal responsive CSS needed for the controls and
+- [x] **G2.5** Add only the minimal responsive CSS needed for the controls and
   no-results text to remain usable without JavaScript at desktop and mobile
   widths.
 
 Focused verification:
+
+Verified: `16 passed` for the product/filter focus set; compile and diff checks
+also passed.
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q tests/test_products.py tests/test_catalog_filters.py
@@ -168,28 +174,28 @@ git diff --check
 
 ### Group 3 — Checkout eligibility, validation, and atomic order persistence
 
-- [ ] **G3.1** Add a checkout link/button to populated `cart.html`; implement
+- [x] **G3.1** Add a checkout link/button to populated `cart.html`; implement
   `GET /checkout` so an effective non-empty cart renders `checkout.html` and an
   ineffective/empty cart redirects to `/cart` with `Add at least one product
   before checkout.`
-- [ ] **G3.2** Create `checkout.html` with an explicit simulated-checkout
+- [x] **G3.2** Create `checkout.html` with an explicit simulated-checkout
   heading/note, authoritative current names, unit prices, quantities, line
   totals, subtotal, and labeled `customer_name` and `delivery_address` fields.
   Provide accessible text locations for per-field errors and preserve normalized
   values on failure; request no payment or banking data.
-- [ ] **G3.3** Implement `POST /checkout` with effective-cart-first validation,
+- [x] **G3.3** Implement `POST /checkout` with effective-cart-first validation,
   the exact required/over-length messages, simultaneous reporting of every
   invalid field, HTTP 400 re-rendering, and no writes or session mutation on
   invalid input.
-- [ ] **G3.4** Implement the small atomic `persist_order` function and private
+- [x] **G3.4** Implement the small atomic `persist_order` function and private
   item-insert seam. Derive every persisted name, product ID, quantity, unit
   price, line total, and total solely from effective session/database lines;
   ignore all fake browser fields. Roll back and re-raise every SQLite failure.
-- [ ] **G3.5** On persistence failure, render an understandable HTTP 500 and
+- [x] **G3.5** On persistence failure, render an understandable HTTP 500 and
   preserve the original cart. On success only, remove the entire session
   `cart` key (including ineffective entries) and redirect to
   `/orders/<new_id>`.
-- [ ] **G3.6** Add `tests/test_checkout.py` covering cart/checkout summary parity;
+- [x] **G3.6** Add `tests/test_checkout.py` covering cart/checkout summary parity;
   checkout link visibility; empty and malformed-cart GET redirect/flash;
   empty-cart direct POST 400/no rows; missing, whitespace-only, over-length,
   and combined invalid fields with exact messages and normalized preservation;
@@ -200,6 +206,9 @@ git diff --check
 
 Focused verification:
 
+Verified: checkout and order focus tests passed, including the forced
+second-item failure and complete rollback assertion.
+
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q tests/test_checkout.py
 .\.venv\Scripts\python.exe -m compileall -q campus_shop tests
@@ -208,29 +217,36 @@ git diff --check
 
 ### Group 4 — Saved confirmation, documentation, and complete regression
 
-- [ ] **G4.1** Implement `GET /orders/<int:order_id>` using one saved-order
+- [x] **G4.1** Implement `GET /orders/<int:order_id>` using one saved-order
   query and one saved-item query ordered by item ID. Return an understandable
   404 for an absent order without consulting or mutating the session cart.
-- [ ] **G4.2** Create `order_confirmation.html` with a clear confirmation
+- [x] **G4.2** Create `order_confirmation.html` with a clear confirmation
   heading, numeric order ID, escaped customer name/address, creation timestamp,
   item snapshot names, two-decimal unit/line/order currency values, quantities,
   and navigation back to products. Preserve address line breaks safely with CSS
   or escaped template presentation, never trusted HTML.
-- [ ] **G4.3** Add confirmation coverage (in `tests/test_checkout.py` or a focused
+- [x] **G4.3** Add confirmation coverage (in `tests/test_checkout.py` or a focused
   `tests/test_orders.py`) for required saved values, two-decimal formatting,
   unknown-order 404, refresh idempotency, empty session after refresh, and
   immutability after current product name/price changes and source-product
   deletion.
-- [ ] **G4.4** Update `README.md` for the completed two-step application: retain
+- [x] **G4.4** Update `README.md` for the completed two-step application: retain
   clean PowerShell setup/init/run/test instructions; document repeat-safe
   initialization, catalog search/category flow, simulated checkout and local-
   only personal-data warning; explicitly state there is no real payment,
   account, inventory, or production privacy/security guarantee.
-- [ ] **G4.5** Run the full isolated suite and the documented clean-database
+- [x] **G4.5** Run the full isolated suite and the documented clean-database
   browser flow. Correct only extension or regression defects in the approved
   scope; do not add excluded features.
 
 Focused and final verification:
+
+Final verification passed: the full suite reported `73 passed`; compileall,
+dependency, and diff checks passed. A supervising browser walkthrough verified
+combined search and category filtering, adding two units of a filtered product,
+the authoritative `$6.98` cart and checkout totals, simulated checkout with
+local test data, saved confirmation at `/orders/1`, and the cleared `$0.00`
+cart after success.
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q tests/test_checkout.py tests/test_orders.py
@@ -294,32 +310,32 @@ flow at a common mobile width with JavaScript disabled. Stop the server with
 
 ## Definition of Done
 
-- [ ] Groups 1–4 are complete, and all 17 acceptance criteria have the mapped
+- [x] Groups 1–4 are complete, and all 17 acceptance criteria have the mapped
   implementation and automated evidence above.
-- [ ] Existing base catalog/detail/cart routes and all base pytest tests still
+- [x] Existing base catalog/detail/cart routes and all base pytest tests still
   pass without changed valid behavior.
-- [ ] Search treats `%`, `_`, and the escape character literally; exact category
+- [x] Search treats `%`, `_`, and the escape character literally; exact category
   filtering is case-sensitive; combined results and normalized controls are
   deterministic; no-result recovery is visible.
-- [ ] Cart and checkout summaries safely ignore ineffective entries without
+- [x] Cart and checkout summaries safely ignore ineffective entries without
   mutating the session and use current SQLite product data with integer-cent
   arithmetic.
-- [ ] Field validation is server-side, complete in one response, uses the exact
+- [x] Field validation is server-side, complete in one response, uses the exact
   messages, preserves normalized values and the cart, and creates no rows on
   failure.
-- [ ] One valid checkout atomically saves authoritative immutable snapshots;
+- [x] One valid checkout atomically saves authoritative immutable snapshots;
   fake browser order data is ignored; rollback leaves no partial rows; the full
   cart key is cleared only after commit.
-- [ ] Confirmation reads only saved order/item data, formats every monetary
+- [x] Confirmation reads only saved order/item data, formats every monetary
   value to two decimals, survives current-product changes/deletion, is safe to
   refresh, and returns an understandable 404 for an unknown ID.
-- [ ] Fresh and repeated `init-db` runs preserve products and existing orders;
+- [x] Fresh and repeated `init-db` runs preserve products and existing orders;
   foreign-key behavior is enabled and tested.
-- [ ] `README.md` reproduces setup, initialization, testing, search/filter, and
+- [x] `README.md` reproduces setup, initialization, testing, search/filter, and
   simulated-checkout flows and clearly states the local teaching limitations.
 - [ ] The full suite passes with isolated temporary databases, no network or
   test-order dependency, and the browser flow works without JavaScript at
   desktop and mobile widths with escaped output, associated labels, and textual
   feedback.
-- [ ] No excluded feature, real credential, real personal data, generated
+- [x] No excluded feature, real credential, real personal data, generated
   database, virtual environment, cache, or machine-specific artifact is added.

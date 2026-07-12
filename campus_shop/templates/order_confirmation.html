@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Order confirmation | Campus Mini Shop{% endblock %}
+
+{% block content %}
+  <section class="confirmation">
+    <h1>Order confirmed</h1>
+    <p>Thank you. Your simulated order has been saved.</p>
+    <dl class="order-details">
+      <dt>Order number</dt><dd>{{ order['id'] }}</dd>
+      <dt>Customer</dt><dd>{{ order['customer_name'] }}</dd>
+      <dt>Delivery address</dt><dd class="saved-address">{{ order['delivery_address'] }}</dd>
+      <dt>Created</dt><dd>{{ order['created_at'] }}</dd>
+    </dl>
+    <h2>Saved items</h2>
+    {% for item in items %}
+      <article class="summary-line" data-product-id="{{ item['product_id'] }}">
+        <strong>{{ item['product_name'] }}</strong>
+        <span>Unit price: {{ item['unit_price_cents'] | currency }}</span>
+        <span>Quantity: {{ item['quantity'] }}</span>
+        <span>Line total: {{ item['line_total_cents'] | currency }}</span>
+      </article>
+    {% endfor %}
+    <p class="subtotal">Order total: <strong>{{ order['total_cents'] | currency }}</strong></p>
+    <p><a href="{{ url_for('shop.product_list') }}">Return to products</a></p>
+  </section>
+{% endblock %}

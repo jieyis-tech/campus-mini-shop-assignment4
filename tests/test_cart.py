@@ -253,3 +253,41 @@ def test_cart_lines_have_labeled_update_and_remove_forms(client):
     assert 'name="quantity"' in page
     assert '<form method="post" action="/cart/remove/1">' in page
     assert "Remove</button>" in page
+
+
+def test_cart_ignores_ineffective_entries_without_repair(client, db):
+    db.execute("DELETE FROM product WHERE id = 6")
+    db.commit()
+    original = {
+        "1": 2,
+        "01": 7,
+        "2": True,
+        "3": 0,
+        "4": -1,
+        "5": "3",
+        "6": 4,
+        "not-an-id": 9,
+    }
+    with client.session_transaction() as flask_session:
+        flask_session["cart"] = original
+
+    response = client.get("/cart")
+    page = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert 'data-product-id="1"' in page
+    assert page.count('class="cart-line" data-product-id=') == 1
+    assert "Subtotal: <strong>$9.98</strong>" in page
+    with client.session_transaction() as flask_session:
+        assert flask_session["cart"] == original
+
+
+def test_non_mapping_cart_is_read_as_empty_without_repair(client):
+    with client.session_transaction() as flask_session:
+        flask_session["cart"] = ["1", 2]
+
+    response = client.get("/cart")
+    assert response.status_code == 200
+    assert "Your cart is empty." in response.get_data(as_text=True)
+    with client.session_transaction() as flask_session:
+        assert flask_session["cart"] == ["1", 2]

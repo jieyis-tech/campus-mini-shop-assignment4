@@ -7,6 +7,26 @@ CREATE TABLE IF NOT EXISTS product (
     image TEXT
 );
 
+CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER PRIMARY KEY,
+    customer_name TEXT NOT NULL
+        CHECK (length(trim(customer_name)) BETWEEN 1 AND 100),
+    delivery_address TEXT NOT NULL
+        CHECK (length(trim(delivery_address)) BETWEEN 1 AND 300),
+    total_cents INTEGER NOT NULL CHECK (total_cents > 0),
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS order_item (
+    id INTEGER PRIMARY KEY,
+    order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+    product_id INTEGER NOT NULL,
+    product_name TEXT NOT NULL CHECK (length(trim(product_name)) > 0),
+    unit_price_cents INTEGER NOT NULL CHECK (unit_price_cents > 0),
+    quantity INTEGER NOT NULL CHECK (quantity > 0),
+    line_total_cents INTEGER NOT NULL CHECK (line_total_cents > 0)
+);
+
 INSERT OR IGNORE INTO product
     (id, name, description, category, price_cents, image)
 VALUES

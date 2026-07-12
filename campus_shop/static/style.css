@@ -126,6 +126,8 @@ label {
 }
 
 input,
+select,
+textarea,
 button {
   font: inherit;
   min-height: 2.5rem;
@@ -137,6 +139,83 @@ input {
   border-radius: 0.25rem;
   max-width: 8rem;
 }
+
+select,
+textarea {
+  border: 1px solid #64748b;
+  border-radius: 0.25rem;
+  font: inherit;
+  padding: 0.45rem 0.65rem;
+}
+
+.catalog-controls,
+.checkout-form,
+.order-summary,
+.confirmation,
+.no-results {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.catalog-controls > div,
+.checkout-form > div {
+  flex: 1 1 14rem;
+}
+
+.catalog-controls input,
+.catalog-controls select,
+.checkout-form input,
+.checkout-form textarea {
+  max-width: none;
+  width: 100%;
+}
+
+.checkout-form {
+  align-items: stretch;
+  display: grid;
+  gap: 1rem;
+}
+
+.summary-line {
+  border-bottom: 1px solid #e2e8f0;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: minmax(12rem, 1fr) repeat(3, auto);
+  padding: 0.75rem 0;
+}
+
+.button-link {
+  background: #174ea6;
+  border-radius: 0.25rem;
+  color: white;
+  display: inline-block;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+}
+
+.field-error {
+  color: #9f1239;
+  font-weight: 600;
+  margin: 0.25rem 0 0;
+}
+
+.notice {
+  border-left: 0.35rem solid #b45309;
+  padding-left: 0.75rem;
+}
+
+.order-details {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem 1rem;
+}
+
+.order-details dt { font-weight: 700; }
+.order-details dd { margin: 0; }
+.saved-address { white-space: pre-wrap; }
 
 button {
   background: #174ea6;
@@ -176,7 +255,9 @@ button {
 @media (max-width: 36rem) {
   .site-header,
   .product-detail,
-  .cart-line {
+  .cart-line,
+  .summary-line,
+  .order-details {
     align-items: stretch;
     grid-template-columns: 1fr;
   }
