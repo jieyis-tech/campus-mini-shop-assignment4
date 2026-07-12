@@ -7,7 +7,7 @@ added before or immediately after the corresponding stage is executed.
 PROJECT DIRECTION
 -----------------
 User request:
-"要不还是做一个传统的购物网站吧"
+"How about building a traditional shopping website instead?"
 
 Agreed scope:
 Build a small campus-themed shopping website in two steps. The base system
